@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Loader from '../general-component/loader.svelte';
 </script>
 
 <div class="absolute left-0 right-0 top-0 mt-[97px] sm:mt-[251px] lg:mt-[271px]">
@@ -33,7 +34,7 @@
 		<button
 			class="flex h-[35px] w-full items-center justify-center rounded-[10px] border-[1px] border-black bg-black py-[11.5px] text-[12px] font-semibold text-white"
 		>
-			Login
+			<Loader name="Log in" loader={true} />
 		</button>
 	</div>
 </div>
