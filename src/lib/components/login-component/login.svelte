@@ -34,7 +34,7 @@
 		<button
 			class="flex h-[35px] w-full items-center justify-center rounded-[10px] border-[1px] border-black bg-black py-[11.5px] text-[12px] font-semibold text-white"
 		>
-			<Loader name="Log in" loader={true} />
+			<Loader name="Log in" loader={false} loaderName="Logging in..." />
 		</button>
 	</div>
 </div>

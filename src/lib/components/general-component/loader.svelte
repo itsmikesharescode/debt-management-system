@@ -6,10 +6,10 @@
 </script>
 
 {#if loader}
-	<div class="">
+	<div class="flex items-start gap-2">
 		<div class="h-4 w-4 animate-spin rounded-full border-2 {color}"></div>
-		<span>{loaderName}</span>
+		<p>{loaderName}</p>
 	</div>
 {:else}
-	<span>{name}</span>
+	<p>{name}</p>
 {/if}
