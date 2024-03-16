@@ -1,7 +1,13 @@
 import { loginSchema } from "$lib/schemas";
 import { fail, type Actions } from "@sveltejs/kit";
 import type { ZodError } from "zod";
+import type { PageServerLoad } from "./$types";
 
+
+export const load: PageServerLoad = async ({ locals: { isLogged } }) => {
+
+
+};
 
 export const actions: Actions = {
     loginAction: async ({ locals: { supabase }, cookies, request }) => {
