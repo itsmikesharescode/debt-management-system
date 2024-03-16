@@ -12,7 +12,7 @@
 	</div>
 
 	<div class="mt-[24px] flex flex-col gap-[13px]">
-		<label class="flex flex-col gap-[6px]">
+		<label class="flex w-full flex-col gap-[6px]">
 			<span class="text-[12px] font-semibold">Email Address</span>
 			<input
 				type="email"
