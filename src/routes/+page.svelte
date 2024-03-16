@@ -1,6 +1,9 @@
 <script lang="ts">
+	import Login from '$lib/components/login-component/login.svelte';
 </script>
 
-<div class="text-red-500">
-	<p>Hello world</p>
+<div class="">
+	<div class="">
+		<Login />
+	</div>
 </div>
