@@ -38,11 +38,12 @@
 					break;
 
 				case 400:
+					actionFormErrors = errors;
 					createAccountLoader = false;
 					break;
 
 				case 401:
-					actionFormErrors = errors;
+					actionFormErrors = null;
 					createAccountLoader = false;
 					break;
 			}
@@ -60,7 +61,7 @@
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div
 		class="bg-overlay fixed bottom-0 left-0 right-0 top-0"
-		on:click={() => (showCreateAccountModal = false)}
+		on:click|self={() => (showCreateAccountModal = false)}
 	>
 		<form
 			method="post"
@@ -85,48 +86,52 @@
 				<label>
 					<span class="text-[10px] font-semibold">Complete Name</span>
 					<input
+						name="completeName"
 						type="text"
 						class="h-[35px] w-full rounded-[10px] border-[1px] border-black px-[15px] text-[10px] outline-none"
 						placeholder="Enter complete name"
 					/>
 					{#each actionFormErrors?.completeName ?? [] as errorMsg}
-						<p class="text-[12px] font-semibold text-red" in:fade>{errorMsg}</p>
+						<p class="text-[10px] font-semibold text-red" in:fade>{errorMsg}</p>
 					{/each}
 				</label>
 
 				<label>
 					<span class="text-[10px] font-semibold">Email Address</span>
 					<input
+						name="email"
 						type="email"
 						class="h-[35px] w-full rounded-[10px] border-[1px] border-black px-[15px] text-[10px] outline-none"
 						placeholder="Enter email address"
 					/>
 					{#each actionFormErrors?.email ?? [] as errorMsg}
-						<p class="text-[12px] font-semibold text-red" in:fade>{errorMsg}</p>
+						<p class="text-[10px] font-semibold text-red" in:fade>{errorMsg}</p>
 					{/each}
 				</label>
 
 				<label>
 					<span class="text-[10px] font-semibold">Password</span>
 					<input
+						name="password"
 						type="password"
 						class="h-[35px] w-full rounded-[10px] border-[1px] border-black px-[15px] text-[10px] outline-none"
 						placeholder="Enter password"
 					/>
 					{#each actionFormErrors?.password ?? [] as errorMsg}
-						<p class="text-[12px] font-semibold text-red" in:fade>{errorMsg}</p>
+						<p class="text-[10px] font-semibold text-red" in:fade>{errorMsg}</p>
 					{/each}
 				</label>
 
 				<label>
 					<span class="text-[10px] font-semibold">Confirm Password</span>
 					<input
+						name="confirmPassword"
 						type="password"
 						class="h-[35px] w-full rounded-[10px] border-[1px] border-black px-[15px] text-[10px] outline-none"
 						placeholder="Confirm password"
 					/>
 					{#each actionFormErrors?.confirmPassword ?? [] as errorMsg}
-						<p class="text-[12px] font-semibold text-red" in:fade>{errorMsg}</p>
+						<p class="text-[10px] font-semibold text-red" in:fade>{errorMsg}</p>
 					{/each}
 				</label>
 
