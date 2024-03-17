@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { setUser, getUser } from '$lib';
+	import Logout from '$lib/components/admin-component/logout.svelte';
 	import type { PageServerData } from './$types';
 
 	export let data: PageServerData;
@@ -9,4 +10,6 @@
 	const user = getUser();
 </script>
 
-<div class="">{$user?.email}</div>
+<div class="">
+	<Logout />
+</div>
