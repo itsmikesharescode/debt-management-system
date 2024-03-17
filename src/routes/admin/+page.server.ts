@@ -24,5 +24,9 @@ export const actions: Actions = {
 
         if (logoutError) fail(401, { msg: logoutError.message });
         else return fail(200, { msg: "Logout success." })
+    },
+
+    createAccountAction: async () => {
+
     }
 };
