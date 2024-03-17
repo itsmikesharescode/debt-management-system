@@ -4,6 +4,8 @@
 	import { enhance } from '$app/forms';
 	import type { ResultModel } from '$lib/types';
 	import { fade } from 'svelte/transition';
+	import type { User } from '@supabase/supabase-js';
+	import { goto } from '$app/navigation';
 
 	type LoginVal = {
 		email: string[];
@@ -11,6 +13,7 @@
 	};
 
 	type LoginAction = {
+		user: User;
 		msg: string;
 		errors: LoginVal;
 	};
@@ -24,12 +27,19 @@
 		return async ({ result, update }) => {
 			const {
 				status,
-				data: { msg, errors }
+				data: { msg, errors, user }
 			} = result as ResultModel<LoginAction>;
 
 			switch (status) {
 				case 200:
+					const {
+						user_metadata: { role }
+					} = user;
+
 					loginLoader = false;
+					if (role === 'admin') goto('/admin');
+					else if (role === 'client') goto('/client');
+
 					break;
 
 				case 400:
