@@ -3,8 +3,8 @@ import { getContext, setContext } from "svelte";
 import { type Writable, writable } from "svelte/store";
 
 
-export const setUser = () => {
-    let user = writable<User | null>(null);
+export const setUser = (userValue: User | null) => {
+    let user = writable<User | null>(userValue);
 
     setContext("user", user);
 }
