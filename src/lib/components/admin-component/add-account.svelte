@@ -12,7 +12,7 @@
 
 {#if showCreateAccountModal}
 	<div class="bg-overlay fixed bottom-0 left-0 right-0 top-0">
-		<form class="mx-auto mt-[101px] min-h-[383px] w-[255px] bg-white pt-[10px]" in:scale>
+		<form class="mx-auto mt-[101px] min-h-[383px] w-[255px] bg-white pb-[50px] pt-[10px]" in:scale>
 			<div class="relative flex items-center justify-center">
 				<div class="absolute left-0">
 					<button class="flex items-center p-2" on:click={() => (showCreateAccountModal = false)}>
