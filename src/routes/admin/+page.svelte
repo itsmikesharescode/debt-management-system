@@ -12,11 +12,7 @@
 	if (data.user) setUser(data.user);
 
 	const user = getUser();
-
-	let w = 0;
 </script>
-
-<svelte:window bind:innerWidth={w} />
 
 <div class="mx-auto mt-[17px] w-[266px] sm:w-[532px] lg:w-[1349px]">
 	<div class="flex items-center justify-between">
@@ -46,7 +42,7 @@
 		</div>
 	</div>
 
-	<hr class=" border-subWhite mt-[12px] w-full border-[1px] sm:mt-[23px]" />
+	<hr class=" mt-[12px] w-full border-[1px] border-subWhite sm:mt-[23px]" />
 
 	<div class="my-[16px] sm:hidden">
 		<Search />
