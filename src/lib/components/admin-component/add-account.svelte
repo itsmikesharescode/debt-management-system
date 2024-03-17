@@ -64,7 +64,7 @@
 {#if showCreateAccountModal}
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
-	<div class="bg-overlay fixed bottom-0 left-0 right-0 top-0" on:click|self={cleanModal}>
+	<div class="fixed bottom-0 left-0 right-0 top-0 bg-overlay" on:click|self={cleanModal}>
 		<form
 			method="post"
 			action="?/createAccountAction"

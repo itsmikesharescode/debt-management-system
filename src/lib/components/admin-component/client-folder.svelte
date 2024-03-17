@@ -1,10 +1,85 @@
 <script lang="ts">
 	import admin_folder_icon from '$lib/assets/admin_folder_icon.svg';
+	import admin_arrowleft_icon from '$lib/assets/admin_arrowleft_icon.svg';
+	import { scale } from 'svelte/transition';
+	import InsertPurchase from './client-folder-extra/insert-purchase.svelte';
+
+	let showClientFolder = false;
+
+	const clientFolderControls = {
+		showInsertPurchase: false,
+		showPurchaseHistory: false,
+		showPaymentHistory: false,
+		showUpdateInformation: false
+	};
+
+	const insertPurchaseControl = () => {
+		clientFolderControls.showInsertPurchase = true;
+	};
 </script>
 
 <button
-	class="bg-lowWhite flex h-[35px] w-full items-center justify-between p-2 px-[20px] text-[12px]"
+	class="flex h-[35px] w-full items-center justify-between bg-lowWhite p-2 px-[20px] text-[12px]"
+	on:click={() => (showClientFolder = true)}
 >
 	Suarez, Kabinito Migueree
 	<img src={admin_folder_icon} alt="folder-icon" class="" />
 </button>
+
+{#if showClientFolder}
+	<!-- svelte-ignore a11y-click-events-have-key-events -->
+	<!-- svelte-ignore a11y-no-static-element-interactions -->
+	<div
+		class="fixed bottom-0 left-0 right-0 top-0 bg-overlay"
+		on:click|self={() => (showClientFolder = false)}
+	>
+		{#if clientFolderControls.showInsertPurchase}
+			<InsertPurchase
+				arrowleftIcon={admin_arrowleft_icon}
+				on:click={() => (clientFolderControls.showInsertPurchase = false)}
+			/>
+		{:else}
+			<div
+				class="mx-auto mt-[101px] min-h-[336px] w-[255px] bg-white pb-[45px] pt-[10px] sm:w-[416px]"
+				in:scale
+			>
+				<div class="relative flex items-center justify-center">
+					<div class="absolute left-0">
+						<button class="flex items-center p-2" on:click={() => (showClientFolder = false)}>
+							<img src={admin_arrowleft_icon} class="" alt="arrowleft-icon" />
+						</button>
+					</div>
+					<p class="text-center text-[12px] font-semibold">Client Name here</p>
+				</div>
+
+				<hr class="mt-[11px] w-full border-[1px] border-subWhite" />
+
+				<div class="my-[39px]">
+					<p class="text-center text-[12px]">Choose your actions</p>
+				</div>
+
+				<div class="mx-[12.5px] flex flex-col gap-[7px] sm:mx-[93px]">
+					<button
+						class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white"
+						on:click={insertPurchaseControl}>Insert Purchase</button
+					>
+
+					<button
+						class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white"
+						>Purchase History</button
+					>
+
+					<button
+						class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white"
+						>Payment History</button
+					>
+
+					<button
+						class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white"
+						>Update Information</button
+					>
+				</div>
+			</div>
+		{/if}
+	</div>
+{/if}

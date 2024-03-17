@@ -29,3 +29,6 @@ export const createAccountSchema = z.object({
     }
 
 });
+
+
+export const insertSchema = z.record(z.string().min(1, { message: "This field must not be empty." }));
