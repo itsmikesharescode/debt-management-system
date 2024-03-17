@@ -3,6 +3,7 @@ const config = {
   content: ["./src/**/*.{html,js,svelte,ts}"],
 
   theme: {
+
     screens: {
       'sm': '600px',
       // => @media (min-width: 576px) { ... }
@@ -15,7 +16,13 @@ const config = {
 
 
     },
-    extend: {}
+    extend: {
+      colors: {
+        "red": "#FF0000",
+        "subWhite": "#878787",
+        "lowWhite": "#D9D9D9"
+      },
+    }
   },
 
   plugins: []
