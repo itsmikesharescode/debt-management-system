@@ -54,9 +54,28 @@
 	};
 
 	const deletePurchaseHandler = (increment: { id: string }, index: number) => {
-		const value = initialVal.filter((item) => item !== increment);
-		initialVal = value;
+		const { value } = document.querySelector(`#productPrice${index + 1}`) as HTMLInputElement;
+		const filteredItems = initialVal.filter((item) => item !== increment);
+		initialVal = filteredItems;
 		actionFormErrors = null;
+		totalAmount -= Number(value);
+	};
+
+	let totalAmount = 0;
+	let tempMemo = 0;
+
+	const detectValue = (e: EventTarget | null) => {
+		const { value } = e as HTMLInputElement;
+		totalAmount += Number(value);
+
+		if (tempMemo) {
+			totalAmount -= tempMemo;
+		}
+	};
+
+	const setValue = (e: EventTarget | null) => {
+		const { value } = e as HTMLInputElement;
+		tempMemo = Number(value);
 	};
 </script>
 
@@ -82,7 +101,7 @@
 	</div>
 
 	<div class="mx-[16px] mt-[19px] text-[12px] font-semibold">
-		<p>Total: 1000 Php</p>
+		<p>Total: {totalAmount} Php</p>
 	</div>
 	<hr class="mt-[19px] w-full border-[1px] border-subWhite" />
 
@@ -108,9 +127,18 @@
 				<label>
 					<span class="text-[10px] font-semibold">Product Price {index + 1}</span>
 					<input
+						id="productPrice{index + 1}"
 						name={`productPrice${index + 1}`}
-						type="text"
+						type="number"
 						class="h-[35px] w-full rounded-[10px] border-[1px] border-black px-[12px] text-[10px] outline-none"
+						on:change={(e) => detectValue(e.target)}
+						on:click={(e) => setValue(e.target)}
+						on:focus={(e) => setValue(e.target)}
+						on:keydown={(e) => {
+							if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+								e.preventDefault();
+							}
+						}}
 					/>
 
 					{#each actionFormErrors?.[`productPrice${index + 1}`] ?? [] as errorMsg}
@@ -120,6 +148,7 @@
 
 				<div class="flex justify-end">
 					<button
+						type="button"
 						class="h-[35px] w-[105px] rounded-[10px] bg-red text-[12px] font-semibold text-white"
 						on:click={() => deletePurchaseHandler(increment, index)}>Delete</button
 					>

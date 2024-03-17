@@ -34,6 +34,7 @@ export const actions: Actions = {
         try {
             const result = createAccountSchema.parse(formData);
 
+
         } catch (error) {
             const zodError = error as ZodError;
             const { fieldErrors } = zodError.flatten();
@@ -46,6 +47,17 @@ export const actions: Actions = {
 
         try {
             const result = insertSchema.parse(formData);
+            const length = Object.keys(result).length;
+            let totalAmount = 0;
+            for (let i = 1; i <= length / 2; i++) {
+                const value = result[`productPrice${i}`];
+
+                totalAmount += Number(value);
+
+            };
+
+
+
         } catch (error) {
             const zodError = error as ZodError;
             const { fieldErrors } = zodError.flatten();
