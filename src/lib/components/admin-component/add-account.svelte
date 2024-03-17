@@ -50,6 +50,11 @@
 			await update();
 		};
 	};
+
+	const cleanModal = () => {
+		showCreateAccountModal = false;
+		actionFormErrors = null;
+	};
 </script>
 
 <button class="" on:click={() => (showCreateAccountModal = true)}>
@@ -59,21 +64,18 @@
 {#if showCreateAccountModal}
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
-	<div
-		class="bg-overlay fixed bottom-0 left-0 right-0 top-0"
-		on:click|self={() => (showCreateAccountModal = false)}
-	>
+	<div class="bg-overlay fixed bottom-0 left-0 right-0 top-0" on:click|self={cleanModal}>
 		<form
 			method="post"
 			action="?/createAccountAction"
 			enctype="multipart/form-data"
 			use:enhance={createAccountActionNews}
-			class="mx-auto mt-[101px] min-h-[383px] w-[255px] bg-white pb-[50px] pt-[10px]"
+			class="mx-auto mt-[101px] min-h-[383px] w-[255px] bg-white pb-[50px] pt-[10px] sm:w-[416px]"
 			in:scale
 		>
 			<div class="relative flex items-center justify-center">
 				<div class="absolute left-0">
-					<button class="flex items-center p-2" on:click={() => (showCreateAccountModal = false)}>
+					<button class="flex items-center p-2" on:click={cleanModal}>
 						<img src={admin_arrowleft_icon} class="" alt="arrowleft-icon" />
 					</button>
 				</div>
