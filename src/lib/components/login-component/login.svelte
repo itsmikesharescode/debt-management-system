@@ -60,7 +60,7 @@
 </script>
 
 <div class="absolute left-0 right-0 top-0 mt-[97px] sm:mt-[251px] lg:mt-[271px]">
-	<p class=" text-center text-[12px] font-semibold text-[#FB0000]">{dbMessage}</p>
+	<p class=" text-red text-center text-[12px] font-semibold">{dbMessage}</p>
 </div>
 
 <form
@@ -72,7 +72,7 @@
 >
 	<div class="">
 		<p class="text-center text-[20px] font-semibold sm:text-[25px]">DEPT MANAGEMENT</p>
-		<p class="text-center text-[12px] font-semibold text-[#878787]">Log in to check your records</p>
+		<p class="text-subWhite text-center text-[12px] font-semibold">Log in to check your records</p>
 	</div>
 
 	<div class="mt-[24px] flex flex-col gap-[13px]">
@@ -86,7 +86,7 @@
 			/>
 
 			{#each actionFormErrors?.email ?? [] as errorMsg}
-				<p class="text-[12px] font-semibold text-[#FB0000]" in:fade>{errorMsg}</p>
+				<p class="text-red text-[12px] font-semibold" in:fade>{errorMsg}</p>
 			{/each}
 		</label>
 
@@ -99,7 +99,7 @@
 				placeholder="Enter your email password"
 			/>
 			{#each actionFormErrors?.password ?? [] as errorMsg}
-				<p class="text-[12px] font-semibold text-[#FB0000]" in:fade>{errorMsg}</p>
+				<p class="text-red text-[12px] font-semibold" in:fade>{errorMsg}</p>
 			{/each}
 		</label>
 
