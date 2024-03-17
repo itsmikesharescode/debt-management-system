@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import Loader from '$lib/components/general-component/loader.svelte';
 	import type { ResultModel } from '$lib/types';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { tick } from 'svelte';
@@ -23,6 +24,7 @@
 	let actionFormErrors: InsertPurchaseVal | null = null;
 
 	const insertPurchaseActionNews: SubmitFunction = () => {
+		uploadLoader = true;
 		return async ({ result, update }) => {
 			const {
 				status,
@@ -31,20 +33,23 @@
 
 			switch (status) {
 				case 200:
+					uploadLoader = false;
 					break;
 
 				case 400:
 					actionFormErrors = errors;
+					uploadLoader = false;
 					break;
 
 				case 401:
+					uploadLoader = false;
 					break;
 			}
 			await update();
 		};
 	};
 
-	let initialVal: { id: string }[] = [];
+	let initialVal: { id: string }[] = [{ id: crypto.randomUUID() }];
 	let scrollValue: HTMLDivElement;
 
 	const incrementHandler = async () => {
@@ -101,7 +106,7 @@
 	</div>
 
 	<div class="mx-[16px] mt-[19px] text-[12px] font-semibold">
-		<p>Total: {totalAmount} Php</p>
+		<p>Total Amount: {totalAmount} Php</p>
 	</div>
 	<hr class="mt-[19px] w-full border-[1px] border-subWhite" />
 
@@ -167,9 +172,12 @@
 		>
 
 		<button
-			class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
-			type="submit">Upload</button
+			disabled={uploadLoader}
+			class="flex h-[35px] w-full items-center justify-center rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
+			type="submit"
 		>
+			<Loader name="Upload" loader={uploadLoader} loaderName="Uploading..." />
+		</button>
 	</div>
 </form>
 
