@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { setUser, getUser } from '$lib';
+	import Account from '$lib/components/admin-component/account.svelte';
 	import Logout from '$lib/components/admin-component/logout.svelte';
 	import type { PageServerData } from './$types';
 
@@ -10,6 +11,12 @@
 	const user = getUser();
 </script>
 
-<div class="">
-	<Logout />
+<div class="flex gap-[5px]">
+	<div class="w-[104px]">
+		<Logout />
+	</div>
+
+	<div class="w-[104px]">
+		<Account />
+	</div>
 </div>
