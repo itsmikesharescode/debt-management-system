@@ -19,7 +19,8 @@ const config = {
     extend: {
       colors: {
         "red": "#FF0000",
-        "subWhite": "#878787"
+        "subWhite": "#878787",
+        "lowWhite": "#D9D9D9"
       },
     }
   },
