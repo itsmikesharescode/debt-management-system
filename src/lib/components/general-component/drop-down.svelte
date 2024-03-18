@@ -5,12 +5,12 @@
 	export let dateHeader = 'Nov 6 1996';
 </script>
 
-<button
-	class="w-full bg-lowWhite px-[15px] text-[10px]"
-	on:click={() => (showContent = !showContent)}
->
+<div class="w-full bg-lowWhite px-[15px] text-[10px]">
 	<div class="pb-[12px] pt-[12px]">
-		<div class="flex items-center justify-between">
+		<button
+			class="flex w-full items-center justify-between"
+			on:click={() => (showContent = !showContent)}
+		>
 			<div class="">
 				<p>{dateHeader}</p>
 			</div>
@@ -20,7 +20,7 @@
 				alt="drop-down-icon"
 				class="transition-all {showContent ? 'rotate-[180deg]' : ''}"
 			/>
-		</div>
+		</button>
 
 		<div class="transition-all {showContent ? '' : 'hidden'}">
 			<hr class="my-[10px] w-full border-[1px] border-subWhite" />
@@ -30,7 +30,7 @@
 			</div>
 		</div>
 	</div>
-</button>
+</div>
 
 <style>
 	/* width */

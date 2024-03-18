@@ -4,6 +4,7 @@
 	import { scale } from 'svelte/transition';
 	import InsertPurchase from './client-folder-extra/insert-purchase.svelte';
 	import PurchaseHistory from './client-folder-extra/purchase-history.svelte';
+	import PaymentHistory from './client-folder-extra/payment-history.svelte';
 
 	let showClientFolder = false;
 
@@ -20,6 +21,10 @@
 
 	const purchaseHitoryControl = () => {
 		clientFolderControls.showPurchaseHistory = true;
+	};
+
+	const paymentHistoryControl = () => {
+		clientFolderControls.showPaymentHistory = true;
 	};
 </script>
 
@@ -48,6 +53,11 @@
 				<PurchaseHistory
 					{admin_arrowleft_icon}
 					on:click={() => (clientFolderControls.showPurchaseHistory = false)}
+				/>
+			{:else if clientFolderControls.showPaymentHistory}
+				<PaymentHistory
+					{admin_arrowleft_icon}
+					on:click={() => (clientFolderControls.showPaymentHistory = false)}
 				/>
 			{:else}
 				<div
@@ -82,7 +92,7 @@
 
 						<button
 							class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
-							>Payment History</button
+							on:click={paymentHistoryControl}>Payment History</button
 						>
 
 						<button
