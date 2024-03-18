@@ -60,22 +60,22 @@
 
 				<div class="mx-[12.5px] flex flex-col gap-[7px] sm:mx-[93px]">
 					<button
-						class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white"
+						class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
 						on:click={insertPurchaseControl}>Insert Purchase</button
 					>
 
 					<button
-						class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white"
+						class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
 						>Purchase History</button
 					>
 
 					<button
-						class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white"
+						class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
 						>Payment History</button
 					>
 
 					<button
-						class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white"
+						class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
 						>Update Information</button
 					>
 				</div>
