@@ -1,8 +1,50 @@
 <script lang="ts">
-	import { scale } from 'svelte/transition';
+	import { enhance } from '$app/forms';
+	import type { ResultModel } from '$lib/types';
+	import type { SubmitFunction } from '@sveltejs/kit';
 
-	let showBalancePay = false;
 	export let admin_arrowleft_icon: string;
+	let showBalancePay = false;
+
+	type BalancePayVal = {
+		balanceAmount: string[];
+	};
+
+	type BalancePayAction = {
+		msg: string;
+		errors: BalancePayVal;
+	};
+
+	let actionFormErrors: BalancePayVal | null = null;
+	let balancePayLoader = false;
+
+	const balancePayActionNews: SubmitFunction = () => {
+		balancePayLoader = true;
+		return async ({ result, update }) => {
+			const {
+				status,
+				data: { msg, errors }
+			} = result as ResultModel<BalancePayAction>;
+
+			switch (status) {
+				case 200:
+					actionFormErrors = null;
+					balancePayLoader = false;
+					break;
+
+				case 400:
+					actionFormErrors = errors;
+					balancePayLoader = false;
+					break;
+
+				case 401:
+					actionFormErrors = null;
+					balancePayLoader = false;
+					break;
+			}
+			await update();
+		};
+	};
 </script>
 
 <button
@@ -12,7 +54,13 @@
 >
 
 {#if showBalancePay}
-	<div class="fixed">
+	<form
+		method="post"
+		action="?/balancePayAction"
+		enctype="multipart/form-data"
+		use:enhance={balancePayActionNews}
+		class="fixed"
+	>
 		<div class="mx-auto w-[255px] bg-white pb-[45px] pt-[10px] sm:w-[416px]">
 			<div class="relative flex items-center justify-center">
 				<div class="absolute left-0">
@@ -40,5 +88,5 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</form>
 {/if}

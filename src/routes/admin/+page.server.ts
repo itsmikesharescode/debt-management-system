@@ -63,5 +63,18 @@ export const actions: Actions = {
             const { fieldErrors } = zodError.flatten();
             return fail(400, { errors: fieldErrors })
         }
+    },
+
+    completePayAction: async () => {
+        console.log("complete pay")
+    },
+
+    balancePayAction: async ({ locals, request }) => {
+        const formData = Object.fromEntries(await request.formData());
+        try {
+
+        } catch (error) {
+
+        }
     }
 };

@@ -48,7 +48,7 @@
 	<div class=" mx-[12px] mt-[14px] flex items-center justify-center gap-[10px]">
 		<BalancePay {admin_arrowleft_icon} />
 
-		<CompletePay {admin_arrowleft_icon} />
+		<CompletePay />
 	</div>
 </div>
 
