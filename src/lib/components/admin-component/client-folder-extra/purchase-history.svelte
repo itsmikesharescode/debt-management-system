@@ -31,8 +31,14 @@
 
 	<hr class="mt-[11px] w-full border-[1px] border-subWhite" />
 
-	<div class="h-[300px] overflow-y-auto scroll-smooth">
-		<DropDown>Hello World</DropDown>
+	<div class="mx-[15px] mt-[14px] flex h-[300px] flex-col gap-[9px] overflow-y-auto scroll-smooth">
+		{#each Array(20) as justSample}
+			<DropDown>
+				{#each Array(20) as sample}
+					<p class="text-left text-[10px]">Chicken - 120 Php</p>
+				{/each}
+			</DropDown>
+		{/each}
 	</div>
 
 	<hr class=" w-full border-[1px] border-subWhite" />
@@ -62,10 +68,6 @@
 	/* Handle */
 	::-webkit-scrollbar-thumb {
 		background: black;
-	}
-
-	/* Track */
-	::-webkit-scrollbar-track {
 		border-radius: 10px;
 	}
 

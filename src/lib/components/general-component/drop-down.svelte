@@ -25,9 +25,27 @@
 		<div class="transition-all {showContent ? '' : 'hidden'}">
 			<hr class="my-[10px] w-full border-[1px] border-subWhite" />
 
-			<div class=" max-h-[180px] overflow-auto">
+			<div class=" max-h-[180px] overflow-auto scroll-smooth">
 				<slot />
 			</div>
 		</div>
 	</div>
 </button>
+
+<style>
+	/* width */
+	::-webkit-scrollbar {
+		width: 5px;
+	}
+
+	/* Handle */
+	::-webkit-scrollbar-thumb {
+		background: black;
+		border-radius: 10px;
+	}
+
+	/* Handle on hover */
+	::-webkit-scrollbar-thumb:hover {
+		background: #555;
+	}
+</style>
