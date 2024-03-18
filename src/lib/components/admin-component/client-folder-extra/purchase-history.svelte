@@ -1,4 +1,5 @@
 <script lang="ts">
+	import DropDown from '$lib/components/general-component/drop-down.svelte';
 	import Loader from '$lib/components/general-component/loader.svelte';
 	import { scale } from 'svelte/transition';
 
@@ -30,7 +31,9 @@
 
 	<hr class="mt-[11px] w-full border-[1px] border-subWhite" />
 
-	<div class="h-[300px] overflow-y-auto scroll-smooth">Dynamic DropDrown</div>
+	<div class="h-[300px] overflow-y-auto scroll-smooth">
+		<DropDown>Hello World</DropDown>
+	</div>
 
 	<hr class=" w-full border-[1px] border-subWhite" />
 
