@@ -44,7 +44,10 @@
 				on:click={() => (clientFolderControls.showInsertPurchase = false)}
 			/>
 		{:else if clientFolderControls.showPurchaseHistory}
-			<PurchaseHistory {admin_arrowleft_icon} />
+			<PurchaseHistory
+				{admin_arrowleft_icon}
+				on:click={() => (clientFolderControls.showPurchaseHistory = false)}
+			/>
 		{:else}
 			<div
 				class="mx-auto mt-[101px] min-h-[336px] w-[255px] bg-white pb-[45px] pt-[10px] sm:w-[416px]"
