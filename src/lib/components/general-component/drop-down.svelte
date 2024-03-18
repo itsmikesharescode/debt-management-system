@@ -26,6 +26,7 @@
 			<hr class="my-[10px] w-full border-[1px] border-subWhite" />
 
 			<div class=" max-h-[180px] overflow-auto scroll-smooth">
+				<!--Dynamic data willl be rendered here-->
 				<slot />
 			</div>
 		</div>
