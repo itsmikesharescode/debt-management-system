@@ -3,20 +3,44 @@
 	import type { ResultModel } from '$lib/types';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import admin_arrowleft_icon from '$lib/assets/admin_arrowleft_icon.svg';
-	import { scale } from 'svelte/transition';
+	import { fade, scale } from 'svelte/transition';
+	import Loader from '../general-component/loader.svelte';
+
+	type UpdateAccountVal = {
+		newPass: string[];
+		confirmNewPass: string[];
+	};
+
+	type UpdateAccountAction = {
+		msg: string;
+		errors: UpdateAccountVal;
+	};
+
+	let actionFormErrors: UpdateAccountVal | null = null;
+	let updateAccountLoader = false;
 
 	const updateAccountActionNews: SubmitFunction = () => {
+		updateAccountLoader = true;
 		return async ({ result, update }) => {
-			const { status } = result as ResultModel<{ msg: string }>;
+			const {
+				status,
+				data: { msg, errors }
+			} = result as ResultModel<UpdateAccountAction>;
 
 			switch (status) {
 				case 200:
+					actionFormErrors = null;
+					updateAccountLoader = false;
 					break;
 
 				case 400:
+					actionFormErrors = errors;
+					updateAccountLoader = false;
 					break;
 
 				case 401:
+					actionFormErrors = null;
+					updateAccountLoader = false;
 					break;
 			}
 			await update();
@@ -50,29 +74,45 @@
 				<p class=" w-[198px]">We recommend to change your password every week.</p>
 			</div>
 
-			<form class="mt-[30px] flex flex-col gap-[13px]">
+			<form
+				method="post"
+				action="?/updateAccountAction"
+				enctype="multipart/form-data"
+				use:enhance={updateAccountActionNews}
+				class="mt-[30px] flex flex-col gap-[13px]"
+			>
 				<label>
 					<span class="text-[10px] font-semibold">New Password</span>
 					<input
+						name="newPass"
 						type="password"
 						placeholder="Enter your new password"
 						class="h-[35px] w-full rounded-[10px] border-[1px] border-black px-[15px] text-[10px] outline-none"
 					/>
+					{#each actionFormErrors?.newPass ?? [] as errorMsg}
+						<p class="text-[10px] font-semibold text-red" in:fade>{errorMsg}</p>
+					{/each}
 				</label>
 
 				<label>
 					<span class="text-[10px] font-semibold">Confirm New Password</span>
 					<input
+						name="confirmNewPass"
 						type="password"
 						placeholder="Confirm your new password"
 						class="h-[35px] w-full rounded-[10px] border-[1px] border-black px-[15px] text-[10px] outline-none"
 					/>
+					{#each actionFormErrors?.confirmNewPass ?? [] as errorMsg}
+						<p class="text-[10px] font-semibold text-red" in:fade>{errorMsg}</p>
+					{/each}
 				</label>
 
 				<button
+					disabled={updateAccountLoader}
 					class="flex h-[35px] items-center justify-center rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
-					>Update Password</button
 				>
+					<Loader name="Update Password" loader={updateAccountLoader} loaderName="Please wait..." />
+				</button>
 			</form>
 		</div>
 	</div>
