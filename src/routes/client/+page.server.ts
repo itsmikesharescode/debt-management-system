@@ -1,4 +1,4 @@
-import { redirect } from "@sveltejs/kit";
+import { redirect, type Actions } from "@sveltejs/kit";
 import type { PageServerLoad } from "../$types";
 
 
@@ -16,4 +16,11 @@ export const load: PageServerLoad = async ({ locals: { isLogged } }) => {
     } else throw redirect(302, "/");
 
 
+};
+
+
+export const actions: Actions = {
+    logoutAction: async ({ locals: { supabase } }) => {
+        console.log("PINGGG")
+    }
 };
