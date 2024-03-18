@@ -3,6 +3,7 @@
 	import admin_arrowleft_icon from '$lib/assets/admin_arrowleft_icon.svg';
 	import { scale } from 'svelte/transition';
 	import InsertPurchase from './client-folder-extra/insert-purchase.svelte';
+	import PurchaseHistory from './client-folder-extra/purchase-history.svelte';
 
 	let showClientFolder = false;
 
@@ -15,6 +16,10 @@
 
 	const insertPurchaseControl = () => {
 		clientFolderControls.showInsertPurchase = true;
+	};
+
+	const purchaseHitoryControl = () => {
+		clientFolderControls.showPurchaseHistory = true;
 	};
 </script>
 
@@ -35,9 +40,11 @@
 	>
 		{#if clientFolderControls.showInsertPurchase}
 			<InsertPurchase
-				arrowleftIcon={admin_arrowleft_icon}
+				{admin_arrowleft_icon}
 				on:click={() => (clientFolderControls.showInsertPurchase = false)}
 			/>
+		{:else if clientFolderControls.showPurchaseHistory}
+			<PurchaseHistory {admin_arrowleft_icon} />
 		{:else}
 			<div
 				class="mx-auto mt-[101px] min-h-[336px] w-[255px] bg-white pb-[45px] pt-[10px] sm:w-[416px]"
@@ -66,7 +73,7 @@
 
 					<button
 						class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
-						>Purchase History</button
+						on:click={purchaseHitoryControl}>Purchase History</button
 					>
 
 					<button
