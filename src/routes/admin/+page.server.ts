@@ -1,7 +1,7 @@
 import { redirect, type Actions, fail } from "@sveltejs/kit";
 import type { PageServerLoad } from "../$types";
 import type { ZodError } from "zod";
-import { createAccountSchema, insertSchema } from "$lib/schemas";
+import { balancePaySchema, createAccountSchema, insertSchema } from "$lib/schemas";
 
 
 export const load: PageServerLoad = async ({ locals: { isLogged }, }) => {
@@ -62,6 +62,21 @@ export const actions: Actions = {
             const zodError = error as ZodError;
             const { fieldErrors } = zodError.flatten();
             return fail(400, { errors: fieldErrors })
+        }
+    },
+
+    completePayAction: async () => {
+        console.log("complete pay")
+    },
+
+    balancePayAction: async ({ locals, request }) => {
+        const formData = Object.fromEntries(await request.formData());
+        try {
+            const result = balancePaySchema.parse(formData);
+        } catch (error) {
+            const zodError = error as ZodError;
+            const { fieldErrors } = zodError.flatten();
+            return fail(400, { errors: fieldErrors });
         }
     }
 };
