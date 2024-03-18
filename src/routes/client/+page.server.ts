@@ -29,15 +29,23 @@ export const actions: Actions = {
         else return fail(200, { msg: "Logout success." });
     },
 
-    updateAccountAction: async ({ locals, request }) => {
+    updateAccountAction: async ({ locals: { supabase }, request }) => {
         const formData = Object.fromEntries(await request.formData());
 
         try {
             const result = clientUpdateAccountSchema.parse(formData);
+
+            const { data: { user }, error: updatePassError } = await supabase.auth.updateUser({
+                password: result.newPass
+            });
+
+            if (updatePassError) return fail(401, { msg: updatePassError.message });
+            else if (user) return fail(200, { msg: "Password Updated!" });
+
         } catch (error) {
             const zodError = error as ZodError;
             const { fieldErrors } = zodError.flatten();
-            return fail(400, { errors: fieldErrors })
+            return fail(400, { errors: fieldErrors });
         }
     }
 };

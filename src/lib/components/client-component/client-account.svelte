@@ -18,7 +18,8 @@
 
 	let actionFormErrors: UpdateAccountVal | null = null;
 	let updateAccountLoader = false;
-
+	let successMsg = '';
+	let errorMsg = '';
 	const updateAccountActionNews: SubmitFunction = () => {
 		updateAccountLoader = true;
 		return async ({ result, update }) => {
@@ -29,6 +30,7 @@
 
 			switch (status) {
 				case 200:
+					successMsg = msg;
 					actionFormErrors = null;
 					updateAccountLoader = false;
 					break;
@@ -39,6 +41,7 @@
 					break;
 
 				case 401:
+					errorMsg = msg;
 					actionFormErrors = null;
 					updateAccountLoader = false;
 					break;
@@ -72,6 +75,12 @@
 
 			<div class="mt-[26px] flex items-center justify-center text-center text-[10px] font-semibold">
 				<p class=" w-[198px]">We recommend to change your password every week.</p>
+			</div>
+
+			<div class="absolute left-0 right-0">
+				<p class=" text-center text-[10px] font-semibold text-red {errorMsg ? 'flex' : 'hidden'}">
+					{errorMsg}
+				</p>
 			</div>
 
 			<form
@@ -114,6 +123,14 @@
 					<Loader name="Update Password" loader={updateAccountLoader} loaderName="Please wait..." />
 				</button>
 			</form>
+
+			<p
+				class="mt-[10px] text-center text-[12px] font-semibold text-green-500 {successMsg
+					? 'flex'
+					: 'hidden'}"
+			>
+				{successMsg}
+			</p>
 		</div>
 	</div>
 {/if}
