@@ -29,6 +29,7 @@
 				{#each Array(20) as sample}
 					<DropDown>
 						<p>Chicken - 120php</p>
+						<p class="mt-[20px] text-center">Total: 2000 Php</p>
 					</DropDown>
 				{/each}
 			</DropDown>
