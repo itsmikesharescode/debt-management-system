@@ -7,7 +7,7 @@
 	import { flip } from 'svelte/animate';
 	import { fade, scale } from 'svelte/transition';
 
-	export let arrowleftIcon: string;
+	export let admin_arrowleft_icon: string;
 
 	type InsertPurchaseVal = {
 		[x: string]: string[] | undefined;
@@ -97,7 +97,7 @@
 	>
 		<div class="absolute left-0 top-0">
 			<button class=" p-2" on:click
-				><img src={arrowleftIcon} alt="arrow-left-icon" class="" />
+				><img src={admin_arrowleft_icon} alt="arrow-left-icon" class="" />
 			</button>
 		</div>
 
