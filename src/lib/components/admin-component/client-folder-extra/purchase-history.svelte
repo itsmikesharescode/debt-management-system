@@ -22,9 +22,15 @@
 		<p>Client Name here</p>
 	</div>
 
+	<div class="mx-[15px] mt-[14px] text-[12px] font-semibold">
+		<p>Previous: 2000 Php</p>
+		<p>Latest: 2000 Php</p>
+		<p>Total: 4000 Php</p>
+	</div>
+
 	<hr class="mt-[11px] w-full border-[1px] border-subWhite" />
 
-	<div class="h-[300px] overflow-y-auto scroll-smooth"></div>
+	<div class="h-[300px] overflow-y-auto scroll-smooth">Dynamic DropDrown</div>
 
 	<hr class=" w-full border-[1px] border-subWhite" />
 
