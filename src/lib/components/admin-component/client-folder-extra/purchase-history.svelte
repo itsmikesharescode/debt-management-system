@@ -2,6 +2,8 @@
 	import DropDown from '$lib/components/general-component/drop-down.svelte';
 	import Loader from '$lib/components/general-component/loader.svelte';
 	import { scale } from 'svelte/transition';
+	import BalancePay from './payment-extra/balance-pay.svelte';
+	import CompletePay from './payment-extra/complete-pay.svelte';
 
 	export let admin_arrowleft_icon: string;
 </script>
@@ -43,19 +45,10 @@
 
 	<hr class=" w-full border-[1px] border-subWhite" />
 
-	<div class="mx-[12px] mt-[14px] flex items-center justify-center gap-[10px]">
-		<button
-			type="button"
-			class="h-[35px] w-full rounded-[10px] bg-black p-2 text-[12px] font-semibold text-white active:bg-opacity-80"
-			>Balance Pay</button
-		>
+	<div class=" mx-[12px] mt-[14px] flex items-center justify-center gap-[10px]">
+		<BalancePay {admin_arrowleft_icon} />
 
-		<button
-			class="flex h-[35px] w-full items-center justify-center rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
-			type="submit"
-		>
-			Complete Pay
-		</button>
+		<CompletePay {admin_arrowleft_icon} />
 	</div>
 </div>
 
