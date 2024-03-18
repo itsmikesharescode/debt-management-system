@@ -25,7 +25,7 @@
 	};
 </script>
 
-<div class=" px-[24px] pt-[29px]">
+<div class=" px-[24px] pt-[29px] sm:px-[72px] sm:pt-[40px]">
 	<div class="flex items-center gap-[5px]">
 		<div class="w-[104px]">
 			<ClientLogout />
@@ -85,13 +85,16 @@
 			<div class="flex flex-col gap-[10px]" in:fade>
 				{#each Array(20) as sampleArray}
 					<DropDown>
-						{#each Array(10) as sample}
-							<DropDown>
-								{#each Array(20) as sampleee}
-									<p class="text-[10px]">Chicken - 120 Php</p>
-								{/each}
-							</DropDown>
-						{/each}
+						<p>Complete Pay</p>
+						<div class="mt-[12px]">
+							{#each Array(10) as sample}
+								<DropDown>
+									{#each Array(20) as sampleee}
+										<p class="text-[10px]">Chicken - 120 Php</p>
+									{/each}
+								</DropDown>
+							{/each}
+						</div>
 					</DropDown>
 				{/each}
 			</div>
