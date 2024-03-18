@@ -25,5 +25,15 @@ export const actions: Actions = {
         const { error: logoutError } = await supabase.auth.signOut();
         if (logoutError) return fail(401, { msg: logoutError.message });
         else return fail(200, { msg: "Logout success." });
+    },
+
+    updateAccountAction: async ({ locals, request }) => {
+        const formData = Object.fromEntries(await request.formData());
+
+        try {
+
+        } catch (error) {
+
+        }
     }
 };
