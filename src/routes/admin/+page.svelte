@@ -49,9 +49,9 @@
 	</div>
 
 	<div class="flex flex-col gap-[10px] sm:mt-[28px] sm:flex-row sm:flex-wrap sm:gap-[12px]">
-		{#each ['', '', '', '', '', '', '', ''] as sample}
+		{#each data.createdAccounts?.data ?? [] as userAccount}
 			<div class="sm:w-[260px]">
-				<ClientFolder />
+				<ClientFolder {userAccount} />
 			</div>
 		{/each}
 	</div>

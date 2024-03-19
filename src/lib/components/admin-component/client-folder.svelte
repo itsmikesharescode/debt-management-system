@@ -6,6 +6,8 @@
 	import PurchaseHistory from './client-folder-extra/purchase-history.svelte';
 	import PaymentHistory from './client-folder-extra/payment-history.svelte';
 
+	export let userAccount;
+
 	let showClientFolder = false;
 
 	const clientFolderControls = {

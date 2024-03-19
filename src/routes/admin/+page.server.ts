@@ -3,8 +3,7 @@ import type { PageServerLoad } from "../$types";
 import type { ZodError } from "zod";
 import { balancePaySchema, createAccountSchema, insertSchema } from "$lib/schemas";
 
-
-export const load: PageServerLoad = async ({ locals: { isLogged }, }) => {
+export const load: PageServerLoad = async ({ locals: { isLogged, supabase }, }) => {
     const checkUser = await isLogged();
 
     if (checkUser) {
@@ -13,7 +12,7 @@ export const load: PageServerLoad = async ({ locals: { isLogged }, }) => {
         else {
             if (user?.user_metadata.role !== "admin") throw redirect(302, "/client");
 
-            return { user };
+            return { user, createdAccounts: await supabase.from("user_list_tb").select("*") };
         }
     } else throw redirect(302, "/");
 };
