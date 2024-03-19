@@ -40,6 +40,7 @@ export const actions: Actions = {
                 email: result.email,
                 password: result.password,
                 user_metadata: {
+                    gender: result.gender,
                     role: "client",
                     fullName: result.completeName
                 },
@@ -51,7 +52,8 @@ export const actions: Actions = {
                 const { error: insertUserError } = await supabase.from("user_list_tb").insert([{
                     user_id: user.id,
                     role_name: user.user_metadata.role,
-                    user_fullname: user.user_metadata.fullName
+                    user_fullname: user.user_metadata.fullName,
+                    gender: user.user_metadata.gender
                 }]);
 
                 if (insertUserError) return fail(401, { msg: insertUserError.message });
