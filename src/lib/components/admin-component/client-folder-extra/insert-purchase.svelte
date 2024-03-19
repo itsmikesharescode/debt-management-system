@@ -23,6 +23,8 @@
 
 	let uploadLoader = false;
 	let actionFormErrors: InsertPurchaseVal | null = null;
+	let successMsg = '';
+	let failMsg = '';
 
 	const insertPurchaseActionNews: SubmitFunction = () => {
 		uploadLoader = true;
@@ -34,15 +36,21 @@
 
 			switch (status) {
 				case 200:
+					failMsg = '';
+					successMsg = msg;
 					uploadLoader = false;
 					break;
 
 				case 400:
+					successMsg = '';
+					failMsg = '';
 					actionFormErrors = errors;
 					uploadLoader = false;
 					break;
 
 				case 401:
+					successMsg = '';
+					failMsg = msg;
 					uploadLoader = false;
 					break;
 			}
@@ -93,6 +101,7 @@
 	class="mx-auto mt-[101px] min-h-[514px] w-[255px] bg-white pb-[45px] pt-[10px] sm:w-[416px]"
 	in:scale
 >
+	<input name="clientRef" type="hidden" value={JSON.stringify(client)} hidden />
 	<div
 		class="relative flex flex-col items-center justify-center gap-[5px] text-[12px] font-semibold"
 	>
@@ -105,6 +114,9 @@
 		<p>Insert Purchase</p>
 		<p>{client.user_fullname}</p>
 	</div>
+
+	<p class="mt-[5px] text-center text-[12px] font-semibold text-green-500">{successMsg}</p>
+	<p class="mt-[5px] text-center text-[12px] font-semibold text-red">{failMsg}</p>
 
 	<div class="mx-[16px] mt-[19px] text-[12px] font-semibold">
 		<p>Total Amount: {totalAmount} Php</p>
