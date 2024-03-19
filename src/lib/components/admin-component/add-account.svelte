@@ -23,6 +23,8 @@
 
 	let actionFormErrors: CreateAccountVal | null = null;
 	let createAccountLoader = false;
+	let succeeded = '';
+	let failed = '';
 
 	const createAccountActionNews: SubmitFunction = () => {
 		createAccountLoader = true;
@@ -34,6 +36,7 @@
 
 			switch (status) {
 				case 200:
+					succeeded = msg;
 					createAccountLoader = false;
 					break;
 
@@ -43,6 +46,7 @@
 					break;
 
 				case 401:
+					failed = msg;
 					actionFormErrors = null;
 					createAccountLoader = false;
 					break;
@@ -85,6 +89,7 @@
 			<hr class="mt-[11px] w-full border-[1px] border-subWhite" />
 
 			<div class="mx-[12px] mt-[20px] flex flex-col gap-[6px]">
+				<p class="text-center text-[12px] font-semibold text-green-500">{succeeded}</p>
 				<label>
 					<span class="text-[10px] font-semibold">Complete Name</span>
 					<input
