@@ -70,7 +70,7 @@ export const actions: Actions = {
         }
     },
 
-    insertPurchaseAction: async ({ locals, request }) => {
+    insertPurchaseAction: async ({ locals: { supabase }, request }) => {
         const formData = Object.fromEntries(await request.formData());
 
         try {
@@ -83,6 +83,15 @@ export const actions: Actions = {
                 totalAmount += Number(value);
 
             };
+
+            const { error } = await supabase.from("purchase_list_tb").insert([{
+                user_id: "",
+                user_email: "",
+                user_fullname: "",
+                purchase_products_with_price: "",
+                total_amount: ""
+
+            }])
 
 
 
