@@ -23,6 +23,8 @@
 
 	let initialVal: { id: string }[] = [{ id: crypto.randomUUID() }];
 	let scrollValue: HTMLDivElement;
+	let totalAmount = 0;
+	let tempMemo = 0;
 
 	let uploadLoader = false;
 	let actionFormErrors: InsertPurchaseVal | null = null;
@@ -39,9 +41,10 @@
 
 			switch (status) {
 				case 200:
+					totalAmount = 0;
 					failMsg = '';
 					successMsg = msg;
-					initialVal = [];
+					initialVal = [{ id: crypto.randomUUID() }];
 					uploadLoader = false;
 					break;
 
@@ -64,6 +67,8 @@
 
 	const incrementHandler = async () => {
 		initialVal = [...initialVal, { id: crypto.randomUUID() }];
+		successMsg = '';
+		failMsg = '';
 		await tick();
 		scrollValue.scrollTop = scrollValue.scrollHeight;
 	};
@@ -76,12 +81,11 @@
 		totalAmount -= Number(value);
 	};
 
-	let totalAmount = 0;
-	let tempMemo = 0;
-
 	const detectValue = (e: EventTarget | null) => {
 		const { value } = e as HTMLInputElement;
 		totalAmount += Number(value);
+		successMsg = '';
+		failMsg = '';
 
 		if (tempMemo) {
 			totalAmount -= tempMemo;
@@ -90,6 +94,8 @@
 
 	const setValue = (e: EventTarget | null) => {
 		const { value } = e as HTMLInputElement;
+		successMsg = '';
+		failMsg = '';
 		tempMemo = Number(value);
 	};
 
