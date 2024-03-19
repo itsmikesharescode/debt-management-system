@@ -61,7 +61,10 @@
 
 {#if showAccountModal}
 	<div class="fixed bottom-0 left-0 right-0 top-0 bg-overlay">
-		<div class="relative mx-auto mt-[101px] min-h-[362px] w-[255px] bg-white p-2" in:scale>
+		<div
+			class="relative mx-auto mt-[101px] min-h-[362px] w-[255px] bg-white p-2 sm:w-[416px]"
+			in:scale
+		>
 			<div class="relative flex items-center justify-center">
 				<div class="absolute left-0">
 					<button class="flex items-center p-2" on:click={() => (showAccountModal = false)}>
