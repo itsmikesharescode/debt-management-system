@@ -90,16 +90,16 @@ export const actions: Actions = {
 
             };
 
-            const { error: insertPurchaseError } = await supabase.from("purchase_list_tb").insert([{
-                user_id: convertedClientRef.user_id,
-                user_email: convertedClientRef.user_email,
-                user_fullname: convertedClientRef.user_fullname,
-                purchase_products_with_price: JSON.stringify(result),
-                total_amount: totalAmount
-            }]);
+            const { error: insertPutchaseError } = await supabase.rpc("insert_purchase", {
+                user_id_input: convertedClientRef.user_id,
+                user_email_input: convertedClientRef.user_email,
+                user_fullname_input: convertedClientRef.user_fullname,
+                purchase_products_with_price_input: JSON.stringify(result),
+                total_amount_input: totalAmount
+            });
 
-            if (insertPurchaseError) return fail(401, { msg: insertPurchaseError.message });
-            else return fail(200, { msg: "Purchase Inserted!" });
+            if (insertPutchaseError) return fail(401, { msg: insertPutchaseError.message });
+            else return fail(200, { msg: "Purchase Inserted." })
 
 
         } catch (error) {
@@ -107,6 +107,11 @@ export const actions: Actions = {
             const { fieldErrors } = zodError.flatten();
             return fail(400, { errors: fieldErrors })
         }
+    },
+
+
+    purchaseHistoryAction: async ({ locals: { supabase }, request }) => {
+
     },
 
     completePayAction: async () => {
