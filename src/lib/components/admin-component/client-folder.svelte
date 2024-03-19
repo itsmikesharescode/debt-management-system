@@ -46,16 +46,19 @@
 		<div class="" in:scale>
 			{#if clientFolderControls.showInsertPurchase}
 				<InsertPurchase
+					{client}
 					{admin_arrowleft_icon}
 					on:click={() => (clientFolderControls.showInsertPurchase = false)}
 				/>
 			{:else if clientFolderControls.showPurchaseHistory}
 				<PurchaseHistory
+					{client}
 					{admin_arrowleft_icon}
 					on:click={() => (clientFolderControls.showPurchaseHistory = false)}
 				/>
 			{:else if clientFolderControls.showPaymentHistory}
 				<PaymentHistory
+					{client}
 					{admin_arrowleft_icon}
 					on:click={() => (clientFolderControls.showPaymentHistory = false)}
 				/>
