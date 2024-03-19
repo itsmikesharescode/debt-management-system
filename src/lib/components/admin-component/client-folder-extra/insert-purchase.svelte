@@ -1,13 +1,14 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import Loader from '$lib/components/general-component/loader.svelte';
-	import type { ResultModel } from '$lib/types';
+	import type { ResultModel, UserListTB } from '$lib/types';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { tick } from 'svelte';
 	import { flip } from 'svelte/animate';
 	import { fade, scale } from 'svelte/transition';
 
 	export let admin_arrowleft_icon: string;
+	export let client: UserListTB;
 
 	type InsertPurchaseVal = {
 		[x: string]: string[] | undefined;
@@ -102,7 +103,7 @@
 		</div>
 
 		<p>Insert Purchase</p>
-		<p>Client Name here</p>
+		<p>{client.user_fullname}</p>
 	</div>
 
 	<div class="mx-[16px] mt-[19px] text-[12px] font-semibold">

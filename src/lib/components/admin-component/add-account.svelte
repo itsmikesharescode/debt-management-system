@@ -6,6 +6,7 @@
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { fade, scale } from 'svelte/transition';
 	import Loader from '../general-component/loader.svelte';
+	import { invalidateAll } from '$app/navigation';
 
 	export let showCreateAccountModal = false;
 
@@ -39,6 +40,7 @@
 				case 200:
 					failed = '';
 					succeeded = msg;
+					invalidateAll();
 					createAccountLoader = false;
 					break;
 
