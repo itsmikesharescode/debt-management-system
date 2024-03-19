@@ -39,13 +39,22 @@ export const actions: Actions = {
                 password: result.password,
                 user_metadata: {
                     role: "client",
-                    fulllName: result.completeName
+                    fullName: result.completeName
                 },
                 email_confirm: true
             });
 
             if (createAccountError) return fail(401, { msg: createAccountError.message });
-            else if (user) return fail(200, { msg: "Account Created." });
+            else if (user) {
+                const { error: insertUserError } = await supabase.from("user_list_tb").insert([{
+                    user_id: user.id,
+                    role_name: user.user_metadata.role,
+                    user_fullname: user.user_metadata.fullName
+                }]);
+
+                if (insertUserError) return fail(401, { msg: insertUserError.message });
+                else return fail(200, { msg: "Account Created." });
+            };
 
 
         } catch (error) {
