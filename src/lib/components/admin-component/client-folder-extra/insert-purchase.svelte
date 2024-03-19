@@ -21,6 +21,9 @@
 		errors: InsertPurchaseVal;
 	};
 
+	let initialVal: { id: string }[] = [{ id: crypto.randomUUID() }];
+	let scrollValue: HTMLDivElement;
+
 	let uploadLoader = false;
 	let actionFormErrors: InsertPurchaseVal | null = null;
 	let successMsg = '';
@@ -38,6 +41,7 @@
 				case 200:
 					failMsg = '';
 					successMsg = msg;
+					initialVal = [];
 					uploadLoader = false;
 					break;
 
@@ -57,9 +61,6 @@
 			await update();
 		};
 	};
-
-	let initialVal: { id: string }[] = [{ id: crypto.randomUUID() }];
-	let scrollValue: HTMLDivElement;
 
 	const incrementHandler = async () => {
 		initialVal = [...initialVal, { id: crypto.randomUUID() }];
@@ -91,6 +92,8 @@
 		const { value } = e as HTMLInputElement;
 		tempMemo = Number(value);
 	};
+
+	$: detectLength = initialVal.length <= 1;
 </script>
 
 <form
@@ -166,8 +169,11 @@
 
 				<div class="flex justify-end">
 					<button
+						disabled={detectLength}
 						type="button"
-						class="h-[35px] w-[105px] rounded-[10px] bg-red text-[12px] font-semibold text-white"
+						class="h-[35px] w-[105px] rounded-[10px] bg-red text-[12px] font-semibold text-white {detectLength
+							? 'hidden'
+							: ''}"
 						on:click={() => deletePurchaseHandler(increment, index)}>Delete</button
 					>
 				</div>
