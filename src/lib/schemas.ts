@@ -8,6 +8,7 @@ export const loginSchema = z.object({
 
 
 export const createAccountSchema = z.object({
+    gender: z.string().min(1, { message: "Must choose a gender." }),
     completeName: z.string().min(5, { message: "Must enter proper complete name." }),
     email: z.string().email(),
     password: z.string().min(6, { message: "Choose a strong password." }),

@@ -10,6 +10,7 @@
 	export let showCreateAccountModal = false;
 
 	type CreateAccountVal = {
+		gender: string[];
 		completeName: string[];
 		email: string[];
 		password: string[];
@@ -23,6 +24,8 @@
 
 	let actionFormErrors: CreateAccountVal | null = null;
 	let createAccountLoader = false;
+	let succeeded = '';
+	let failed = '';
 
 	const createAccountActionNews: SubmitFunction = () => {
 		createAccountLoader = true;
@@ -34,15 +37,21 @@
 
 			switch (status) {
 				case 200:
+					failed = '';
+					succeeded = msg;
 					createAccountLoader = false;
 					break;
 
 				case 400:
+					failed = '';
+					succeeded = '';
 					actionFormErrors = errors;
 					createAccountLoader = false;
 					break;
 
 				case 401:
+					succeeded = '';
+					failed = msg;
 					actionFormErrors = null;
 					createAccountLoader = false;
 					break;
@@ -54,6 +63,8 @@
 	const cleanModal = () => {
 		showCreateAccountModal = false;
 		actionFormErrors = null;
+		succeeded = '';
+		failed = '';
 	};
 </script>
 
@@ -85,6 +96,25 @@
 			<hr class="mt-[11px] w-full border-[1px] border-subWhite" />
 
 			<div class="mx-[12px] mt-[20px] flex flex-col gap-[6px]">
+				<p class="text-center text-[12px] font-semibold text-green-500">{succeeded}</p>
+				<p class="text-center text-[12px] font-semibold text-red">{failed}</p>
+				<div class="">
+					<div class="flex items-center gap-[5px]">
+						<label class="flex items-center gap-[1px]">
+							<span class="text-[10px] font-semibold">Male</span>
+							<input type="radio" class="" value="male" name="gender" />
+						</label>
+
+						<label class="flex items-center gap-[1px]">
+							<span class="text-[10px] font-semibold">Female</span>
+							<input type="radio" class="" value="female" name="gender" />
+						</label>
+					</div>
+					{#each actionFormErrors?.gender ?? [] as errorMsg}
+						<p class="text-[10px] font-semibold text-red" in:fade>{errorMsg}</p>
+					{/each}
+				</div>
+
 				<label>
 					<span class="text-[10px] font-semibold">Complete Name</span>
 					<input
