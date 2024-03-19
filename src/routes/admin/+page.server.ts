@@ -28,11 +28,24 @@ export const actions: Actions = {
         else return fail(200, { msg: "Logout success." })
     },
 
-    createAccountAction: async ({ locals: { supabase }, request }) => {
+    createAccountAction: async ({ locals: { supabaseAdmin, supabase }, request }) => {
         const formData = Object.fromEntries(await request.formData());
 
         try {
             const result = createAccountSchema.parse(formData);
+
+            const { data: { user }, error: createAccountError } = await supabaseAdmin.auth.admin.createUser({
+                email: result.email,
+                password: result.password,
+                user_metadata: {
+                    role: "client",
+                    fulllName: result.completeName
+                },
+                email_confirm: true
+            });
+
+            if (createAccountError) return fail(401, { msg: createAccountError.message });
+            else if (user) return fail(200, { msg: "Account Created." });
 
 
         } catch (error) {
