@@ -6,6 +6,7 @@
 	import PurchaseHistory from './client-folder-extra/purchase-history.svelte';
 	import PaymentHistory from './client-folder-extra/payment-history.svelte';
 	import type { UserListTB } from '$lib/types';
+	import { enhance } from '$app/forms';
 
 	export let client: UserListTB;
 
@@ -91,10 +92,18 @@
 							on:click={insertPurchaseControl}>Insert Purchase</button
 						>
 
-						<button
-							class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
-							on:click={purchaseHitoryControl}>Purchase History</button
+						<!--Form action to get purchase history-->
+						<form
+							method="post"
+							action="?/purchaseHistoryAction"
+							enctype="multipart/form-data"
+							use:enhance
 						>
+							<button
+								class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
+								on:click={purchaseHitoryControl}>Purchase History</button
+							>
+						</form>
 
 						<button
 							class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
