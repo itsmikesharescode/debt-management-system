@@ -53,7 +53,7 @@ export const actions: Actions = {
                 const { error: insertUserError } = await supabase.from("user_list_tb").insert([{
                     user_id: user.id,
                     role_name: user.user_metadata.role,
-                    email: user.email,
+                    user_email: user.email,
                     user_fullname: user.user_metadata.fullName,
                     gender: user.user_metadata.gender
                 }]);
