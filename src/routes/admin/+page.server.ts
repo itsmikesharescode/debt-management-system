@@ -3,7 +3,7 @@ import type { PageServerLoad } from "../$types";
 import type { ZodError } from "zod";
 import { balancePaySchema, createAccountSchema, insertSchema } from "$lib/schemas";
 import type { PostgrestError } from "@supabase/supabase-js";
-import type { UserListTB } from "$lib/types";
+import type { NetAmountTB, PurchaseListTB, UserListTB } from "$lib/types";
 
 export const load: PageServerLoad = async ({ locals: { isLogged, supabase }, }) => {
     const checkUser = await isLogged();
@@ -111,7 +111,34 @@ export const actions: Actions = {
 
 
     purchaseHistoryAction: async ({ locals: { supabase }, request }) => {
+        const formData = await request.formData();
+        const userId = formData.get("userId") as string;
 
+        const { data: purchaseList, error: purchaseListError } = await supabase.from("purchase_list_tb")
+            .select("*").eq("user_id", userId)
+
+        if (purchaseListError) return fail(401, { msg: purchaseListError.message });
+        else if (purchaseList) {
+            const { data: amounts, error: amountsError } = await supabase.from("net_total_amount_tb")
+                .select("*").eq("user_id", userId).limit(1).single() as { data: NetAmountTB, error: PostgrestError | null };
+
+            if (amountsError) return fail(401, { msg: amountsError.message });
+
+            const newPurchaseList = purchaseList.map((item) => {
+                return {
+                    id: item.id,
+                    created_at: item.created_at,
+                    user_id: item.user_id,
+                    purchase_products_with_price: JSON.parse(item.purchase_products_with_price as string),
+                    user_email: item.user_email,
+                    user_fullname: item.user_fullname,
+                    total_amount: item.total_amount
+                }
+            })
+
+
+            return fail(200, { purchaseList: newPurchaseList, amounts });
+        }
     },
 
     completePayAction: async () => {
