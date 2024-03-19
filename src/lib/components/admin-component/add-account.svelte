@@ -90,6 +90,24 @@
 
 			<div class="mx-[12px] mt-[20px] flex flex-col gap-[6px]">
 				<p class="text-center text-[12px] font-semibold text-green-500">{succeeded}</p>
+
+				<div class="">
+					<div class="flex items-center gap-[5px]">
+						<label class="flex items-center gap-[1px]">
+							<span class="text-[10px] font-semibold">Male</span>
+							<input type="radio" class="" value="male" name="gender" />
+						</label>
+
+						<label class="flex items-center gap-[1px]">
+							<span class="text-[10px] font-semibold">Female</span>
+							<input type="radio" class="" value="female" name="gender" />
+						</label>
+					</div>
+					{#each actionFormErrors?.completeName ?? [] as errorMsg}
+						<p class="text-[10px] font-semibold text-red" in:fade>{errorMsg}</p>
+					{/each}
+				</div>
+
 				<label>
 					<span class="text-[10px] font-semibold">Complete Name</span>
 					<input
