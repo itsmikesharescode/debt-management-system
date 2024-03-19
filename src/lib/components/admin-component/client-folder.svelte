@@ -72,6 +72,7 @@
 						</div>
 						<div class="">
 							<p class="text-center text-[12px] font-semibold">{client.user_fullname}</p>
+							<p class="text-center text-[12px] font-semibold">{client.user_email}</p>
 						</div>
 					</div>
 
