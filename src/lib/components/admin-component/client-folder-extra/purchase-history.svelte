@@ -4,8 +4,10 @@
 	import { scale } from 'svelte/transition';
 	import BalancePay from './payment-extra/balance-pay.svelte';
 	import CompletePay from './payment-extra/complete-pay.svelte';
+	import type { UserListTB } from '$lib/types';
 
 	export let admin_arrowleft_icon: string;
+	export let client: UserListTB;
 </script>
 
 <div
@@ -22,7 +24,7 @@
 		</div>
 
 		<p>Purchase History</p>
-		<p>Client Name here</p>
+		<p>{client.user_fullname}</p>
 	</div>
 
 	<div class="mx-[15px] mt-[14px] text-[12px] font-semibold">

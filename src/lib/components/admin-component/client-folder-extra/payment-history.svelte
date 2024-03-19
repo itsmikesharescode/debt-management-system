@@ -1,7 +1,9 @@
 <script lang="ts">
 	import DropDown from '$lib/components/general-component/drop-down.svelte';
+	import type { UserListTB } from '$lib/types';
 	import { scale } from 'svelte/transition';
 	export let admin_arrowleft_icon: string;
+	export let client: UserListTB;
 </script>
 
 <div
@@ -18,7 +20,7 @@
 		</div>
 
 		<p>Payment History</p>
-		<p>Client Name here</p>
+		<p>{client.user_fullname}</p>
 	</div>
 
 	<hr class="mt-[11px] w-full border-[1px] border-subWhite" />
