@@ -63,6 +63,8 @@
 	const cleanModal = () => {
 		showCreateAccountModal = false;
 		actionFormErrors = null;
+		succeeded = '';
+		failed = '';
 	};
 </script>
 
