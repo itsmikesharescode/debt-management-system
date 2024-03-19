@@ -10,6 +10,7 @@
 	export let showCreateAccountModal = false;
 
 	type CreateAccountVal = {
+		gender: string[];
 		completeName: string[];
 		email: string[];
 		password: string[];
@@ -103,7 +104,7 @@
 							<input type="radio" class="" value="female" name="gender" />
 						</label>
 					</div>
-					{#each actionFormErrors?.completeName ?? [] as errorMsg}
+					{#each actionFormErrors?.gender ?? [] as errorMsg}
 						<p class="text-[10px] font-semibold text-red" in:fade>{errorMsg}</p>
 					{/each}
 				</div>

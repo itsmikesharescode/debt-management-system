@@ -31,6 +31,8 @@ export const actions: Actions = {
     createAccountAction: async ({ locals: { supabaseAdmin, supabase }, request }) => {
         const formData = Object.fromEntries(await request.formData());
 
+        console.log(formData)
+
         try {
             const result = createAccountSchema.parse(formData);
 
