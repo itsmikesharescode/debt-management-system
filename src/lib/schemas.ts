@@ -35,4 +35,21 @@ export const insertSchema = z.record(z.string().min(1, { message: "This field mu
 
 export const balancePaySchema = z.object({
     balanceAmount: z.string().min(1, { message: "Must not be empty" })
+});
+
+export const clientUpdateAccountSchema = z.object({
+    newPass: z.string().min(6, { message: "Must choose a strong password." }),
+    confirmNewPass: z.string()
+}).superRefine(({ newPass, confirmNewPass }, ctx) => {
+    if (confirmNewPass !== newPass) {
+        ctx.addIssue({
+            code: "custom",
+            message: "New Password must equal to Confirm New Password",
+            path: ["newPass"],
+        });
+
+
+
+
+    }
 })
