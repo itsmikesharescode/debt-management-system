@@ -70,11 +70,17 @@ export const actions: Actions = {
         }
     },
 
-    insertPurchaseAction: async ({ locals, request }) => {
+    insertPurchaseAction: async ({ locals: { supabase }, request }) => {
         const formData = Object.fromEntries(await request.formData());
+        const { clientRef } = formData;
+
+
 
         try {
             const result = insertSchema.parse(formData);
+            const convertedClientRef = JSON.parse(clientRef as string) as UserListTB;
+            delete result.clientRef;
+
             const length = Object.keys(result).length;
             let totalAmount = 0;
             for (let i = 1; i <= length / 2; i++) {
@@ -84,6 +90,16 @@ export const actions: Actions = {
 
             };
 
+            const { error: insertPurchaseError } = await supabase.from("purchase_list_tb").insert([{
+                user_id: convertedClientRef.user_id,
+                user_email: convertedClientRef.user_email,
+                user_fullname: convertedClientRef.user_fullname,
+                purchase_products_with_price: JSON.stringify(result),
+                total_amount: totalAmount
+            }]);
+
+            if (insertPurchaseError) return fail(401, { msg: insertPurchaseError.message });
+            else return fail(200, { msg: "Purchase Inserted!" });
 
 
         } catch (error) {
