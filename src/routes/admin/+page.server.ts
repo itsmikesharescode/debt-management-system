@@ -2,6 +2,8 @@ import { redirect, type Actions, fail } from "@sveltejs/kit";
 import type { PageServerLoad } from "../$types";
 import type { ZodError } from "zod";
 import { balancePaySchema, createAccountSchema, insertSchema } from "$lib/schemas";
+import type { PostgrestError } from "@supabase/supabase-js";
+import type { UserListTB } from "$lib/types";
 
 export const load: PageServerLoad = async ({ locals: { isLogged, supabase }, }) => {
     const checkUser = await isLogged();
@@ -12,7 +14,9 @@ export const load: PageServerLoad = async ({ locals: { isLogged, supabase }, }) 
         else {
             if (user?.user_metadata.role !== "admin") throw redirect(302, "/client");
 
-            return { user, createdAccounts: await supabase.from("user_list_tb").select("*") };
+            const { data: clientList, error: clientListError } = await supabase.rpc("get_clients") as { data: UserListTB[], error: PostgrestError | null };
+
+            return { user, clientList };
         }
     } else throw redirect(302, "/");
 };
@@ -29,8 +33,6 @@ export const actions: Actions = {
 
     createAccountAction: async ({ locals: { supabaseAdmin, supabase }, request }) => {
         const formData = Object.fromEntries(await request.formData());
-
-        console.log(formData)
 
         try {
             const result = createAccountSchema.parse(formData);
@@ -51,6 +53,7 @@ export const actions: Actions = {
                 const { error: insertUserError } = await supabase.from("user_list_tb").insert([{
                     user_id: user.id,
                     role_name: user.user_metadata.role,
+                    email: user.email,
                     user_fullname: user.user_metadata.fullName,
                     gender: user.user_metadata.gender
                 }]);

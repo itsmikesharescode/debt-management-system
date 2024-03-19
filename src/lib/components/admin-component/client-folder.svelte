@@ -5,8 +5,9 @@
 	import InsertPurchase from './client-folder-extra/insert-purchase.svelte';
 	import PurchaseHistory from './client-folder-extra/purchase-history.svelte';
 	import PaymentHistory from './client-folder-extra/payment-history.svelte';
+	import type { UserListTB } from '$lib/types';
 
-	export let userAccount;
+	export let client: UserListTB;
 
 	let showClientFolder = false;
 
@@ -34,7 +35,7 @@
 	class="flex h-[35px] w-full items-center justify-between bg-lowWhite p-2 px-[20px] text-[12px]"
 	on:click={() => (showClientFolder = true)}
 >
-	Suarez, Kabinito Migueree
+	{client.user_fullname}
 	<img src={admin_folder_icon} alt="folder-icon" class="" />
 </button>
 
@@ -63,13 +64,15 @@
 					class="mx-auto mt-[101px] min-h-[336px] w-[255px] bg-white pb-[45px] pt-[10px] sm:w-[416px]"
 					in:scale
 				>
-					<div class="relative flex items-center justify-center">
+					<div class="relative flex justify-center">
 						<div class="absolute left-0">
 							<button class="flex items-center p-2" on:click={() => (showClientFolder = false)}>
 								<img src={admin_arrowleft_icon} class="" alt="arrowleft-icon" />
 							</button>
 						</div>
-						<p class="text-center text-[12px] font-semibold">Client Name here</p>
+						<div class="">
+							<p class="text-center text-[12px] font-semibold">{client.user_fullname}</p>
+						</div>
 					</div>
 
 					<hr class="mt-[11px] w-full border-[1px] border-subWhite" />
