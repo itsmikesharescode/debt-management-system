@@ -39,8 +39,7 @@
 
 	<div class="mx-[15px] mt-[14px] flex h-[300px] flex-col gap-[9px] overflow-y-auto scroll-smooth">
 		{#each clientPurchaseList as purchase}
-	
-			<DropDown dateHeader={new Date(purchase.created_at))}>
+			<DropDown dateHeader={new Date(purchase.created_at)}>
 				<div class="flex flex-col gap-[5px]">
 					{#each Array(Object.keys(purchase.purchase_products_with_price).length / 2) as sample, index}
 						<div class="flex text-left text-[10px]">
