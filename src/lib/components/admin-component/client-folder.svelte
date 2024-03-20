@@ -5,11 +5,17 @@
 	import InsertPurchase from './client-folder-extra/insert-purchase.svelte';
 	import PurchaseHistory from './client-folder-extra/purchase-history.svelte';
 	import PaymentHistory from './client-folder-extra/payment-history.svelte';
-	import type { NetAmountTB, PurchaseListTB, ResultModel, UserListTB } from '$lib/types';
+	import type {
+		NetAmountTB,
+		PaymentHistoryTB,
+		PurchaseListTB,
+		ResultModel,
+		UserListTB
+	} from '$lib/types';
 	import { enhance } from '$app/forms';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import Loader from '../general-component/loader.svelte';
-	import { clientAmounts, clientPurchaseList, clientFolderControls } from '$lib';
+	import { clientAmounts, clientPurchaseList, clientFolderControls, clientPaymentList } from '$lib';
 	import { toast } from 'svelte-sonner';
 
 	export let client: UserListTB;
@@ -43,6 +49,36 @@
 				case 401:
 					toast.error('Purchase History', { description: 'No records' });
 					purchaseHistoryLoader = false;
+					break;
+			}
+			await update();
+		};
+	};
+
+	type PaymentHistoryAction = {
+		paymentList: PaymentHistoryTB[];
+	};
+
+	let paymentHistoryloader = false;
+
+	const paymentHistoryActionNews: SubmitFunction = () => {
+		paymentHistoryloader = true;
+		return async ({ result, update }) => {
+			const {
+				status,
+				data: { paymentList }
+			} = result as ResultModel<PaymentHistoryAction>;
+
+			switch (status) {
+				case 200:
+					$clientPaymentList = paymentList;
+					$clientFolderControls.showPaymentHistory = true;
+					paymentHistoryloader = false;
+					break;
+
+				case 401:
+					toast.error('Payment History', { description: 'No Records' });
+					paymentHistoryloader = false;
 					break;
 			}
 			await update();
@@ -132,11 +168,26 @@
 							</button>
 						</form>
 
-						<button
-							class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
-							on:click={() => ($clientFolderControls.showPaymentHistory = true)}
-							>Payment History</button
+						<!-- Form action to get payment history-->
+						<form
+							method="post"
+							action="?/paymentHistoryAction"
+							enctype="multipart/form-data"
+							use:enhance={paymentHistoryActionNews}
 						>
+							<input name="userId" type="hidden" value={client.user_id} />
+							<button
+								disabled={paymentHistoryloader}
+								type="submit"
+								class="flex h-[35px] w-full items-center justify-center rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
+							>
+								<Loader
+									name="Payment History"
+									loader={paymentHistoryloader}
+									loaderName="Please wait..."
+								/>
+							</button>
+						</form>
 
 						<button
 							class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"

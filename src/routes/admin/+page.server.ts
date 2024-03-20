@@ -4,6 +4,8 @@ import type { ZodError } from "zod";
 import { balancePaySchema, createAccountSchema, insertSchema } from "$lib/schemas";
 import type { PostgrestError } from "@supabase/supabase-js";
 import type { NetAmountTB, PurchaseListTB, UserListTB } from "$lib/types";
+import { convertStringToObject } from "$lib/helpers";
+
 
 export const load: PageServerLoad = async ({ locals: { isLogged, supabase }, }) => {
     const checkUser = await isLogged();
@@ -95,7 +97,8 @@ export const actions: Actions = {
                 user_email_input: convertedClientRef.user_email,
                 user_fullname_input: convertedClientRef.user_fullname,
                 purchase_products_with_price_input: JSON.stringify(result),
-                total_amount_input: totalAmount
+                total_amount_input: totalAmount,
+                purchase_length_input: length / 2
             });
 
             if (insertPutchaseError) return fail(401, { msg: insertPutchaseError.message });
@@ -177,6 +180,30 @@ export const actions: Actions = {
             const zodError = error as ZodError;
             const { fieldErrors } = zodError.flatten();
             return fail(400, { errors: fieldErrors });
+        }
+    },
+
+    paymentHistoryAction: async ({ locals: { supabase }, request }) => {
+        const formData = await request.formData();
+        const userId = formData.get("userId") as string;
+
+        const { data: paymentHistoryList, error: paymentHistoryListError } = await supabase.from("payment_record_tb").select("*").eq("user_id", userId);
+
+        if (paymentHistoryListError) return fail(401, { msg: paymentHistoryListError.message });
+        else if (paymentHistoryList) {
+
+            const newPaymentHistoryList = paymentHistoryList.map(item => {
+                return {
+                    id: item.id,
+                    created_at: item.created_at,
+                    user_id: item.user_id,
+                    payment_mode: item.payment_mode,
+                    payment_amount: item.payment_amount,
+                    purchase_history: item.purchase_history ? convertStringToObject(item.purchase_history) : null
+                }
+            });
+
+            return fail(200, { paymentList: newPaymentHistoryList });
         }
     }
 };
