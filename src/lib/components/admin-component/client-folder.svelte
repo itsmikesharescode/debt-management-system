@@ -9,29 +9,12 @@
 	import { enhance } from '$app/forms';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import Loader from '../general-component/loader.svelte';
+	import { clientAmounts, clientPurchaseList, clientFolderControls } from '$lib';
+	import { toast } from 'svelte-sonner';
 
 	export let client: UserListTB;
 
 	let showClientFolder = false;
-
-	const clientFolderControls = {
-		showInsertPurchase: false,
-		showPurchaseHistory: false,
-		showPaymentHistory: false,
-		showUpdateInformation: false
-	};
-
-	const insertPurchaseControl = () => {
-		clientFolderControls.showInsertPurchase = true;
-	};
-
-	const purchaseHitoryControl = () => {
-		clientFolderControls.showPurchaseHistory = true;
-	};
-
-	const paymentHistoryControl = () => {
-		clientFolderControls.showPaymentHistory = true;
-	};
 
 	type PurchaseHistoryAction = {
 		msg: string;
@@ -39,8 +22,6 @@
 		amounts: NetAmountTB;
 	};
 
-	let clientAmounts: NetAmountTB;
-	let clientPurchaseList: PurchaseListTB[];
 	let clientMsg: string;
 	let purchaseHistoryLoader = false;
 
@@ -54,12 +35,13 @@
 
 			switch (status) {
 				case 200:
-					clientAmounts = amounts;
-					clientPurchaseList = purchaseList;
+					$clientAmounts = amounts;
+					$clientPurchaseList = purchaseList;
 					purchaseHistoryLoader = false;
-					clientFolderControls.showPurchaseHistory = true;
+					$clientFolderControls.showPurchaseHistory = true;
 					break;
 				case 401:
+					toast.error('Purchase History', { description: 'No records' });
 					purchaseHistoryLoader = false;
 					break;
 			}
@@ -81,25 +63,23 @@
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div class="fixed bottom-0 left-0 right-0 top-0 bg-overlay">
 		<div class="" in:scale>
-			{#if clientFolderControls.showInsertPurchase}
+			{#if $clientFolderControls.showInsertPurchase}
 				<InsertPurchase
 					{client}
 					{admin_arrowleft_icon}
-					on:click={() => (clientFolderControls.showInsertPurchase = false)}
+					on:click={() => ($clientFolderControls.showInsertPurchase = false)}
 				/>
-			{:else if clientFolderControls.showPurchaseHistory}
+			{:else if $clientFolderControls.showPurchaseHistory}
 				<PurchaseHistory
 					{client}
 					{admin_arrowleft_icon}
-					{clientAmounts}
-					{clientPurchaseList}
-					on:click={() => (clientFolderControls.showPurchaseHistory = false)}
+					on:click={() => ($clientFolderControls.showPurchaseHistory = false)}
 				/>
-			{:else if clientFolderControls.showPaymentHistory}
+			{:else if $clientFolderControls.showPaymentHistory}
 				<PaymentHistory
 					{client}
 					{admin_arrowleft_icon}
-					on:click={() => (clientFolderControls.showPaymentHistory = false)}
+					on:click={() => ($clientFolderControls.showPaymentHistory = false)}
 				/>
 			{:else}
 				<div
@@ -127,7 +107,8 @@
 					<div class="mx-[12.5px] flex flex-col gap-[7px] sm:mx-[93px]">
 						<button
 							class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
-							on:click={insertPurchaseControl}>Insert Purchase</button
+							on:click={() => ($clientFolderControls.showInsertPurchase = true)}
+							>Insert Purchase</button
 						>
 
 						<!--Form action to get purchase history-->
@@ -153,7 +134,8 @@
 
 						<button
 							class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
-							on:click={paymentHistoryControl}>Payment History</button
+							on:click={() => ($clientFolderControls.showPaymentHistory = true)}
+							>Payment History</button
 						>
 
 						<button
