@@ -69,6 +69,7 @@
 
 			switch (status) {
 				case 200:
+					$clientFolderControls.showPaymentHistory = true;
 					break;
 
 				case 401:
@@ -168,9 +169,10 @@
 							enctype="multipart/form-data"
 							use:enhance={paymentHistoryActionNews}
 						>
+							<input name="userId" type="hidden" value={client.user_id} />
 							<button
+								type="submit"
 								class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
-								on:click={() => ($clientFolderControls.showPaymentHistory = true)}
 								>Payment History</button
 							>
 						</form>

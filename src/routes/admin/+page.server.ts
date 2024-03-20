@@ -184,6 +184,22 @@ export const actions: Actions = {
         const formData = await request.formData();
         const userId = formData.get("userId") as string;
 
-        console.log(userId)
+        const { data: paymentHistoryList, error: paymentHistoryListError } = await supabase.from("payment_record_tb").select("*").eq("user_id", userId);
+
+        if (paymentHistoryListError) return fail(401, { msg: paymentHistoryListError.message });
+        else if (paymentHistoryList) {
+            const newPaymentHistoryList = paymentHistoryList.map(item => {
+                return {
+                    id: item.id,
+                    created_at: item.created_at,
+                    user_id: item.user_id,
+                    payment_mode: item.payment_mode,
+                    payment_amount: item.payment_amount,
+                    purchase_history: JSON.parse(item.purchase_history)
+                }
+            });
+
+            return fail(200, { paymentHistoryList: newPaymentHistoryList });
+        }
     }
 };
