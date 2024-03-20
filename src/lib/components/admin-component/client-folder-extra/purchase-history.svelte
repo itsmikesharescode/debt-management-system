@@ -5,6 +5,7 @@
 	import BalancePay from './payment-extra/balance-pay.svelte';
 	import CompletePay from './payment-extra/complete-pay.svelte';
 	import type { NetAmountTB, PurchaseListTB, UserListTB } from '$lib/types';
+	import { formatDate } from '$lib';
 
 	export let admin_arrowleft_icon: string;
 	export let client: UserListTB;
@@ -39,7 +40,7 @@
 
 	<div class="mx-[15px] mt-[14px] flex h-[300px] flex-col gap-[9px] overflow-y-auto scroll-smooth">
 		{#each clientPurchaseList as purchase}
-			<DropDown dateHeader={new Date(purchase.created_at)}>
+			<DropDown dateHeader={formatDate(purchase.created_at)}>
 				<div class="flex flex-col gap-[5px]">
 					{#each Array(Object.keys(purchase.purchase_products_with_price).length / 2) as sample, index}
 						<div class="flex text-left text-[10px]">
