@@ -5,7 +5,13 @@
 	import InsertPurchase from './client-folder-extra/insert-purchase.svelte';
 	import PurchaseHistory from './client-folder-extra/purchase-history.svelte';
 	import PaymentHistory from './client-folder-extra/payment-history.svelte';
-	import type { NetAmountTB, PurchaseListTB, ResultModel, UserListTB } from '$lib/types';
+	import type {
+		NetAmountTB,
+		PaymentHistoryTB,
+		PurchaseListTB,
+		ResultModel,
+		UserListTB
+	} from '$lib/types';
 	import { enhance } from '$app/forms';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import Loader from '../general-component/loader.svelte';
@@ -49,15 +55,20 @@
 		};
 	};
 
+	type PaymentHistoryAction = {
+		msg: string;
+		paymentList: PaymentHistoryTB[];
+	};
+
 	const paymentHistoryActionNews: SubmitFunction = () => {
 		return async ({ result, update }) => {
-			const { status } = result;
+			const {
+				status,
+				data: { msg, paymentList }
+			} = result as ResultModel<PaymentHistoryAction>;
 
 			switch (status) {
 				case 200:
-					break;
-
-				case 400:
 					break;
 
 				case 401:
@@ -150,6 +161,7 @@
 							</button>
 						</form>
 
+						<!-- Form action to get payment history-->
 						<form
 							method="post"
 							action="?/paymentHistoryAction"
