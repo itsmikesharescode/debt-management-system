@@ -141,8 +141,19 @@ export const actions: Actions = {
         }
     },
 
-    completePayAction: async () => {
-        console.log("complete pay")
+    completePayAction: async ({ locals: { supabase }, request }) => {
+        const formData = await request.formData();
+        const userId = formData.get("userId") as string;
+
+        const { data: amounts, error: balancePaymentError } = await supabase.rpc("payment_mode", {
+            payment_mode_input: "complete",
+            user_id_input: userId,
+            payment_amount_input: 0,
+        }) as { data: NetAmountTB[], error: PostgrestError | null };
+
+        if (balancePaymentError) return fail(401, { msg: balancePaymentError.message });
+        else if (amounts) return fail(200, { msg: "Complete Payment Success." });
+
     },
 
     balancePayAction: async ({ locals: { supabase }, request }) => {

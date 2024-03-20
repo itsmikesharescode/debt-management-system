@@ -58,7 +58,7 @@
 	<div class=" mx-[12px] mt-[14px] flex items-center justify-center gap-[10px]">
 		<BalancePay {client} {admin_arrowleft_icon} />
 
-		<CompletePay />
+		<CompletePay {client} />
 	</div>
 </div>
 
