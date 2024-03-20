@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import Loader from '$lib/components/general-component/loader.svelte';
-	import type { ResultModel } from '$lib/types';
+	import type { ResultModel, UserListTB } from '$lib/types';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { fade } from 'svelte/transition';
 
 	export let admin_arrowleft_icon: string;
+	export let client: UserListTB;
 	let showBalancePay = false;
 
 	type BalancePayVal = {
@@ -63,6 +64,7 @@
 		use:enhance={balancePayActionNews}
 		class="fixed"
 	>
+		<input name="userId" type="hidden" value={client.user_id} class="hidden" />
 		<div class="mx-auto w-[255px] bg-white pb-[45px] pt-[10px] sm:w-[416px]">
 			<div class="relative flex items-center justify-center">
 				<div class="absolute left-0">

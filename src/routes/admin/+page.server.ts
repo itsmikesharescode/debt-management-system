@@ -145,10 +145,18 @@ export const actions: Actions = {
         console.log("complete pay")
     },
 
-    balancePayAction: async ({ locals, request }) => {
+    balancePayAction: async ({ locals: { supabase }, request }) => {
         const formData = Object.fromEntries(await request.formData());
         try {
             const result = balancePaySchema.parse(formData);
+
+            const { data, error } = await supabase.rpc("payment_mode", {
+                payment_mode_input: "balance",
+                user_id_input: result.userId,
+                payment_amount_input: result.balanceAmount
+            })
+
+
         } catch (error) {
             const zodError = error as ZodError;
             const { fieldErrors } = zodError.flatten();

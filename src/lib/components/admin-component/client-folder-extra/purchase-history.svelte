@@ -58,7 +58,7 @@
 	<hr class=" w-full border-[1px] border-subWhite" />
 
 	<div class=" mx-[12px] mt-[14px] flex items-center justify-center gap-[10px]">
-		<BalancePay {admin_arrowleft_icon} />
+		<BalancePay {client} {admin_arrowleft_icon} />
 
 		<CompletePay />
 	</div>
