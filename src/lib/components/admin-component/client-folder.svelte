@@ -5,7 +5,10 @@
 	import InsertPurchase from './client-folder-extra/insert-purchase.svelte';
 	import PurchaseHistory from './client-folder-extra/purchase-history.svelte';
 	import PaymentHistory from './client-folder-extra/payment-history.svelte';
-	import type { UserListTB } from '$lib/types';
+	import type { NetAmountTB, PurchaseListTB, ResultModel, UserListTB } from '$lib/types';
+	import { enhance } from '$app/forms';
+	import type { SubmitFunction } from '@sveltejs/kit';
+	import Loader from '../general-component/loader.svelte';
 
 	export let client: UserListTB;
 
@@ -28,6 +31,40 @@
 
 	const paymentHistoryControl = () => {
 		clientFolderControls.showPaymentHistory = true;
+	};
+
+	type PurchaseHistoryAction = {
+		msg: string;
+		purchaseList: PurchaseListTB[];
+		amounts: NetAmountTB;
+	};
+
+	let clientAmounts: NetAmountTB;
+	let clientPurchaseList: PurchaseListTB[];
+	let clientMsg: string;
+	let purchaseHistoryLoader = false;
+
+	const purchaseHistoryActionNews: SubmitFunction = () => {
+		purchaseHistoryLoader = true;
+		return async ({ result, update }) => {
+			const {
+				status,
+				data: { msg, purchaseList, amounts }
+			} = result as ResultModel<PurchaseHistoryAction>;
+
+			switch (status) {
+				case 200:
+					clientAmounts = amounts;
+					clientPurchaseList = purchaseList;
+					purchaseHistoryLoader = false;
+					clientFolderControls.showPurchaseHistory = true;
+					break;
+				case 401:
+					purchaseHistoryLoader = false;
+					break;
+			}
+			await update();
+		};
 	};
 </script>
 
@@ -54,6 +91,8 @@
 				<PurchaseHistory
 					{client}
 					{admin_arrowleft_icon}
+					{clientAmounts}
+					{clientPurchaseList}
 					on:click={() => (clientFolderControls.showPurchaseHistory = false)}
 				/>
 			{:else if clientFolderControls.showPaymentHistory}
@@ -91,10 +130,26 @@
 							on:click={insertPurchaseControl}>Insert Purchase</button
 						>
 
-						<button
-							class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
-							on:click={purchaseHitoryControl}>Purchase History</button
+						<!--Form action to get purchase history-->
+						<form
+							method="post"
+							action="?/purchaseHistoryAction"
+							enctype="multipart/form-data"
+							use:enhance={purchaseHistoryActionNews}
 						>
+							<input name="userId" type="hidden" value={client.user_id} class="" />
+							<button
+								disabled={purchaseHistoryLoader}
+								type="submit"
+								class="flex h-[35px] w-full items-center justify-center rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
+							>
+								<Loader
+									name="Purchase History"
+									loader={purchaseHistoryLoader}
+									loaderName="Please wait..."
+								/>
+							</button>
+						</form>
 
 						<button
 							class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"

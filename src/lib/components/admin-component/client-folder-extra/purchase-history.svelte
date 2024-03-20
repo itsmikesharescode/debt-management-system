@@ -4,10 +4,13 @@
 	import { scale } from 'svelte/transition';
 	import BalancePay from './payment-extra/balance-pay.svelte';
 	import CompletePay from './payment-extra/complete-pay.svelte';
-	import type { UserListTB } from '$lib/types';
+	import type { NetAmountTB, PurchaseListTB, UserListTB } from '$lib/types';
+	import { formatDate } from '$lib';
 
 	export let admin_arrowleft_icon: string;
 	export let client: UserListTB;
+	export let clientAmounts: NetAmountTB;
+	export let clientPurchaseList: PurchaseListTB[];
 </script>
 
 <div
@@ -28,20 +31,26 @@
 	</div>
 
 	<div class="mx-[15px] mt-[14px] text-[12px] font-semibold">
-		<p>Previous: 2000 Php</p>
-		<p>Latest: 2000 Php</p>
-		<p>Total: 4000 Php</p>
+		<p>Previous: {clientAmounts.prev_amount} Php</p>
+		<p>Latest: {clientAmounts.latest_amount} Php</p>
+		<p>Total: {clientAmounts.total_amount} Php</p>
 	</div>
 
 	<hr class="mt-[11px] w-full border-[1px] border-subWhite" />
 
 	<div class="mx-[15px] mt-[14px] flex h-[300px] flex-col gap-[9px] overflow-y-auto scroll-smooth">
-		{#each Array(20) as justSample}
-			<DropDown>
-				{#each Array(20) as sample}
-					<p class="text-left text-[10px]">Chicken - 120 Php</p>
-				{/each}
-				<p class="mt-[20px] text-center">Total: 2000 Php</p>
+		{#each clientPurchaseList as purchase}
+			<DropDown dateHeader={formatDate(purchase.created_at)}>
+				<div class="flex flex-col gap-[5px]">
+					{#each Array(Object.keys(purchase.purchase_products_with_price).length / 2) as sample, index}
+						<div class="flex text-left text-[10px]">
+							{purchase.purchase_products_with_price[`productName${index + 1}`]}
+							{purchase.purchase_products_with_price[`productPrice${index + 1}`]}
+						</div>
+					{/each}
+
+					<p class="text-center">Total: {purchase.total_amount}</p>
+				</div>
 			</DropDown>
 		{/each}
 	</div>

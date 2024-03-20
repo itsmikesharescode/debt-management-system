@@ -3,7 +3,7 @@ import type { PageServerLoad } from "../$types";
 import type { ZodError } from "zod";
 import { balancePaySchema, createAccountSchema, insertSchema } from "$lib/schemas";
 import type { PostgrestError } from "@supabase/supabase-js";
-import type { UserListTB } from "$lib/types";
+import type { NetAmountTB, PurchaseListTB, UserListTB } from "$lib/types";
 
 export const load: PageServerLoad = async ({ locals: { isLogged, supabase }, }) => {
     const checkUser = await isLogged();
@@ -90,22 +90,54 @@ export const actions: Actions = {
 
             };
 
-            const { error: insertPurchaseError } = await supabase.from("purchase_list_tb").insert([{
-                user_id: convertedClientRef.user_id,
-                user_email: convertedClientRef.user_email,
-                user_fullname: convertedClientRef.user_fullname,
-                purchase_products_with_price: JSON.stringify(result),
-                total_amount: totalAmount
-            }]);
+            const { error: insertPutchaseError } = await supabase.rpc("insert_purchase", {
+                user_id_input: convertedClientRef.user_id,
+                user_email_input: convertedClientRef.user_email,
+                user_fullname_input: convertedClientRef.user_fullname,
+                purchase_products_with_price_input: JSON.stringify(result),
+                total_amount_input: totalAmount
+            });
 
-            if (insertPurchaseError) return fail(401, { msg: insertPurchaseError.message });
-            else return fail(200, { msg: "Purchase Inserted!" });
+            if (insertPutchaseError) return fail(401, { msg: insertPutchaseError.message });
+            else return fail(200, { msg: "Purchase Inserted." })
 
 
         } catch (error) {
             const zodError = error as ZodError;
             const { fieldErrors } = zodError.flatten();
             return fail(400, { errors: fieldErrors })
+        }
+    },
+
+
+    purchaseHistoryAction: async ({ locals: { supabase }, request }) => {
+        const formData = await request.formData();
+        const userId = formData.get("userId") as string;
+
+        const { data: purchaseList, error: purchaseListError } = await supabase.from("purchase_list_tb")
+            .select("*").eq("user_id", userId)
+
+        if (purchaseListError) return fail(401, { msg: purchaseListError.message });
+        else if (purchaseList) {
+            const { data: amounts, error: amountsError } = await supabase.from("net_total_amount_tb")
+                .select("*").eq("user_id", userId).limit(1).single() as { data: NetAmountTB, error: PostgrestError | null };
+
+            if (amountsError) return fail(401, { msg: amountsError.message });
+
+            const newPurchaseList = purchaseList.map((item) => {
+                return {
+                    id: item.id,
+                    created_at: item.created_at,
+                    user_id: item.user_id,
+                    purchase_products_with_price: JSON.parse(item.purchase_products_with_price),
+                    user_email: item.user_email,
+                    user_fullname: item.user_fullname,
+                    total_amount: item.total_amount
+                }
+            })
+
+
+            return fail(200, { purchaseList: newPurchaseList, amounts });
         }
     },
 
