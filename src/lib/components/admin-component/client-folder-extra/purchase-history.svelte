@@ -39,13 +39,18 @@
 
 	<div class="mx-[15px] mt-[14px] flex h-[300px] flex-col gap-[9px] overflow-y-auto scroll-smooth">
 		{#each clientPurchaseList as purchase}
-			<DropDown dateHeader={purchase.created_at}>
-				{#each Array(Object.keys(purchase.purchase_products_with_price).length / 2) as sample, index}
-					<div class="flex text-left text-[10px]">
-						{purchase.purchase_products_with_price[`productName${index + 1}`]}
-						{purchase.purchase_products_with_price[`productPrice${index + 1}`]}
-					</div>
-				{/each}
+	
+			<DropDown dateHeader={new Date(purchase.created_at))}>
+				<div class="flex flex-col gap-[5px]">
+					{#each Array(Object.keys(purchase.purchase_products_with_price).length / 2) as sample, index}
+						<div class="flex text-left text-[10px]">
+							{purchase.purchase_products_with_price[`productName${index + 1}`]}
+							{purchase.purchase_products_with_price[`productPrice${index + 1}`]}
+						</div>
+					{/each}
+
+					<p class="text-center">Total: {purchase.total_amount}</p>
+				</div>
 			</DropDown>
 		{/each}
 	</div>

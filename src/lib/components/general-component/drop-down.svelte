@@ -2,7 +2,7 @@
 	import drop_down_icon from '$lib/assets/drop_down_icon.svg';
 
 	let showContent = false;
-	export let dateHeader = 'Nov 6 1996';
+	export let dateHeader: Date = new Date();
 </script>
 
 <div class="w-full bg-lowWhite px-[15px] text-[10px]">
