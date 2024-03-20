@@ -15,7 +15,7 @@
 	import { enhance } from '$app/forms';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import Loader from '../general-component/loader.svelte';
-	import { clientAmounts, clientPurchaseList, clientFolderControls } from '$lib';
+	import { clientAmounts, clientPurchaseList, clientFolderControls, clientPaymentList } from '$lib';
 	import { toast } from 'svelte-sonner';
 
 	export let client: UserListTB;
@@ -68,6 +68,7 @@
 
 			switch (status) {
 				case 200:
+					$clientPaymentList = paymentList;
 					$clientFolderControls.showPaymentHistory = true;
 					break;
 

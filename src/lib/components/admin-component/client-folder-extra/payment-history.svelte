@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { clientPaymentList, formatDate } from '$lib';
 	import DropDown from '$lib/components/general-component/drop-down.svelte';
 	import type { UserListTB } from '$lib/types';
 	import { scale } from 'svelte/transition';
@@ -26,12 +27,23 @@
 	<hr class="mt-[11px] w-full border-[1px] border-subWhite" />
 
 	<div class="mx-[15px] mt-[14px] flex h-[300px] flex-col gap-[9px] overflow-y-auto scroll-smooth">
-		{#each Array(20) as justSample}
-			<DropDown>
-				{#each Array(20) as sample}
-					<DropDown>
-						<p>Chicken - 120php</p>
-						<p class="mt-[20px] text-center">Total: 2000 Php</p>
+		{#each $clientPaymentList ?? [] as clientPayment}
+			<DropDown dateHeader={formatDate(clientPayment.created_at)}>
+				<p>Payment Mode: {clientPayment.payment_mode}</p>
+				<p>Payment Amount: {clientPayment.payment_amount}</p>
+				{#each clientPayment.purchase_history ?? [] as purchaseHistory}
+					<DropDown dateHeader={formatDate(purchaseHistory.date)}>
+						<div class="flex flex-col gap-[5px]">
+							{#each Array(Number(purchaseHistory.payment_length)) as sample, index}
+								<p>
+									{purchaseHistory[`productName${index + 1}`]} - {purchaseHistory[
+										`productPrice${index + 1}`
+									]} php
+								</p>
+							{/each}
+
+							<p class="mt-[10px] text-center">Total: {purchaseHistory.total_amount}</p>
+						</div>
 					</DropDown>
 				{/each}
 			</DropDown>

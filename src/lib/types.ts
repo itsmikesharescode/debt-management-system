@@ -30,13 +30,13 @@ export type PurchaseListTB = {
 
 export type PaymentHistoryTB = {
     id: number
-    create_at: string
+    created_at: string
     user_id: string
     payment_mode: string
     payment_amount: number
     purchase_history: {
         [key: string]: string
-    }
+    }[]
 }
 
 export type ResultModel<T> = {
