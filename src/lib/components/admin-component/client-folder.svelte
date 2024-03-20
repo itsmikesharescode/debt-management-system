@@ -59,7 +59,10 @@
 		paymentList: PaymentHistoryTB[];
 	};
 
+	let paymentHistoryloader = false;
+
 	const paymentHistoryActionNews: SubmitFunction = () => {
+		paymentHistoryloader = true;
 		return async ({ result, update }) => {
 			const {
 				status,
@@ -70,9 +73,12 @@
 				case 200:
 					$clientPaymentList = paymentList;
 					$clientFolderControls.showPaymentHistory = true;
+					paymentHistoryloader = false;
 					break;
 
 				case 401:
+					toast.error('Payment History', { description: 'No Records' });
+					paymentHistoryloader = false;
 					break;
 			}
 			await update();
@@ -171,10 +177,16 @@
 						>
 							<input name="userId" type="hidden" value={client.user_id} />
 							<button
+								disabled={paymentHistoryloader}
 								type="submit"
-								class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
-								>Payment History</button
+								class="flex h-[35px] w-full items-center justify-center rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
 							>
+								<Loader
+									name="Payment History"
+									loader={paymentHistoryloader}
+									loaderName="Please wait..."
+								/>
+							</button>
 						</form>
 
 						<button
