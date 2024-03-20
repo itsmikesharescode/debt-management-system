@@ -150,11 +150,15 @@ export const actions: Actions = {
         try {
             const result = balancePaySchema.parse(formData);
 
-            const { data, error } = await supabase.rpc("payment_mode", {
+            const { data: amounts, error: balancePaymentError } = await supabase.rpc("payment_mode", {
                 payment_mode_input: "balance",
                 user_id_input: result.userId,
                 payment_amount_input: result.balanceAmount
-            })
+            }) as { data: NetAmountTB[], error: PostgrestError | null };
+
+            if (balancePaymentError) return fail(401, { msg: balancePaymentError.message });
+            else if (amounts) return fail(200, { msg: "Balance Payment Success.", amounts });
+
 
 
         } catch (error) {

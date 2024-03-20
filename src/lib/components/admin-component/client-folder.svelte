@@ -9,6 +9,7 @@
 	import { enhance } from '$app/forms';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import Loader from '../general-component/loader.svelte';
+	import { clientAmounts, clientPurchaseList } from '$lib';
 
 	export let client: UserListTB;
 
@@ -39,8 +40,6 @@
 		amounts: NetAmountTB;
 	};
 
-	let clientAmounts: NetAmountTB;
-	let clientPurchaseList: PurchaseListTB[];
 	let clientMsg: string;
 	let purchaseHistoryLoader = false;
 
@@ -54,8 +53,8 @@
 
 			switch (status) {
 				case 200:
-					clientAmounts = amounts;
-					clientPurchaseList = purchaseList;
+					$clientAmounts = amounts;
+					$clientPurchaseList = purchaseList;
 					purchaseHistoryLoader = false;
 					clientFolderControls.showPurchaseHistory = true;
 					break;
@@ -91,8 +90,6 @@
 				<PurchaseHistory
 					{client}
 					{admin_arrowleft_icon}
-					{clientAmounts}
-					{clientPurchaseList}
 					on:click={() => (clientFolderControls.showPurchaseHistory = false)}
 				/>
 			{:else if clientFolderControls.showPaymentHistory}

@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { clientAmounts, clientPurchaseList } from '$lib';
 	import Loader from '$lib/components/general-component/loader.svelte';
-	import type { ResultModel, UserListTB } from '$lib/types';
+	import type { NetAmountTB, ResultModel, UserListTB } from '$lib/types';
 	import type { SubmitFunction } from '@sveltejs/kit';
+	import { toast } from 'svelte-sonner';
 	import { fade } from 'svelte/transition';
 
 	export let admin_arrowleft_icon: string;
@@ -15,6 +17,7 @@
 
 	type BalancePayAction = {
 		msg: string;
+		amounts: NetAmountTB[];
 		errors: BalancePayVal;
 	};
 
@@ -26,13 +29,16 @@
 		return async ({ result, update }) => {
 			const {
 				status,
-				data: { msg, errors }
+				data: { msg, amounts, errors }
 			} = result as ResultModel<BalancePayAction>;
 
 			switch (status) {
 				case 200:
+					$clientAmounts = amounts[0];
+					$clientPurchaseList = null;
 					actionFormErrors = null;
 					balancePayLoader = false;
+					toast.success('Payment Made', { description: msg });
 					break;
 
 				case 400:
