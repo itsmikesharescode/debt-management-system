@@ -56,7 +56,6 @@
 	};
 
 	type PaymentHistoryAction = {
-		msg: string;
 		paymentList: PaymentHistoryTB[];
 	};
 
@@ -64,7 +63,7 @@
 		return async ({ result, update }) => {
 			const {
 				status,
-				data: { msg, paymentList }
+				data: { paymentList }
 			} = result as ResultModel<PaymentHistoryAction>;
 
 			switch (status) {

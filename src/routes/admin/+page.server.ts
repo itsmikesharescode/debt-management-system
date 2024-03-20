@@ -4,6 +4,7 @@ import type { ZodError } from "zod";
 import { balancePaySchema, createAccountSchema, insertSchema } from "$lib/schemas";
 import type { PostgrestError } from "@supabase/supabase-js";
 import type { NetAmountTB, PurchaseListTB, UserListTB } from "$lib/types";
+import { parseStringToObjectArray } from "$lib/helpers";
 
 export const load: PageServerLoad = async ({ locals: { isLogged, supabase }, }) => {
     const checkUser = await isLogged();
@@ -195,11 +196,11 @@ export const actions: Actions = {
                     user_id: item.user_id,
                     payment_mode: item.payment_mode,
                     payment_amount: item.payment_amount,
-                    purchase_history: JSON.parse(item.purchase_history)
+                    purchase_history: parseStringToObjectArray(item.purchase_history)
                 }
             });
 
-            return fail(200, { paymentHistoryList: newPaymentHistoryList });
+            return fail(200, { paymentList: newPaymentHistoryList });
         }
     }
 };
