@@ -9,6 +9,8 @@
 
 	export let admin_arrowleft_icon: string;
 	export let client: UserListTB;
+
+	// for balance payment server actions
 	let showBalancePay = false;
 
 	type BalancePayVal = {
@@ -38,6 +40,7 @@
 					$clientPurchaseList = null;
 					actionFormErrors = null;
 					balancePayLoader = false;
+					showBalancePay = false;
 					toast.success('Payment Made', { description: msg });
 					break;
 
@@ -49,6 +52,7 @@
 				case 401:
 					actionFormErrors = null;
 					balancePayLoader = false;
+					toast.error('Payment Error', { description: msg });
 					break;
 			}
 			await update();
