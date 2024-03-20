@@ -48,6 +48,24 @@
 			await update();
 		};
 	};
+
+	const paymentHistoryActionNews: SubmitFunction = () => {
+		return async ({ result, update }) => {
+			const { status } = result;
+
+			switch (status) {
+				case 200:
+					break;
+
+				case 400:
+					break;
+
+				case 401:
+					break;
+			}
+			await update();
+		};
+	};
 </script>
 
 <button
@@ -132,11 +150,18 @@
 							</button>
 						</form>
 
-						<button
-							class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
-							on:click={() => ($clientFolderControls.showPaymentHistory = true)}
-							>Payment History</button
+						<form
+							method="post"
+							action="?/paymentHistoryAction"
+							enctype="multipart/form-data"
+							use:enhance={paymentHistoryActionNews}
 						>
+							<button
+								class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
+								on:click={() => ($clientFolderControls.showPaymentHistory = true)}
+								>Payment History</button
+							>
+						</form>
 
 						<button
 							class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
