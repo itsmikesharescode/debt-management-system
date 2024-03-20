@@ -30,3 +30,9 @@ export const formatDate = (dateVal: string) => {
 
 export const clientAmounts = writable<NetAmountTB | null>(null);
 export const clientPurchaseList = writable<PurchaseListTB[] | null>(null);
+export const clientFolderControls = writable({
+    showInsertPurchase: false,
+    showPurchaseHistory: false,
+    showPaymentHistory: false,
+    showUpdateInformation: false
+})

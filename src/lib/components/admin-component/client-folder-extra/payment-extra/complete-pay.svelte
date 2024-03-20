@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { clientAmounts, clientPurchaseList } from '$lib';
+	import { clientAmounts, clientFolderControls, clientPurchaseList } from '$lib';
 	import Loader from '$lib/components/general-component/loader.svelte';
 	import type { ResultModel, UserListTB } from '$lib/types';
 	import type { SubmitFunction } from '@sveltejs/kit';
@@ -25,8 +25,7 @@
 					toast.success('Payment Success', { description: msg });
 					$clientAmounts = null;
 					$clientPurchaseList = null;
-					completePayLoader = false;
-					showCompletePay = false;
+					$clientFolderControls.showPurchaseHistory = false;
 					break;
 
 				case 401:

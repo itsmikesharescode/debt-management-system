@@ -124,6 +124,7 @@ export const actions: Actions = {
 
             if (amountsError) return fail(401, { msg: amountsError.message });
 
+
             const newPurchaseList = purchaseList.map((item) => {
                 return {
                     id: item.id,
@@ -136,8 +137,8 @@ export const actions: Actions = {
                 }
             })
 
-
             return fail(200, { purchaseList: newPurchaseList, amounts });
+
         }
     },
 
