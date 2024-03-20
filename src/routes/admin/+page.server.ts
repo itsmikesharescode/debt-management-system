@@ -124,6 +124,7 @@ export const actions: Actions = {
 
             if (amountsError) return fail(401, { msg: amountsError.message });
 
+
             const newPurchaseList = purchaseList.map((item) => {
                 return {
                     id: item.id,
@@ -136,19 +137,42 @@ export const actions: Actions = {
                 }
             })
 
-
             return fail(200, { purchaseList: newPurchaseList, amounts });
+
         }
     },
 
-    completePayAction: async () => {
-        console.log("complete pay")
+    completePayAction: async ({ locals: { supabase }, request }) => {
+        const formData = await request.formData();
+        const userId = formData.get("userId") as string;
+
+        const { data: amounts, error: balancePaymentError } = await supabase.rpc("payment_mode", {
+            payment_mode_input: "complete",
+            user_id_input: userId,
+            payment_amount_input: 0,
+        }) as { data: NetAmountTB[], error: PostgrestError | null };
+
+        if (balancePaymentError) return fail(401, { msg: balancePaymentError.message });
+        else if (amounts) return fail(200, { msg: "Complete Payment Success." });
+
     },
 
-    balancePayAction: async ({ locals, request }) => {
+    balancePayAction: async ({ locals: { supabase }, request }) => {
         const formData = Object.fromEntries(await request.formData());
         try {
             const result = balancePaySchema.parse(formData);
+
+            const { data: amounts, error: balancePaymentError } = await supabase.rpc("payment_mode", {
+                payment_mode_input: "balance",
+                user_id_input: result.userId,
+                payment_amount_input: result.balanceAmount
+            }) as { data: NetAmountTB[], error: PostgrestError | null };
+
+            if (balancePaymentError) return fail(401, { msg: balancePaymentError.message });
+            else if (amounts) return fail(200, { msg: "Balance Payment Success.", amounts });
+
+
+
         } catch (error) {
             const zodError = error as ZodError;
             const { fieldErrors } = zodError.flatten();

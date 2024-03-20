@@ -1,12 +1,19 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import type { ResultModel } from '$lib/types';
+	import { clientAmounts, clientFolderControls, clientPurchaseList } from '$lib';
+	import Loader from '$lib/components/general-component/loader.svelte';
+	import type { ResultModel, UserListTB } from '$lib/types';
 	import type { SubmitFunction } from '@sveltejs/kit';
-	import { scale } from 'svelte/transition';
+	import { toast } from 'svelte-sonner';
+
+	export let client: UserListTB;
 
 	let showCompletePay = false;
 
+	let completePayLoader = false;
+
 	const completePayActionNews: SubmitFunction = () => {
+		completePayLoader = true;
 		return async ({ result, update }) => {
 			const {
 				status,
@@ -15,12 +22,15 @@
 
 			switch (status) {
 				case 200:
-					break;
-
-				case 400:
+					toast.success('Payment Success', { description: msg });
+					$clientAmounts = null;
+					$clientPurchaseList = null;
+					$clientFolderControls.showPurchaseHistory = false;
 					break;
 
 				case 401:
+					toast.error('Payment Failed', { description: msg });
+					completePayLoader = false;
 					break;
 			}
 			await update();
@@ -42,6 +52,7 @@
 		use:enhance={completePayActionNews}
 		class="fixed p-2"
 	>
+		<input name="userId" type="hidden" value={client.user_id} />
 		<div
 			class="mx-auto w-[255px] border-t-[2px] border-subWhite bg-white pb-[45px] pt-[10px] sm:w-[416px]"
 		>
@@ -62,8 +73,9 @@
 					<button
 						type="submit"
 						class="flex h-[35px] w-full items-center justify-center rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
-						>Yes</button
 					>
+						<Loader name="Yes" loader={completePayLoader} loaderName="Please wait..." />
+					</button>
 				</div>
 			</div>
 		</div>

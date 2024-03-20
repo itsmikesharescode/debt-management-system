@@ -1,16 +1,14 @@
 <script lang="ts">
 	import DropDown from '$lib/components/general-component/drop-down.svelte';
-	import Loader from '$lib/components/general-component/loader.svelte';
 	import { scale } from 'svelte/transition';
 	import BalancePay from './payment-extra/balance-pay.svelte';
 	import CompletePay from './payment-extra/complete-pay.svelte';
 	import type { NetAmountTB, PurchaseListTB, UserListTB } from '$lib/types';
 	import { formatDate } from '$lib';
+	import { clientAmounts, clientPurchaseList } from '$lib';
 
 	export let admin_arrowleft_icon: string;
 	export let client: UserListTB;
-	export let clientAmounts: NetAmountTB;
-	export let clientPurchaseList: PurchaseListTB[];
 </script>
 
 <div
@@ -31,15 +29,15 @@
 	</div>
 
 	<div class="mx-[15px] mt-[14px] text-[12px] font-semibold">
-		<p>Previous: {clientAmounts.prev_amount} Php</p>
-		<p>Latest: {clientAmounts.latest_amount} Php</p>
-		<p>Total: {clientAmounts.total_amount} Php</p>
+		<p>Previous: {$clientAmounts?.prev_amount} Php</p>
+		<p>Latest: {$clientAmounts?.latest_amount} Php</p>
+		<p>Total: {$clientAmounts?.total_amount} Php</p>
 	</div>
 
 	<hr class="mt-[11px] w-full border-[1px] border-subWhite" />
 
 	<div class="mx-[15px] mt-[14px] flex h-[300px] flex-col gap-[9px] overflow-y-auto scroll-smooth">
-		{#each clientPurchaseList as purchase}
+		{#each $clientPurchaseList ?? [] as purchase}
 			<DropDown dateHeader={formatDate(purchase.created_at)}>
 				<div class="flex flex-col gap-[5px]">
 					{#each Array(Object.keys(purchase.purchase_products_with_price).length / 2) as sample, index}
@@ -58,9 +56,9 @@
 	<hr class=" w-full border-[1px] border-subWhite" />
 
 	<div class=" mx-[12px] mt-[14px] flex items-center justify-center gap-[10px]">
-		<BalancePay {admin_arrowleft_icon} />
+		<BalancePay {client} {admin_arrowleft_icon} />
 
-		<CompletePay />
+		<CompletePay {client} />
 	</div>
 </div>
 
