@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import type { ResultModel } from '$lib/types';
+	import type { ResultModel, UserListTB } from '$lib/types';
 	import type { SubmitFunction } from '@sveltejs/kit';
-	import { scale } from 'svelte/transition';
+
+	export let client: UserListTB;
 
 	let showCompletePay = false;
 
@@ -42,6 +43,7 @@
 		use:enhance={completePayActionNews}
 		class="fixed p-2"
 	>
+		<input name="userId" type="hidden" value={client.user_id} />
 		<div
 			class="mx-auto w-[255px] border-t-[2px] border-subWhite bg-white pb-[45px] pt-[10px] sm:w-[416px]"
 		>
