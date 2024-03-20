@@ -28,6 +28,17 @@ export type PurchaseListTB = {
     total_amount: number
 }
 
+export type PaymentHistoryTB = {
+    id: number
+    create_at: string
+    user_id: string
+    payment_mode: string
+    payment_amount: number
+    purchase_history: {
+        [key: string]: string
+    }
+}
+
 export type ResultModel<T> = {
     status: number
     type: string

@@ -1,7 +1,7 @@
 import type { User } from "@supabase/supabase-js";
 import { getContext, setContext } from "svelte";
 import { type Writable, writable } from "svelte/store";
-import type { NetAmountTB, PurchaseListTB } from "./types";
+import type { NetAmountTB, PaymentHistoryTB, PurchaseListTB } from "./types";
 
 
 export const setUser = (userValue: User | null) => {
@@ -30,6 +30,9 @@ export const formatDate = (dateVal: string) => {
 
 export const clientAmounts = writable<NetAmountTB | null>(null);
 export const clientPurchaseList = writable<PurchaseListTB[] | null>(null);
+export const clientPaymentList = writable<PaymentHistoryTB[] | null>(null);
+
+
 export const clientFolderControls = writable({
     showInsertPurchase: false,
     showPurchaseHistory: false,
