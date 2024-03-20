@@ -129,7 +129,7 @@ export const actions: Actions = {
                     id: item.id,
                     created_at: item.created_at,
                     user_id: item.user_id,
-                    purchase_products_with_price: JSON.parse(item.purchase_products_with_price as string),
+                    purchase_products_with_price: JSON.parse(item.purchase_products_with_price),
                     user_email: item.user_email,
                     user_fullname: item.user_fullname,
                     total_amount: item.total_amount
