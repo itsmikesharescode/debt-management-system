@@ -7,6 +7,27 @@ export type UserListTB = {
     gender: string
 }
 
+export type NetAmountTB = {
+    id: number
+    created_at: string
+    user_id: string
+    total_amount: number
+    prev_amount: number
+    latest_amount: number
+}
+
+export type PurchaseListTB = {
+    id: number
+    created_at: string
+    user_id: string
+    purchase_products_with_price: {
+        [key: string]: string
+    }
+    user_email: string
+    user_fullname: string
+    total_amount: number
+}
+
 export type ResultModel<T> = {
     status: number
     type: string
