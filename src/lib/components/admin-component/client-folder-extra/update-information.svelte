@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import Loader from '$lib/components/general-component/loader.svelte';
+	import type { UserListTB } from '$lib/types';
 	import { fade, scale } from 'svelte/transition';
 
 	export let admin_arrowleft_icon: string | undefined = undefined;
+	export let client: UserListTB;
 
 	let actionFormErrors: any = null;
 </script>

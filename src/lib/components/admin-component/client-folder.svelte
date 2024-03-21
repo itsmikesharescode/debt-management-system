@@ -120,6 +120,7 @@
 				/>
 			{:else if $clientFolderControls.showUpdateInformation}
 				<UpdateInformation
+					{client}
 					{admin_arrowleft_icon}
 					on:click={() => ($clientFolderControls.showUpdateInformation = false)}
 				/>
