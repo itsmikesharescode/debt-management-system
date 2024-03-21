@@ -65,6 +65,7 @@
 		class="mx-auto mt-[101px] min-h-[383px] w-[255px] bg-white pb-[50px] pt-[10px] sm:w-[416px]"
 		in:scale
 	>
+		<input name="userId" type="hidden" value={client.user_id} class="" />
 		<div class="relative flex items-center justify-center">
 			<div class="absolute left-0">
 				<button class="flex items-center p-2" on:click>
