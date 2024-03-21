@@ -22,7 +22,7 @@
 		errors: UpdateInformationVal;
 	};
 
-	let actionFormErrors: any = null;
+	let actionFormErrors: UpdateInformationVal | null = null;
 
 	let updateInfoLoader = false;
 	const updateInformationActionNews: SubmitFunction = () => {
