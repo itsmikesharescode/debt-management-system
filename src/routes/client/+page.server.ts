@@ -2,9 +2,12 @@ import { redirect, type Actions, fail } from "@sveltejs/kit";
 import type { PageServerLoad } from "../$types";
 import { clientUpdateAccountSchema } from "$lib/schemas";
 import type { ZodError } from "zod";
+import type { PostgrestSingleResponse } from "@supabase/supabase-js";
+import type { NetAmountTB, PaymentHistoryTB, PurchaseListTB } from "$lib/types";
 
 
-export const load: PageServerLoad = async ({ locals: { isLogged } }) => {
+
+export const load: PageServerLoad = async ({ locals: { isLogged, supabase } }) => {
     const checkUser = await isLogged();
 
     if (checkUser) {
@@ -13,10 +16,14 @@ export const load: PageServerLoad = async ({ locals: { isLogged } }) => {
         else {
             if (user?.user_metadata.role !== "client") throw redirect(302, "/admin");
 
-            return { user };
+            return {
+                user,
+                purchaseObj: await supabase.from("purchase_list_tb").select("*").eq("user_id", user.id) as PostgrestSingleResponse<PurchaseListTB[]>,
+                paymentObj: await supabase.from("payment_record_tb").select("*").eq("user_id", user.id) as PostgrestSingleResponse<PaymentHistoryTB[]>,
+                amountObj: await supabase.from("net_total_amount_tb").select("*").eq("user_id", user.id).limit(1).single() as PostgrestSingleResponse<NetAmountTB>
+            };
         }
     } else throw redirect(302, "/");
-
 
 };
 
