@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { invalidateAll } from '$app/navigation';
 	import Loader from '$lib/components/general-component/loader.svelte';
 	import type { ResultModel, UserListTB } from '$lib/types';
 	import type { SubmitFunction } from '@sveltejs/kit';
@@ -37,6 +38,7 @@
 				case 200:
 					actionFormErrors = null;
 					toast.success('Update Information', { description: msg });
+					invalidateAll();
 					updateInfoLoader = false;
 					break;
 

@@ -230,7 +230,10 @@ export const actions: Actions = {
                     user_fullname: user.user_metadata.fullName,
                     gender: user.user_metadata.gender,
                     user_email: user.email
-                }]).eq("user_id", user.id)
+                }]).eq("user_id", user.id);
+
+                if (updateUserError) return fail(401, { msg: updateUserError.message });
+                else return fail(200, { msg: "Account Updated." });
             }
 
         } catch (error) {
