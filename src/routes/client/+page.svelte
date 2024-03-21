@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { PageServerData } from './$types';
-	import { setUser, getUser } from '$lib';
+	import { setUser, getUser, formatDate } from '$lib';
 	import ClientLogout from '$lib/components/client-component/client-logout.svelte';
 	import ClientAccount from '$lib/components/client-component/client-account.svelte';
 	import client_boy_icon from '$lib/assets/client_boy_icon.svg';
@@ -75,12 +75,19 @@
 				class="flex flex-col gap-[10px] lg:flex-row lg:flex-wrap lg:justify-center lg:gap-[5px]"
 				in:fade
 			>
-				{#each Array(20) as sampleArray}
+				{#each data.purchaseList ?? [] as purchase}
 					<div class="lg:w-[320px]">
-						<DropDown>
-							{#each Array(10) as sample}
-								<p class="text-[10px]">Chicken - 120 Php</p>
-							{/each}
+						<DropDown dateHeader={formatDate(purchase.created_at)}>
+							<div class="flex flex-col gap-[5px]">
+								{#each Array(Object.keys(purchase.purchase_products_with_price).length / 2) as sample, index}
+									<div class="flex text-left text-[10px]">
+										{purchase.purchase_products_with_price[`productName${index + 1}`]}
+										{purchase.purchase_products_with_price[`productPrice${index + 1}`]}
+									</div>
+								{/each}
+
+								<p class="text-center">Total: {purchase.total_amount}</p>
+							</div>
 						</DropDown>
 					</div>
 				{/each}
