@@ -2,12 +2,39 @@
 	import { enhance } from '$app/forms';
 	import Loader from '$lib/components/general-component/loader.svelte';
 	import type { UserListTB } from '$lib/types';
+	import type { SubmitFunction } from '@sveltejs/kit';
+	import { toast } from 'svelte-sonner';
 	import { fade, scale } from 'svelte/transition';
 
 	export let admin_arrowleft_icon: string | undefined = undefined;
 	export let client: UserListTB;
 
 	let actionFormErrors: any = null;
+
+	let updateInfoLoader = false;
+	const updateInformationActionNews: SubmitFunction = () => {
+		updateInfoLoader = true;
+		return async ({ result, update }) => {
+			const { status } = result;
+
+			switch (status) {
+				case 200:
+					toast.success('Update Information', { description: msg });
+					updateInfoLoader = false;
+					break;
+
+				case 400:
+					updateInfoLoader = false;
+					break;
+
+				case 401:
+					toast.error('Update Information Error', { description: msg });
+					updateInfoLoader = false;
+					break;
+			}
+			await update();
+		};
+	};
 </script>
 
 <div class="fixed bottom-0 left-0 right-0 top-0 bg-overlay">
@@ -15,7 +42,7 @@
 		method="post"
 		action="?/updateInformationAction"
 		enctype="multipart/form-data"
-		use:enhance
+		use:enhance={updateInformationActionNews}
 		class="mx-auto mt-[101px] min-h-[383px] w-[255px] bg-white pb-[50px] pt-[10px] sm:w-[416px]"
 		in:scale
 	>
