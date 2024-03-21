@@ -57,6 +57,7 @@
 	};
 
 	type PaymentHistoryAction = {
+		msg: string;
 		paymentList: PaymentHistoryTB[];
 	};
 
@@ -67,7 +68,7 @@
 		return async ({ result, update }) => {
 			const {
 				status,
-				data: { paymentList }
+				data: { msg, paymentList }
 			} = result as ResultModel<PaymentHistoryAction>;
 
 			switch (status) {
@@ -78,7 +79,7 @@
 					break;
 
 				case 401:
-					toast.error('Payment History', { description: 'No Records' });
+					toast.error('Payment History', { description: msg });
 					paymentHistoryloader = false;
 					break;
 			}

@@ -192,7 +192,7 @@ export const actions: Actions = {
         const { data: paymentHistoryList, error: paymentHistoryListError } = await supabase.from("payment_record_tb").select("*").eq("user_id", userId);
 
         if (paymentHistoryListError) return fail(401, { msg: paymentHistoryListError.message });
-        else if (paymentHistoryList) {
+        else if (paymentHistoryList.length) {
 
             const newPaymentHistoryList = paymentHistoryList.map(item => {
                 return {
@@ -206,7 +206,7 @@ export const actions: Actions = {
             });
 
             return fail(200, { paymentList: newPaymentHistoryList });
-        }
+        } else return fail(401, { msg: "No Records." });
     },
 
     updateInformationAction: async ({ locals: { supabase, supabaseAdmin }, request }) => {
