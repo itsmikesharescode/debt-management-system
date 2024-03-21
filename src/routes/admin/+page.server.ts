@@ -215,6 +215,23 @@ export const actions: Actions = {
         try {
             const result = updateInformationSchema.parse(formData);
 
+            const { data: { user }, error: updateInformationError } = await supabaseAdmin.auth.admin.updateUserById(result.userId, {
+                email: result.email,
+                user_metadata: {
+                    gender: result.gender,
+                    fullName: result.completeName,
+                },
+                password: result.password
+            });
+
+            if (updateInformationError) return fail(401, { msg: updateInformationError.message });
+            else if (user) {
+                const { error: updateUserError } = await supabase.from("user_list_tb").update([{
+                    user_fullname: user.user_metadata.fullName,
+                    gender: user.user_metadata.gender,
+                    user_email: user.email
+                }]).eq("user_id", user.id)
+            }
 
         } catch (error) {
             const zodError = error as ZodError;
