@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import Loader from '$lib/components/general-component/loader.svelte';
-	import type { UserListTB } from '$lib/types';
+	import type { ResultModel, UserListTB } from '$lib/types';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { toast } from 'svelte-sonner';
 	import { fade, scale } from 'svelte/transition';
@@ -9,25 +9,44 @@
 	export let admin_arrowleft_icon: string | undefined = undefined;
 	export let client: UserListTB;
 
+	type UpdateInformationVal = {
+		gender: string[];
+		completeName: string[];
+		email: string[];
+		password: string[];
+		confirmPassword: string[];
+	};
+
+	type UpdateInformationAction = {
+		msg: string;
+		errors: UpdateInformationVal;
+	};
+
 	let actionFormErrors: any = null;
 
 	let updateInfoLoader = false;
 	const updateInformationActionNews: SubmitFunction = () => {
 		updateInfoLoader = true;
 		return async ({ result, update }) => {
-			const { status } = result;
+			const {
+				status,
+				data: { msg, errors }
+			} = result as ResultModel<UpdateInformationAction>;
 
 			switch (status) {
 				case 200:
+					actionFormErrors = null;
 					toast.success('Update Information', { description: msg });
 					updateInfoLoader = false;
 					break;
 
 				case 400:
+					actionFormErrors = errors;
 					updateInfoLoader = false;
 					break;
 
 				case 401:
+					actionFormErrors = null;
 					toast.error('Update Information Error', { description: msg });
 					updateInfoLoader = false;
 					break;
