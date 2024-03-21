@@ -17,6 +17,7 @@
 	import Loader from '../general-component/loader.svelte';
 	import { clientAmounts, clientPurchaseList, clientFolderControls, clientPaymentList } from '$lib';
 	import { toast } from 'svelte-sonner';
+	import UpdateInformation from './client-folder-extra/update-information.svelte';
 
 	export let client: UserListTB;
 
@@ -117,6 +118,11 @@
 					{admin_arrowleft_icon}
 					on:click={() => ($clientFolderControls.showPaymentHistory = false)}
 				/>
+			{:else if $clientFolderControls.showUpdateInformation}
+				<UpdateInformation
+					{admin_arrowleft_icon}
+					on:click={() => ($clientFolderControls.showUpdateInformation = false)}
+				/>
 			{:else}
 				<div
 					class="mx-auto mt-[101px] min-h-[336px] w-[255px] bg-white pb-[45px] pt-[10px] sm:w-[416px]"
@@ -190,7 +196,7 @@
 						</form>
 
 						<button
-							type="submit"
+							on:click={() => ($clientFolderControls.showUpdateInformation = true)}
 							class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
 							>Update Information</button
 						>
