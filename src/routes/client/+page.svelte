@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { PageServerData } from './$types';
-	import { setUser, getUser } from '$lib';
+	import { setUser, getUser, formatDate } from '$lib';
 	import ClientLogout from '$lib/components/client-component/client-logout.svelte';
 	import ClientAccount from '$lib/components/client-component/client-account.svelte';
 	import client_boy_icon from '$lib/assets/client_boy_icon.svg';
@@ -51,9 +51,9 @@
 	<hr class="mt-[9px] w-full border-[1px] border-subWhite sm:mt-[23px]" />
 
 	<div class="mt-[21px] flex flex-col gap-[4px] text-[12px] sm:mt-[23px]">
-		<p>Balance: 2000 Php</p>
-		<p>Latest: 2000 Php</p>
-		<p>Total: 2000 Php</p>
+		<p>Balance: {data.amountObj?.data?.prev_amount} Php</p>
+		<p>Latest: {data.amountObj?.data?.latest_amount} Php</p>
+		<p>Total: {data.amountObj?.data?.total_amount} Php</p>
 	</div>
 
 	<hr class="mt-[21px] w-full border-[1px] border-subWhite sm:mt-[23px]" />
@@ -72,37 +72,51 @@
 	<div class="mt-[26px] sm:mt-[24px]">
 		{#if clientRouteControls.activeItem === 'Purchase History'}
 			<div
-				class="flex flex-col gap-[10px] lg:flex-row lg:flex-wrap lg:justify-center lg:gap-[5px]"
+				class="flex flex-col gap-[10px] lg:flex-row lg:flex-wrap lg:justify-start lg:gap-[5px]"
 				in:fade
 			>
-				{#each Array(20) as sampleArray}
+				{#each data.purchaseList ?? [] as purchase}
 					<div class="lg:w-[320px]">
-						<DropDown>
-							{#each Array(10) as sample}
-								<p class="text-[10px]">Chicken - 120 Php</p>
-							{/each}
+						<DropDown dateHeader={formatDate(purchase.created_at)}>
+							<div class="flex flex-col gap-[5px]">
+								{#each Array(Object.keys(purchase.purchase_products_with_price).length / 2) as sample, index}
+									<div class="flex text-left text-[10px]">
+										{purchase.purchase_products_with_price[`productName${index + 1}`]}
+										{purchase.purchase_products_with_price[`productPrice${index + 1}`]}
+									</div>
+								{/each}
+
+								<p class="text-center">Total: {purchase.total_amount}</p>
+							</div>
 						</DropDown>
 					</div>
 				{/each}
 			</div>
 		{:else}
 			<div
-				class="flex flex-col gap-[10px] lg:flex-row lg:flex-wrap lg:justify-center lg:gap-[5px]"
+				class="flex flex-col gap-[10px] lg:flex-row lg:flex-wrap lg:justify-start lg:gap-[5px]"
 				in:fade
 			>
-				{#each Array(20) as sampleArray}
+				{#each data.paymentHistoryList ?? [] as payment}
 					<div class="lg:w-[320px]">
-						<DropDown>
-							<p>Complete Pay</p>
-							<div class="mt-[12px]">
-								{#each Array(10) as sample}
-									<DropDown>
-										{#each Array(20) as sampleee}
-											<p class="text-[10px]">Chicken - 120 Php</p>
+						<DropDown dateHeader={payment.created_at}>
+							<p>Payment Mode: {payment.payment_mode}</p>
+							<p>Payment Amount: {payment.payment_amount}</p>
+							{#each payment.purchase_history ?? [] as purchaseHistory}
+								<DropDown dateHeader={formatDate(purchaseHistory.date)}>
+									<div class="flex flex-col gap-[5px]">
+										{#each Array(Number(purchaseHistory.payment_length)) as sample, index}
+											<p>
+												{purchaseHistory[`productName${index + 1}`]} - {purchaseHistory[
+													`productPrice${index + 1}`
+												]} php
+											</p>
 										{/each}
-									</DropDown>
-								{/each}
-							</div>
+
+										<p class="mt-[10px] text-center">Total: {purchaseHistory.total_amount}</p>
+									</div>
+								</DropDown>
+							{/each}
 						</DropDown>
 					</div>
 				{/each}
