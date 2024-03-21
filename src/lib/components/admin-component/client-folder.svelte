@@ -189,10 +189,18 @@
 							</button>
 						</form>
 
-						<button
-							class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
-							>Update Information</button
+						<form
+							method="post"
+							action="?updateInformationAction"
+							enctype="multipart/form-data"
+							use:enhance
 						>
+							<button
+								type="submit"
+								class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
+								>Update Information</button
+							>
+						</form>
 					</div>
 				</div>
 			{/if}
