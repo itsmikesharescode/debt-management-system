@@ -13,7 +13,7 @@
 <div class="fixed bottom-0 left-0 right-0 top-0 bg-overlay">
 	<form
 		method="post"
-		action="?/createAccountAction"
+		action="?/updateInformationAction"
 		enctype="multipart/form-data"
 		use:enhance
 		class="mx-auto mt-[101px] min-h-[383px] w-[255px] bg-white pb-[50px] pt-[10px] sm:w-[416px]"
@@ -25,14 +25,15 @@
 					<img src={admin_arrowleft_icon} class="" alt="arrowleft-icon" />
 				</button>
 			</div>
-			<p class="text-center text-[12px] font-semibold">Create Account</p>
+			<div class="flex flex-col gap-[2px]">
+				<p class="text-center text-[12px] font-semibold">Update Account</p>
+				<p class="text-center text-[12px] font-semibold">{client.user_email}</p>
+			</div>
 		</div>
 
 		<hr class="mt-[11px] w-full border-[1px] border-subWhite" />
 
 		<div class="mx-[12px] mt-[20px] flex flex-col gap-[6px]">
-			<p class="text-center text-[12px] font-semibold text-green-500">asdasd</p>
-			<p class="text-center text-[12px] font-semibold text-red">asdasd</p>
 			<div class="">
 				<div class="flex items-center gap-[5px]">
 					<label class="flex items-center gap-[1px]">
