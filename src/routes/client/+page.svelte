@@ -72,7 +72,7 @@
 	<div class="mt-[26px] sm:mt-[24px]">
 		{#if clientRouteControls.activeItem === 'Purchase History'}
 			<div
-				class="flex flex-col gap-[10px] lg:flex-row lg:flex-wrap lg:justify-center lg:gap-[5px]"
+				class="flex flex-col gap-[10px] lg:flex-row lg:flex-wrap lg:justify-start lg:gap-[5px]"
 				in:fade
 			>
 				{#each data.purchaseList ?? [] as purchase}
@@ -94,22 +94,29 @@
 			</div>
 		{:else}
 			<div
-				class="flex flex-col gap-[10px] lg:flex-row lg:flex-wrap lg:justify-center lg:gap-[5px]"
+				class="flex flex-col gap-[10px] lg:flex-row lg:flex-wrap lg:justify-start lg:gap-[5px]"
 				in:fade
 			>
-				{#each Array(20) as sampleArray}
+				{#each data.paymentHistoryList ?? [] as payment}
 					<div class="lg:w-[320px]">
-						<DropDown>
-							<p>Complete Pay</p>
-							<div class="mt-[12px]">
-								{#each Array(10) as sample}
-									<DropDown>
-										{#each Array(20) as sampleee}
-											<p class="text-[10px]">Chicken - 120 Php</p>
+						<DropDown dateHeader={payment.created_at}>
+							<p>Payment Mode: {payment.payment_mode}</p>
+							<p>Payment Amount: {payment.payment_amount}</p>
+							{#each payment.purchase_history ?? [] as purchaseHistory}
+								<DropDown dateHeader={formatDate(purchaseHistory.date)}>
+									<div class="flex flex-col gap-[5px]">
+										{#each Array(Number(purchaseHistory.payment_length)) as sample, index}
+											<p>
+												{purchaseHistory[`productName${index + 1}`]} - {purchaseHistory[
+													`productPrice${index + 1}`
+												]} php
+											</p>
 										{/each}
-									</DropDown>
-								{/each}
-							</div>
+
+										<p class="mt-[10px] text-center">Total: {purchaseHistory.total_amount}</p>
+									</div>
+								</DropDown>
+							{/each}
 						</DropDown>
 					</div>
 				{/each}
