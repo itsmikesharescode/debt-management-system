@@ -191,7 +191,7 @@
 
 						<form
 							method="post"
-							action="?updateInformationAction"
+							action="?/updateInformationAction"
 							enctype="multipart/form-data"
 							use:enhance
 						>
