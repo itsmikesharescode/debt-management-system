@@ -152,7 +152,7 @@
 			<button
 				class="flex h-[35px] w-full items-center justify-center rounded-[10px] bg-black text-[12px] font-semibold text-white"
 			>
-				<Loader name="Create Account" loaderName="Creating..." />
+				<Loader name="Update Account" loader={updateInfoLoader} loaderName="Updating..." />
 			</button>
 		</div>
 	</form>

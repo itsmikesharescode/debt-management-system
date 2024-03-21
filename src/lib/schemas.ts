@@ -57,6 +57,7 @@ export const clientUpdateAccountSchema = z.object({
 });
 
 export const updateInformationSchema = z.object({
+    userId: z.string(),
     gender: z.string().min(1, { message: "Must choose a gender." }),
     completeName: z.string().min(5, { message: "Must enter proper complete name." }),
     email: z.string().email(),

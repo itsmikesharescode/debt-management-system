@@ -1,7 +1,7 @@
 import { redirect, type Actions, fail } from "@sveltejs/kit";
 import type { PageServerLoad } from "../$types";
 import type { ZodError } from "zod";
-import { balancePaySchema, createAccountSchema, insertSchema } from "$lib/schemas";
+import { balancePaySchema, createAccountSchema, insertSchema, updateInformationSchema } from "$lib/schemas";
 import type { PostgrestError } from "@supabase/supabase-js";
 import type { NetAmountTB, PurchaseListTB, UserListTB } from "$lib/types";
 import { convertStringToObject } from "$lib/helpers";
@@ -161,6 +161,8 @@ export const actions: Actions = {
     },
 
     balancePayAction: async ({ locals: { supabase }, request }) => {
+
+
         const formData = Object.fromEntries(await request.formData());
         try {
             const result = balancePaySchema.parse(formData);
@@ -207,10 +209,12 @@ export const actions: Actions = {
         }
     },
 
-    updateInformationAction: async ({ locals: { supabase }, request }) => {
+    updateInformationAction: async ({ locals: { supabase, supabaseAdmin }, request }) => {
         const formData = Object.fromEntries(await request.formData());
 
         try {
+            const result = updateInformationSchema.parse(formData);
+
 
         } catch (error) {
             const zodError = error as ZodError;
