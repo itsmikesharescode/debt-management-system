@@ -1,7 +1,7 @@
 import { redirect, type Actions, fail } from "@sveltejs/kit";
 import type { PageServerLoad } from "../$types";
 import type { ZodError } from "zod";
-import { balancePaySchema, createAccountSchema, insertSchema } from "$lib/schemas";
+import { balancePaySchema, createAccountSchema, insertSchema, updateInformationSchema } from "$lib/schemas";
 import type { PostgrestError } from "@supabase/supabase-js";
 import type { NetAmountTB, PurchaseListTB, UserListTB } from "$lib/types";
 import { convertStringToObject } from "$lib/helpers";
@@ -161,6 +161,8 @@ export const actions: Actions = {
     },
 
     balancePayAction: async ({ locals: { supabase }, request }) => {
+
+
         const formData = Object.fromEntries(await request.formData());
         try {
             const result = balancePaySchema.parse(formData);
@@ -190,7 +192,7 @@ export const actions: Actions = {
         const { data: paymentHistoryList, error: paymentHistoryListError } = await supabase.from("payment_record_tb").select("*").eq("user_id", userId);
 
         if (paymentHistoryListError) return fail(401, { msg: paymentHistoryListError.message });
-        else if (paymentHistoryList) {
+        else if (paymentHistoryList.length) {
 
             const newPaymentHistoryList = paymentHistoryList.map(item => {
                 return {
@@ -204,6 +206,40 @@ export const actions: Actions = {
             });
 
             return fail(200, { paymentList: newPaymentHistoryList });
+        } else return fail(401, { msg: "No Records." });
+    },
+
+    updateInformationAction: async ({ locals: { supabase, supabaseAdmin }, request }) => {
+        const formData = Object.fromEntries(await request.formData());
+
+        try {
+            const result = updateInformationSchema.parse(formData);
+
+            const { data: { user }, error: updateInformationError } = await supabaseAdmin.auth.admin.updateUserById(result.userId, {
+                email: result.email,
+                user_metadata: {
+                    gender: result.gender,
+                    fullName: result.completeName,
+                },
+                password: result.password
+            });
+
+            if (updateInformationError) return fail(401, { msg: updateInformationError.message });
+            else if (user) {
+                const { error: updateUserError } = await supabase.from("user_list_tb").update([{
+                    user_fullname: user.user_metadata.fullName,
+                    gender: user.user_metadata.gender,
+                    user_email: user.email
+                }]).eq("user_id", user.id);
+
+                if (updateUserError) return fail(401, { msg: updateUserError.message });
+                else return fail(200, { msg: "Account Updated." });
+            }
+
+        } catch (error) {
+            const zodError = error as ZodError;
+            const { fieldErrors } = zodError.flatten();
+            return fail(400, { errors: fieldErrors });
         }
     }
 };

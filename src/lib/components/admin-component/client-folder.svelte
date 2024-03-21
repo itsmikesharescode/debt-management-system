@@ -17,6 +17,7 @@
 	import Loader from '../general-component/loader.svelte';
 	import { clientAmounts, clientPurchaseList, clientFolderControls, clientPaymentList } from '$lib';
 	import { toast } from 'svelte-sonner';
+	import UpdateInformation from './client-folder-extra/update-information.svelte';
 
 	export let client: UserListTB;
 
@@ -56,6 +57,7 @@
 	};
 
 	type PaymentHistoryAction = {
+		msg: string;
 		paymentList: PaymentHistoryTB[];
 	};
 
@@ -66,7 +68,7 @@
 		return async ({ result, update }) => {
 			const {
 				status,
-				data: { paymentList }
+				data: { msg, paymentList }
 			} = result as ResultModel<PaymentHistoryAction>;
 
 			switch (status) {
@@ -77,7 +79,7 @@
 					break;
 
 				case 401:
-					toast.error('Payment History', { description: 'No Records' });
+					toast.error('Payment History', { description: msg });
 					paymentHistoryloader = false;
 					break;
 			}
@@ -116,6 +118,12 @@
 					{client}
 					{admin_arrowleft_icon}
 					on:click={() => ($clientFolderControls.showPaymentHistory = false)}
+				/>
+			{:else if $clientFolderControls.showUpdateInformation}
+				<UpdateInformation
+					{client}
+					{admin_arrowleft_icon}
+					on:click={() => ($clientFolderControls.showUpdateInformation = false)}
 				/>
 			{:else}
 				<div
@@ -190,6 +198,7 @@
 						</form>
 
 						<button
+							on:click={() => ($clientFolderControls.showUpdateInformation = true)}
 							class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
 							>Update Information</button
 						>
