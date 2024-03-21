@@ -84,24 +84,6 @@
 			await update();
 		};
 	};
-
-	const updateInformationActionNews: SubmitFunction = () => {
-		return async ({ result, update }) => {
-			const { status } = result;
-
-			switch (status) {
-				case 200:
-					break;
-
-				case 400:
-					break;
-
-				case 401:
-					break;
-			}
-			await update();
-		};
-	};
 </script>
 
 <button
@@ -207,19 +189,11 @@
 							</button>
 						</form>
 
-						<!--Form action for updating information-->
-						<form
-							method="post"
-							action="?/updateInformationAction"
-							enctype="multipart/form-data"
-							use:enhance={updateInformationActionNews}
+						<button
+							type="submit"
+							class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
+							>Update Information</button
 						>
-							<button
-								type="submit"
-								class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
-								>Update Information</button
-							>
-						</form>
 					</div>
 				</div>
 			{/if}
