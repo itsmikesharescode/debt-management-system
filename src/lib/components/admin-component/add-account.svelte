@@ -7,6 +7,7 @@
 	import { fade, scale } from 'svelte/transition';
 	import Loader from '../general-component/loader.svelte';
 	import { invalidateAll } from '$app/navigation';
+	import { toast } from 'svelte-sonner';
 
 	export let showCreateAccountModal = false;
 
@@ -25,8 +26,6 @@
 
 	let actionFormErrors: CreateAccountVal | null = null;
 	let createAccountLoader = false;
-	let succeeded = '';
-	let failed = '';
 
 	const createAccountActionNews: SubmitFunction = () => {
 		createAccountLoader = true;
@@ -38,22 +37,18 @@
 
 			switch (status) {
 				case 200:
-					failed = '';
-					succeeded = msg;
+					toast.success('Create Account', { description: msg });
 					invalidateAll();
 					createAccountLoader = false;
 					break;
 
 				case 400:
-					failed = '';
-					succeeded = '';
 					actionFormErrors = errors;
 					createAccountLoader = false;
 					break;
 
 				case 401:
-					succeeded = '';
-					failed = msg;
+					toast.error('Create Account', { description: msg });
 					actionFormErrors = null;
 					createAccountLoader = false;
 					break;
