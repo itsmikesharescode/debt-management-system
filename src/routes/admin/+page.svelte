@@ -16,19 +16,14 @@
 
 	const user = getUser();
 
-	/* $: transactions = $adminState.purchaseArray?.map( (purchase) => ({
-        ...purchase,
-        searchTerms: `${purchase.purchase_products_with_price} ${dateConvert2(purchase.created_at)}`
-    })) */
-
-	const clientList = data.clientList?.map((client) => ({
-		...client,
-		searchTerms: `${client.user_fullname} ${client.user_email}`
-	}));
-
-	const searchStore = createSearchStore(clientList ?? []);
+	let searchStore = createSearchStore(data.clientList ?? []);
 
 	const unsubscribe = searchStore.subscribe((model) => searchHandler(model));
+
+	$: data.clientList
+		? ((searchStore = createSearchStore(data.clientList ?? [])),
+			searchStore.subscribe((model) => searchHandler(model)))
+		: '';
 
 	onDestroy(() => unsubscribe());
 </script>

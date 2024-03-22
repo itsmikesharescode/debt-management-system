@@ -18,7 +18,12 @@ export const load: PageServerLoad = async ({ locals: { isLogged, supabase }, }) 
 
             const { data: clientList, error: clientListError } = await supabase.rpc("get_clients") as { data: UserListTB[], error: PostgrestError | null };
 
-            return { user, clientList };
+            const newClientList = clientList.map(client => ({
+                ...client,
+                searchTerms: `${client.user_fullname} ${client.user_email}`
+            }));
+
+            return { user, clientList: newClientList };
         }
     } else throw redirect(302, "/");
 };

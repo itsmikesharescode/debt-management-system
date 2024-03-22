@@ -72,6 +72,7 @@
 				case 200:
 					toast.success('Account Deletion', { description: msg });
 					invalidateAll();
+
 					deleteAccountLoader = false;
 					break;
 
@@ -120,8 +121,9 @@
 				<button
 					type="submit"
 					class="mt-[10px] flex w-full items-center justify-center rounded-[10px] bg-red px-[10px] py-[8.5px] text-[14px] font-semibold text-white active:bg-opacity-50 sm:text-[16px]"
-					>Delete Account</button
 				>
+					<Loader name="Delete Account" loader={deleteAccountLoader} loaderName="Wait..." />
+				</button>
 			</form>
 		</div>
 

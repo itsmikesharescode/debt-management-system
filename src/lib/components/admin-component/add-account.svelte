@@ -41,6 +41,7 @@
 					toast.success('Create Account', { description: msg });
 					invalidateAll();
 					createAccountLoader = false;
+					showCreateAccountModal = false;
 					break;
 
 				case 400:
@@ -72,7 +73,7 @@
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div
-		class="xs:px-[35px] fixed bottom-0 left-0 right-0 top-0 bg-overlay px-[23px]"
+		class="fixed bottom-0 left-0 right-0 top-0 bg-overlay px-[23px] xs:px-[35px]"
 		on:click|self={cleanModal}
 	>
 		<form
