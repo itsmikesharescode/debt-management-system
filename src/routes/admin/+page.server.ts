@@ -18,7 +18,12 @@ export const load: PageServerLoad = async ({ locals: { isLogged, supabase }, }) 
 
             const { data: clientList, error: clientListError } = await supabase.rpc("get_clients") as { data: UserListTB[], error: PostgrestError | null };
 
-            return { user, clientList };
+            const newClientList = clientList.map(client => ({
+                ...client,
+                searchTerms: `${client.user_fullname} ${client.user_email}`
+            }));
+
+            return { user, clientList: newClientList };
         }
     } else throw redirect(302, "/");
 };
@@ -241,5 +246,15 @@ export const actions: Actions = {
             const { fieldErrors } = zodError.flatten();
             return fail(400, { errors: fieldErrors });
         }
+    },
+
+    deleteAccountAction: async ({ locals: { supabaseAdmin }, request }) => {
+        const formData = await request.formData();
+
+        const userId = formData.get("userId") as string;
+        const { error: deleteAccountError } = await supabaseAdmin.auth.admin.deleteUser(userId);
+
+        if (deleteAccountError) return fail(401, { msg: deleteAccountError.message });
+        else return fail(200, { msg: "Account Deleted." });
     }
 };

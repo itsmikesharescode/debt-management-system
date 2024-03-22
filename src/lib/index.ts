@@ -1,7 +1,7 @@
 import type { User } from "@supabase/supabase-js";
 import { getContext, setContext } from "svelte";
 import { type Writable, writable } from "svelte/store";
-import type { NetAmountTB, PaymentHistoryTB, PurchaseListTB } from "./types";
+import type { NetAmountTB, PaymentHistoryTB, PurchaseListTB, SearchStoreModel } from "./types";
 
 
 export const setUser = (userValue: User | null) => {
@@ -44,4 +44,26 @@ export const clientFolderControls = writable({
 export const paymentControls = writable({
     showCompletePay: false,
     showBalancePay: false
-})
+});
+
+
+//search stores
+export const createSearchStore = <T extends Record<PropertyKey, any>>(data: T[]) => {
+    const { subscribe, set, update } = writable<SearchStoreModel<T>>({
+        data,
+        filtered: data,
+        search: "",
+    });
+
+    return {
+        subscribe, set, update
+    };
+};
+
+export const searchHandler = <T extends Record<PropertyKey, any>>(store: SearchStoreModel<T>) => {
+    const searchTerm = store.search.toLowerCase() || "";
+    store.filtered = store.data.filter((item) => {
+        return item.searchTerms.toLowerCase().includes(searchTerm);
+    })
+
+}

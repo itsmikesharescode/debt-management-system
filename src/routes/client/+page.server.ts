@@ -9,6 +9,7 @@ import { convertStringToObject } from "$lib/helpers";
 
 
 export const load: PageServerLoad = async ({ locals: { isLogged, supabase } }) => {
+
     const checkUser = await isLogged();
 
     if (checkUser) {
