@@ -58,13 +58,13 @@
 	};
 </script>
 
-<div class="fixed bottom-0 left-0 right-0 top-0 bg-overlay">
+<div class="fixed bottom-0 left-0 right-0 top-0 bg-overlay px-[23px] xs:px-[35px]">
 	<form
 		method="post"
 		action="?/updateInformationAction"
 		enctype="multipart/form-data"
 		use:enhance={updateInformationActionNews}
-		class="mx-auto mt-[101px] min-h-[383px] w-[255px] bg-white pb-[50px] pt-[10px] sm:w-[416px]"
+		class=" mt-[101px] min-h-[383px] w-full bg-white pb-[50px] pt-[10px] sm:mx-auto sm:w-[416px] md:w-[600px]"
 		in:scale
 	>
 		<input name="userId" type="hidden" value={client.user_id} class="" />
@@ -74,9 +74,9 @@
 					<img src={admin_arrowleft_icon} class="" alt="arrowleft-icon" />
 				</button>
 			</div>
-			<div class="flex flex-col gap-[2px]">
-				<p class="text-center text-[12px] font-semibold">Update Account</p>
-				<p class="text-center text-[12px] font-semibold">{client.user_email}</p>
+			<div class="flex flex-col gap-[2px] text-[14px] font-semibold sm:text-[16px]">
+				<p>Update Account</p>
+				<p>{client.user_email}</p>
 			</div>
 		</div>
 
@@ -85,75 +85,75 @@
 		<div class="mx-[12px] mt-[20px] flex flex-col gap-[6px]">
 			<div class="">
 				<div class="flex items-center gap-[5px]">
-					<label class="flex items-center gap-[1px]">
-						<span class="text-[10px] font-semibold">Male</span>
+					<label class="flex items-center gap-[5px]">
+						<span class="text-[14px] sm:text-[16px]">Male</span>
 						<input type="radio" class="" value="male" name="gender" />
 					</label>
 
-					<label class="flex items-center gap-[1px]">
-						<span class="text-[10px] font-semibold">Female</span>
+					<label class="flex items-center gap-[5px]">
+						<span class="text-[14px] sm:text-[16px]">Female</span>
 						<input type="radio" class="" value="female" name="gender" />
 					</label>
 				</div>
 				{#each actionFormErrors?.gender ?? [] as errorMsg}
-					<p class="text-[10px] font-semibold text-red" in:fade>{errorMsg}</p>
+					<p class="text-[14px] text-red sm:text-[16px]" in:fade>{errorMsg}</p>
 				{/each}
 			</div>
 
 			<label>
-				<span class="text-[10px] font-semibold">Complete Name</span>
+				<span class="text-[14px] sm:text-[16px]">Complete Name</span>
 				<input
 					name="completeName"
 					type="text"
-					class="h-[35px] w-full rounded-[10px] border-[1px] border-black px-[15px] text-[10px] outline-none"
+					class="w-full rounded-[10px] border-[1px] border-black px-[15px] py-[8.5px] text-[14px] outline-none sm:text-[16px]"
 					placeholder="Enter complete name"
 				/>
 				{#each actionFormErrors?.completeName ?? [] as errorMsg}
-					<p class="text-[10px] font-semibold text-red" in:fade>{errorMsg}</p>
+					<p class="text-[14px] text-red sm:text-[16px]" in:fade>{errorMsg}</p>
 				{/each}
 			</label>
 
 			<label>
-				<span class="text-[10px] font-semibold">Email Address</span>
+				<span class="text-[14px] sm:text-[16px]">Email Address</span>
 				<input
 					name="email"
 					type="email"
-					class="h-[35px] w-full rounded-[10px] border-[1px] border-black px-[15px] text-[10px] outline-none"
+					class="w-full rounded-[10px] border-[1px] border-black px-[15px] py-[8.5px] text-[14px] outline-none sm:text-[16px]"
 					placeholder="Enter email address"
 				/>
 				{#each actionFormErrors?.email ?? [] as errorMsg}
-					<p class="text-[10px] font-semibold text-red" in:fade>{errorMsg}</p>
+					<p class="text-[14px] text-red sm:text-[16px]" in:fade>{errorMsg}</p>
 				{/each}
 			</label>
 
 			<label>
-				<span class="text-[10px] font-semibold">Password</span>
+				<span class="text-[14px] sm:text-[16px]">Password</span>
 				<input
 					name="password"
 					type="password"
-					class="h-[35px] w-full rounded-[10px] border-[1px] border-black px-[15px] text-[10px] outline-none"
+					class="w-full rounded-[10px] border-[1px] border-black px-[15px] py-[8.5px] text-[14px] outline-none sm:text-[16px]"
 					placeholder="Enter password"
 				/>
 				{#each actionFormErrors?.password ?? [] as errorMsg}
-					<p class="text-[10px] font-semibold text-red" in:fade>{errorMsg}</p>
+					<p class="text-[14px] text-red sm:text-[16px]" in:fade>{errorMsg}</p>
 				{/each}
 			</label>
 
 			<label>
-				<span class="text-[10px] font-semibold">Confirm Password</span>
+				<span class="text-[14px] sm:text-[16px]">Confirm Password</span>
 				<input
 					name="confirmPassword"
 					type="password"
-					class="h-[35px] w-full rounded-[10px] border-[1px] border-black px-[15px] text-[10px] outline-none"
+					class="w-full rounded-[10px] border-[1px] border-black px-[15px] py-[8.5px] text-[14px] outline-none sm:text-[16px]"
 					placeholder="Confirm password"
 				/>
 				{#each actionFormErrors?.confirmPassword ?? [] as errorMsg}
-					<p class="text-[10px] font-semibold text-red" in:fade>{errorMsg}</p>
+					<p class="text-[14px] text-red sm:text-[16px]" in:fade>{errorMsg}</p>
 				{/each}
 			</label>
 
 			<button
-				class="flex h-[35px] w-full items-center justify-center rounded-[10px] bg-black text-[12px] font-semibold text-white"
+				class="mt-[10px] flex w-full items-center justify-center rounded-[10px] bg-black py-[8.5px] text-[14px] font-semibold text-white sm:text-[16px]"
 			>
 				<Loader name="Update Account" loader={updateInfoLoader} loaderName="Updating..." />
 			</button>
