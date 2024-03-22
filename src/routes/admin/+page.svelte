@@ -32,7 +32,7 @@
 	</div>
 
 	<div class="mt-[33px] flex items-center justify-between">
-		<div class=" flex flex-col gap-[4px] text-[12px]">
+		<div class=" flex flex-col gap-[4px] text-[16px]">
 			<p>{$user?.user_metadata.fullName}</p>
 			<p>{$user?.email}</p>
 		</div>

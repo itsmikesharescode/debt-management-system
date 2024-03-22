@@ -4,6 +4,7 @@
 	import Loader from '../general-component/loader.svelte';
 	import type { ResultModel } from '$lib/types';
 	import { goto } from '$app/navigation';
+	import { toast } from 'svelte-sonner';
 
 	let logoutLoader = false;
 
@@ -17,13 +18,14 @@
 
 			switch (status) {
 				case 200:
+					toast.success('Logout', { description: msg });
 					logoutLoader = false;
 					goto('/');
 
 					break;
 
 				case 401:
-					alert(msg);
+					toast.error('Logout', { description: msg });
 					logoutLoader = false;
 					break;
 			}
@@ -40,8 +42,8 @@
 >
 	<button
 		disabled={logoutLoader}
-		class="flex h-[35px] w-full items-center justify-center rounded-[10px] bg-red text-[12px] font-semibold text-white"
+		class="flex w-full items-center justify-center rounded-[10px] bg-red py-[8.5px] text-[14px] font-semibold text-white sm:text-[16px]"
 	>
-		<Loader name="Logout" loader={logoutLoader} loaderName="Exitting..." />
+		<Loader name="Logout" loader={logoutLoader} loaderName="Wait..." color="border-b-red" />
 	</button>
 </form>
