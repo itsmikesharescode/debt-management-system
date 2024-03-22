@@ -79,7 +79,7 @@
 				<input
 					name="email"
 					type="email"
-					class=" w-full rounded-[10px] border-[1px] border-black px-[14px] py-[11.5px] text-[14px] outline-none sm:text-[16px]"
+					class=" w-full rounded-[10px] border-[1px] border-black px-[14px] py-[8.5px] text-[14px] outline-none sm:text-[16px]"
 					placeholder="Enter your email address"
 				/>
 
@@ -93,7 +93,7 @@
 				<input
 					name="password"
 					type="password"
-					class=" w-full rounded-[10px] border-[1px] border-black px-[14px] py-[11.5px] text-[14px] outline-none sm:text-[16px]"
+					class=" w-full rounded-[10px] border-[1px] border-black px-[14px] py-[8.5px] text-[14px] outline-none sm:text-[16px]"
 					placeholder="Enter your email password"
 				/>
 				{#each actionFormErrors?.password ?? [] as errorMsg}
@@ -102,7 +102,7 @@
 			</label>
 
 			<button
-				class="flex w-full items-center justify-center rounded-[10px] border-[1px] border-black bg-black py-[11.5px] text-[14px] font-semibold text-white sm:text-[16px]"
+				class="flex w-full items-center justify-center rounded-[10px] border-[1px] border-black bg-black py-[8.5px] text-[14px] font-semibold text-white sm:text-[16px]"
 			>
 				<Loader name="Log in" loader={loginLoader} loaderName="Logging in..." />
 			</button>
