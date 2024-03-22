@@ -4,6 +4,7 @@
 	import type { ResultModel, UserListTB } from '$lib/types';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { tick } from 'svelte';
+	import { toast } from 'svelte-sonner';
 	import { flip } from 'svelte/animate';
 	import { fade, scale } from 'svelte/transition';
 
@@ -28,10 +29,9 @@
 
 	let uploadLoader = false;
 	let actionFormErrors: InsertPurchaseVal | null = null;
-	let successMsg = '';
-	let failMsg = '';
 
 	const insertPurchaseActionNews: SubmitFunction = () => {
+		actionFormErrors = null;
 		uploadLoader = true;
 		return async ({ result, update }) => {
 			const {
@@ -42,22 +42,19 @@
 			switch (status) {
 				case 200:
 					totalAmount = 0;
-					failMsg = '';
-					successMsg = msg;
+					toast.success('Insert Purchase', { description: msg });
 					initialVal = [{ id: crypto.randomUUID() }];
 					uploadLoader = false;
 					break;
 
 				case 400:
-					successMsg = '';
-					failMsg = '';
 					actionFormErrors = errors;
 					uploadLoader = false;
 					break;
 
 				case 401:
-					successMsg = '';
-					failMsg = msg;
+					toast.error('Insert Purchase', { description: msg });
+					actionFormErrors = null;
 					uploadLoader = false;
 					break;
 			}
@@ -67,8 +64,7 @@
 
 	const incrementHandler = async () => {
 		initialVal = [...initialVal, { id: crypto.randomUUID() }];
-		successMsg = '';
-		failMsg = '';
+
 		await tick();
 		scrollValue.scrollTop = scrollValue.scrollHeight;
 	};
@@ -84,8 +80,6 @@
 	const detectValue = (e: EventTarget | null) => {
 		const { value } = e as HTMLInputElement;
 		totalAmount += Number(value);
-		successMsg = '';
-		failMsg = '';
 
 		if (tempMemo) {
 			totalAmount -= tempMemo;
@@ -94,8 +88,7 @@
 
 	const setValue = (e: EventTarget | null) => {
 		const { value } = e as HTMLInputElement;
-		successMsg = '';
-		failMsg = '';
+
 		tempMemo = Number(value);
 	};
 
@@ -123,9 +116,6 @@
 		<p>Insert Purchase</p>
 		<p>{client.user_fullname}</p>
 	</div>
-
-	<p class="mt-[5px] text-center text-[12px] font-semibold text-green-500">{successMsg}</p>
-	<p class="mt-[5px] text-center text-[12px] font-semibold text-red">{failMsg}</p>
 
 	<div class="mx-[16px] mt-[19px] text-[14px] sm:text-[16px]">
 		<p>Total Amount: {totalAmount} Php</p>
