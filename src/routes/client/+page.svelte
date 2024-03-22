@@ -36,7 +36,7 @@
 	</div>
 
 	<div class="mt-[45px] flex items-center justify-between sm:mt-[49px]">
-		<div class=" flex flex-col gap-[4px] text-[12px]">
+		<div class=" flex flex-col gap-[4px] text-[14px] sm:text-[16px]">
 			<p>{$user?.user_metadata.fullName}</p>
 			<p>{$user?.email}</p>
 		</div>
@@ -50,7 +50,7 @@
 
 	<hr class="mt-[9px] w-full border-[1px] border-subWhite sm:mt-[23px]" />
 
-	<div class="mt-[21px] flex flex-col gap-[4px] text-[12px] sm:mt-[23px]">
+	<div class="mt-[21px] flex flex-col gap-[4px] text-[14px] sm:mt-[23px] sm:text-[16px]">
 		<p>Balance: {data.amountObj?.data?.prev_amount ?? 0} Php</p>
 		<p>Latest: {data.amountObj?.data?.latest_amount ?? 0} Php</p>
 		<p>Total: {data.amountObj?.data?.total_amount ?? 0} Php</p>
@@ -62,7 +62,7 @@
 		{#each buttonControls as buttonName}
 			<button
 				on:click={() => handleSelect(buttonName)}
-				class="flex h-[22px] w-full items-center justify-center text-[12px] sm:max-w-[134px]
+				class="flex w-full items-center justify-center py-[8.5px] text-[14px] sm:max-w-[134px] sm:text-[16px]
 				{clientRouteControls.activeItem === buttonName ? 'bg-black text-white' : 'bg-lowWhite text-black'} "
 				>{buttonName}</button
 			>
@@ -72,11 +72,11 @@
 	<div class="mt-[26px] sm:mt-[24px]">
 		{#if clientRouteControls.activeItem === 'Purchase History'}
 			<div
-				class="flex flex-col gap-[10px] lg:flex-row lg:flex-wrap lg:justify-start lg:gap-[5px]"
+				class="flex flex-col gap-[10px] sm:mt-[28px] sm:grid sm:grid-cols-2 lg:grid-cols-4 lg:gap-4"
 				in:fade
 			>
 				{#each data.purchaseList ?? [] as purchase}
-					<div class="lg:w-[320px]">
+					<div class="">
 						<DropDown dateHeader={formatDate(purchase.created_at)}>
 							<div class="flex flex-col gap-[5px]">
 								{#each Array(Object.keys(purchase.purchase_products_with_price).length / 2) as sample, index}
@@ -94,11 +94,11 @@
 			</div>
 		{:else}
 			<div
-				class="flex flex-col gap-[10px] lg:flex-row lg:flex-wrap lg:justify-start lg:gap-[5px]"
+				class="flex flex-col gap-[10px] sm:mt-[28px] sm:grid sm:grid-cols-2 lg:grid-cols-4 lg:gap-4"
 				in:fade
 			>
 				{#each data.paymentHistoryList ?? [] as payment}
-					<div class="lg:w-[320px]">
+					<div class="">
 						<DropDown dateHeader={payment.created_at}>
 							<p>Payment Mode: {payment.payment_mode}</p>
 							<p>Payment Amount: {payment.payment_amount}</p>
