@@ -14,7 +14,7 @@
 	const user = getUser();
 </script>
 
-<div class="xs:px-[70px] px-[23px] pt-[17px] lg:mx-auto lg:w-[1349px]">
+<div class="xs:px-[35px] px-[23px] pt-[17px] lg:mx-auto lg:w-[1349px]">
 	<div class="flex items-center justify-between">
 		<div class="flex gap-[5px]">
 			<div class="w-[104px]">

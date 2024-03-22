@@ -71,13 +71,16 @@
 {#if showCreateAccountModal}
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
-	<div class="fixed bottom-0 left-0 right-0 top-0 bg-overlay" on:click|self={cleanModal}>
+	<div
+		class="xs:px-[35px] fixed bottom-0 left-0 right-0 top-0 bg-overlay px-[23px]"
+		on:click|self={cleanModal}
+	>
 		<form
 			method="post"
 			action="?/createAccountAction"
 			enctype="multipart/form-data"
 			use:enhance={createAccountActionNews}
-			class=" mt-[101px] min-h-[383px] w-full bg-white pb-[50px] pt-[10px] sm:w-[416px]"
+			class=" mt-[101px] w-full bg-white pb-[50px] pt-[10px] sm:mx-auto sm:w-[416px]"
 			in:scale
 		>
 			<div class="relative flex items-center justify-center">
