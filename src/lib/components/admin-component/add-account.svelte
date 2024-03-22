@@ -29,6 +29,7 @@
 
 	const createAccountActionNews: SubmitFunction = () => {
 		createAccountLoader = true;
+		actionFormErrors = null;
 		return async ({ result, update }) => {
 			const {
 				status,
@@ -60,8 +61,6 @@
 	const cleanModal = () => {
 		showCreateAccountModal = false;
 		actionFormErrors = null;
-		succeeded = '';
-		failed = '';
 	};
 </script>
 
