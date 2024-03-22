@@ -12,7 +12,7 @@
 	in:scale
 >
 	<div
-		class="relative flex flex-col items-center justify-center gap-[5px] text-[12px] font-semibold"
+		class="relative flex flex-col items-center justify-center gap-[5px] text-[14px] sm:text-[16px]"
 	>
 		<div class="absolute left-0 top-0">
 			<button class=" p-2" on:click

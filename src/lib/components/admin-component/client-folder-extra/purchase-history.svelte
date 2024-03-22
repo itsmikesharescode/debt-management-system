@@ -11,12 +11,9 @@
 	export let client: UserListTB;
 </script>
 
-<div
-	class="mx-auto mt-[101px] min-h-[336px] w-[255px] bg-white pb-[45px] pt-[10px] sm:w-[416px]"
-	in:scale
->
+<div class="mx-auto mt-[101px] min-h-[336px] bg-white pb-[45px] pt-[10px] sm:w-[416px]" in:scale>
 	<div
-		class="relative flex flex-col items-center justify-center gap-[5px] text-[12px] font-semibold"
+		class="relative flex flex-col items-center justify-center gap-[5px] text-[14px] font-semibold sm:text-[16px]"
 	>
 		<div class="absolute left-0 top-0">
 			<button class=" p-2" on:click
@@ -28,7 +25,7 @@
 		<p>{client.user_fullname}</p>
 	</div>
 
-	<div class="mx-[15px] mt-[14px] text-[12px] font-semibold">
+	<div class="mx-[15px] mt-[14px] text-[14px] sm:text-[16px]">
 		<p>Previous: {$clientAmounts?.prev_amount} Php</p>
 		<p>Latest: {$clientAmounts?.latest_amount} Php</p>
 		<p>Total: {$clientAmounts?.total_amount} Php</p>
@@ -41,7 +38,7 @@
 			<DropDown dateHeader={formatDate(purchase.created_at)}>
 				<div class="flex flex-col gap-[5px]">
 					{#each Array(Object.keys(purchase.purchase_products_with_price).length / 2) as sample, index}
-						<div class="flex text-left text-[10px]">
+						<div class="flex text-left text-[14px] sm:text-[16px]">
 							{purchase.purchase_products_with_price[`productName${index + 1}`]}
 							{purchase.purchase_products_with_price[`productPrice${index + 1}`]}
 						</div>

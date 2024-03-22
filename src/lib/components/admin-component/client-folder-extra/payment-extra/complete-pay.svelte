@@ -40,7 +40,7 @@
 
 <button
 	type="button"
-	class=" h-[35px] w-full rounded-[10px] bg-black p-2 text-[12px] font-semibold text-white active:bg-opacity-80"
+	class=" w-full rounded-[10px] bg-black py-[8.5px] text-[14px] font-semibold text-white active:bg-opacity-80 sm:text-[16px]"
 	on:click={() => (showCompletePay = true)}>Complete Pay</button
 >
 
