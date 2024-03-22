@@ -53,6 +53,7 @@
 
 	const balancePayActionNews: SubmitFunction = () => {
 		balancePayLoader = true;
+		actionFormErrors = null;
 		return async ({ result, update }) => {
 			const {
 				status,
@@ -122,6 +123,7 @@
 			enctype="multipart/form-data"
 			use:enhance={balancePayActionNews}
 		>
+			<input name="userId" type="hidden" value={client.user_id} class="hidden" />
 			<label>
 				<span class="text-[14px] sm:text-[16px]">Balance Amount</span>
 				<input
@@ -145,8 +147,9 @@
 
 				<button
 					class="flex w-full items-center justify-center rounded-[10px] border-[1px] border-black bg-black py-[8.5px] text-[14px] font-semibold text-white active:bg-opacity-80 sm:text-[16px]"
-					>Proceed</button
 				>
+					<Loader name="Proceed" loader={balancePayLoader} loaderName="Wait..." />
+				</button>
 			</div>
 		</form>
 	{/if}
