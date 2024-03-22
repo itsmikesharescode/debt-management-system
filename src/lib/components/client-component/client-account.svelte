@@ -22,6 +22,7 @@
 	let successMsg = '';
 
 	const updateAccountActionNews: SubmitFunction = () => {
+		actionFormErrors = null;
 		updateAccountLoader = true;
 		return async ({ result, update }) => {
 			const {
