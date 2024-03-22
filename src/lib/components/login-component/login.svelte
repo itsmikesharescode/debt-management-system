@@ -24,6 +24,7 @@
 
 	const loginActionNews: SubmitFunction = () => {
 		loginLoader = true;
+		actionFormErrors = null;
 		return async ({ result, update }) => {
 			const {
 				status,
