@@ -66,7 +66,7 @@
 					$clientPurchaseList = null;
 					actionFormErrors = null;
 					balancePayLoader = false;
-
+					$paymentControls.showBalancePay = false;
 					toast.success('Payment Made', { description: msg });
 					break;
 

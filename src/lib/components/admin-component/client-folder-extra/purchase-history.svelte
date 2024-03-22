@@ -1,9 +1,7 @@
 <script lang="ts">
 	import DropDown from '$lib/components/general-component/drop-down.svelte';
 	import { scale } from 'svelte/transition';
-	import BalancePay from './payment-extra/balance-pay.svelte';
-	import CompletePay from './payment-extra/complete-pay.svelte';
-	import type { NetAmountTB, PurchaseListTB, UserListTB } from '$lib/types';
+	import type { UserListTB } from '$lib/types';
 	import { formatDate } from '$lib';
 	import { clientAmounts, clientPurchaseList } from '$lib';
 	import Payments from './payment-extra/payments.svelte';
@@ -14,11 +12,11 @@
 
 <div class="mx-auto mt-[101px] min-h-[336px] bg-white pb-[45px] pt-[10px] sm:w-[416px]" in:scale>
 	<div
-		class="flex flex-col items-center justify-center gap-[5px] text-[14px] font-semibold sm:text-[16px]"
+		class="relative flex flex-col items-center justify-center gap-[5px] text-[14px] font-semibold sm:text-[16px]"
 	>
 		<div class="absolute left-0 top-0">
-			<button class=" p-2" on:click
-				><img src={admin_arrowleft_icon} alt="arrow-left-icon" class="" />
+			<button class=" p-2" on:click>
+				<img src={admin_arrowleft_icon} alt="arrow-left-icon" class="" />
 			</button>
 		</div>
 
@@ -34,7 +32,9 @@
 
 	<hr class="mt-[11px] w-full border-[1px] border-subWhite" />
 
-	<div class="mx-[15px] mt-[14px] flex h-[300px] flex-col gap-[9px] overflow-y-auto scroll-smooth">
+	<div
+		class="mx-[15px] mt-[14px] flex h-[150px] flex-col gap-[9px] overflow-y-auto scroll-smooth sm:h-[400px]"
+	>
 		{#each $clientPurchaseList ?? [] as purchase}
 			<DropDown dateHeader={formatDate(purchase.created_at)}>
 				<div class="flex flex-col gap-[5px]">
