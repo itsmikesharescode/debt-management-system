@@ -56,6 +56,34 @@
 			await update();
 		};
 	};
+
+	// for account deletion
+
+	let deleteAccountLoader = false;
+	const deleteAccountActionNews: SubmitFunction = () => {
+		deleteAccountLoader = true;
+		return async ({ result, update }) => {
+			const {
+				status,
+				data: { msg }
+			} = result as ResultModel<{ msg: string }>;
+
+			switch (status) {
+				case 200:
+					toast.success('Account Deletion', { description: msg });
+					invalidateAll();
+
+					deleteAccountLoader = false;
+					break;
+
+				case 401:
+					toast.error('Account Deletion', { description: msg });
+					deleteAccountLoader = false;
+					break;
+			}
+			await update();
+		};
+	};
 </script>
 
 <div class="fixed bottom-0 left-0 right-0 top-0 bg-overlay px-[23px] xs:px-[35px]">
@@ -64,7 +92,7 @@
 		action="?/updateInformationAction"
 		enctype="multipart/form-data"
 		use:enhance={updateInformationActionNews}
-		class=" mt-[101px] min-h-[383px] w-full bg-white pb-[50px] pt-[10px] sm:mx-auto sm:w-[416px] md:w-[600px]"
+		class="relative mt-[101px] min-h-[383px] w-full bg-white pb-[50px] pt-[10px] sm:mx-auto sm:w-[416px] md:w-[600px]"
 		in:scale
 	>
 		<input name="userId" type="hidden" value={client.user_id} class="" />
@@ -82,7 +110,24 @@
 
 		<hr class="mt-[11px] w-full border-[1px] border-subWhite" />
 
-		<div class="mx-[12px] mt-[20px] flex flex-col gap-[6px]">
+		<div class="absolute right-0 mr-2">
+			<form
+				method="post"
+				action="?/deleteAccountAction"
+				enctype="multipart/form-data"
+				use:enhance={deleteAccountActionNews}
+			>
+				<input name="userId" type="hidden" value={client.user_id} />
+				<button
+					type="submit"
+					class="mt-[10px] flex w-full items-center justify-center rounded-[10px] bg-red px-[10px] py-[8.5px] text-[14px] font-semibold text-white active:bg-opacity-50 sm:text-[16px]"
+				>
+					<Loader name="Delete Account" loader={deleteAccountLoader} loaderName="Wait..." />
+				</button>
+			</form>
+		</div>
+
+		<div class="mx-[12px] mt-[30px] flex flex-col gap-[6px]">
 			<div class="">
 				<div class="flex items-center gap-[5px]">
 					<label class="flex items-center gap-[5px]">
@@ -153,7 +198,7 @@
 			</label>
 
 			<button
-				class="mt-[10px] flex w-full items-center justify-center rounded-[10px] bg-black py-[8.5px] text-[14px] font-semibold text-white sm:text-[16px]"
+				class="mt-[10px] flex w-full items-center justify-center rounded-[10px] bg-black py-[8.5px] text-[14px] font-semibold text-white active:bg-opacity-80 sm:text-[16px]"
 			>
 				<Loader name="Update Account" loader={updateInfoLoader} loaderName="Updating..." />
 			</button>
