@@ -99,7 +99,7 @@
 {#if showClientFolder}
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
-	<div class="fixed bottom-0 left-0 right-0 top-0 bg-overlay">
+	<div class="xs:px-[35px] fixed bottom-0 left-0 right-0 top-0 bg-overlay px-[23px]">
 		<div class="" in:scale>
 			{#if $clientFolderControls.showInsertPurchase}
 				<InsertPurchase
@@ -126,7 +126,7 @@
 					on:click={() => ($clientFolderControls.showUpdateInformation = false)}
 				/>
 			{:else}
-				<div class=" mt-[101px] bg-white pb-[45px] pt-[10px] sm:w-[416px]" in:scale>
+				<div class=" mt-[101px] bg-white pb-[45px] pt-[10px] sm:mx-auto sm:w-[416px]" in:scale>
 					<div class="relative flex justify-center">
 						<div class="absolute left-0">
 							<button class="flex items-center p-2" on:click={() => (showClientFolder = false)}>
@@ -149,7 +149,7 @@
 						<p class="text-center text-[14px] sm:text-[16px]">Choose your actions</p>
 					</div>
 
-					<div class="mx-[12.5px] flex flex-col gap-[7px] sm:mx-[93px]">
+					<div class="xs:mx-[93px] mx-[12.5px] flex flex-col gap-[7px]">
 						<button
 							class="w-full rounded-[10px] bg-black py-[8.5px] text-[14px] font-semibold text-white active:bg-opacity-80 sm:text-[16px]"
 							on:click={() => ($clientFolderControls.showInsertPurchase = true)}
