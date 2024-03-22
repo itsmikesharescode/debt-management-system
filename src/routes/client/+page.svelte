@@ -99,7 +99,7 @@
 			>
 				{#each data.paymentHistoryList ?? [] as payment}
 					<div class="">
-						<DropDown dateHeader={payment.created_at}>
+						<DropDown dateHeader={formatDate(payment.created_at)}>
 							<p>Payment Mode: {payment.payment_mode}</p>
 							<p>Payment Amount: {payment.payment_amount}</p>
 							{#each payment.purchase_history ?? [] as purchaseHistory}
