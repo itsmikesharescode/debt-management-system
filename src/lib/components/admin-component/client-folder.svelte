@@ -126,10 +126,7 @@
 					on:click={() => ($clientFolderControls.showUpdateInformation = false)}
 				/>
 			{:else}
-				<div
-					class="mx-auto mt-[101px] min-h-[336px] w-[255px] bg-white pb-[45px] pt-[10px] sm:w-[416px]"
-					in:scale
-				>
+				<div class=" mt-[101px] bg-white pb-[45px] pt-[10px] sm:w-[416px]" in:scale>
 					<div class="relative flex justify-center">
 						<div class="absolute left-0">
 							<button class="flex items-center p-2" on:click={() => (showClientFolder = false)}>
@@ -137,20 +134,24 @@
 							</button>
 						</div>
 						<div class="">
-							<p class="text-center text-[12px] font-semibold">{client.user_fullname}</p>
-							<p class="text-center text-[12px] font-semibold">{client.user_email}</p>
+							<p class="text-center text-[14px] font-semibold sm:text-[16px]">
+								{client.user_fullname}
+							</p>
+							<p class="text-center text-[14px] font-semibold sm:text-[16px]">
+								{client.user_email}
+							</p>
 						</div>
 					</div>
 
 					<hr class="mt-[11px] w-full border-[1px] border-subWhite" />
 
 					<div class="my-[39px]">
-						<p class="text-center text-[12px]">Choose your actions</p>
+						<p class="text-center text-[14px] sm:text-[16px]">Choose your actions</p>
 					</div>
 
 					<div class="mx-[12.5px] flex flex-col gap-[7px] sm:mx-[93px]">
 						<button
-							class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
+							class="w-full rounded-[10px] bg-black py-[8.5px] text-[14px] font-semibold text-white active:bg-opacity-80 sm:text-[16px]"
 							on:click={() => ($clientFolderControls.showInsertPurchase = true)}
 							>Insert Purchase</button
 						>
@@ -166,7 +167,7 @@
 							<button
 								disabled={purchaseHistoryLoader}
 								type="submit"
-								class="flex h-[35px] w-full items-center justify-center rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
+								class="flex w-full items-center justify-center rounded-[10px] bg-black py-[8.5px] text-[14px] font-semibold text-white active:bg-opacity-80 sm:text-[16px]"
 							>
 								<Loader
 									name="Purchase History"
@@ -187,7 +188,7 @@
 							<button
 								disabled={paymentHistoryloader}
 								type="submit"
-								class="flex h-[35px] w-full items-center justify-center rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
+								class="flex w-full items-center justify-center rounded-[10px] bg-black py-[8.5px] text-[14px] font-semibold text-white active:bg-opacity-80 sm:text-[16px]"
 							>
 								<Loader
 									name="Payment History"
@@ -199,7 +200,7 @@
 
 						<button
 							on:click={() => ($clientFolderControls.showUpdateInformation = true)}
-							class="h-[35px] w-full rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
+							class="w-full rounded-[10px] bg-black py-[8.5px] text-[14px] font-semibold text-white active:bg-opacity-80 sm:text-[16px]"
 							>Update Information</button
 						>
 					</div>
