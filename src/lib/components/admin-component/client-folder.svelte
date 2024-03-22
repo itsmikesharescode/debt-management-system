@@ -89,7 +89,7 @@
 </script>
 
 <button
-	class="flex h-[35px] w-full items-center justify-between bg-lowWhite p-2 px-[20px] text-[12px]"
+	class="flex w-full items-center justify-between bg-lowWhite p-2 px-[20px] py-[8.5px] text-[14px] sm:text-[16px]"
 	on:click={() => (showClientFolder = true)}
 >
 	{client.user_fullname}
