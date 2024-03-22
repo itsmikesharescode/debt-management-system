@@ -80,7 +80,7 @@
 						<DropDown dateHeader={formatDate(purchase.created_at)}>
 							<div class="flex flex-col gap-[5px]">
 								{#each Array(Object.keys(purchase.purchase_products_with_price).length / 2) as sample, index}
-									<div class="flex text-left text-[10px]">
+									<div class="flex text-left text-[14px] sm:text-[16px]">
 										{purchase.purchase_products_with_price[`productName${index + 1}`]}
 										{purchase.purchase_products_with_price[`productPrice${index + 1}`]}
 									</div>
