@@ -53,9 +53,7 @@
 		class="fixed p-2"
 	>
 		<input name="userId" type="hidden" value={client.user_id} />
-		<div
-			class="mx-auto w-[255px] border-t-[2px] border-subWhite bg-white pb-[45px] pt-[10px] sm:w-[416px]"
-		>
+		<div class="border-t-[2px] border-subWhite bg-white pb-[45px] pt-[10px] sm:w-[416px]">
 			<div class="relative flex items-center justify-center">
 				<p class="text-center text-[12px] font-semibold">Complete Payment</p>
 			</div>
@@ -67,12 +65,12 @@
 					<button
 						type="button"
 						on:click={() => (showCompletePay = false)}
-						class="flex h-[35px] w-full items-center justify-center rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
+						class="flex w-full items-center justify-center rounded-[10px] bg-black py-[8.5px] text-[14px] font-semibold text-white active:bg-opacity-80 sm:text-[16px]"
 						>No</button
 					>
 					<button
 						type="submit"
-						class="flex h-[35px] w-full items-center justify-center rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-80"
+						class="flex w-full items-center justify-center rounded-[10px] bg-black py-[8.5px] text-[14px] font-semibold text-white active:bg-opacity-80 sm:text-[16px]"
 					>
 						<Loader name="Yes" loader={completePayLoader} loaderName="Please wait..." />
 					</button>
