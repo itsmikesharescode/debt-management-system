@@ -64,11 +64,11 @@
 	action="?/loginAction"
 	enctype="multipart/form-data"
 	use:enhance={loginActionNews}
-	class="xs:px-[70px] px-[23px] pt-[145px] sm:mx-auto sm:w-[582px] lg:pt-[308px]"
+	class="px-[23px] pt-[145px] xs:px-[70px] sm:mx-auto sm:w-[582px] lg:pt-[308px]"
 >
 	<div class="">
 		<div class="">
-			<p class="text-center text-[20px] font-semibold sm:text-[25px]">DEPT MANAGEMENT</p>
+			<p class="text-center text-[20px] font-semibold sm:text-[25px]">DEBT MANAGEMENT</p>
 			<p class="text-center text-[12px] font-semibold text-subWhite">
 				Log in to check your records
 			</p>
