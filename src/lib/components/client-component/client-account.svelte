@@ -5,6 +5,7 @@
 	import admin_arrowleft_icon from '$lib/assets/admin_arrowleft_icon.svg';
 	import { fade, scale } from 'svelte/transition';
 	import Loader from '../general-component/loader.svelte';
+	import { toast } from 'svelte-sonner';
 
 	type UpdateAccountVal = {
 		newPass: string[];
@@ -19,7 +20,7 @@
 	let actionFormErrors: UpdateAccountVal | null = null;
 	let updateAccountLoader = false;
 	let successMsg = '';
-	let errorMsg = '';
+
 	const updateAccountActionNews: SubmitFunction = () => {
 		updateAccountLoader = true;
 		return async ({ result, update }) => {
@@ -30,9 +31,10 @@
 
 			switch (status) {
 				case 200:
-					successMsg = msg;
 					actionFormErrors = null;
 					updateAccountLoader = false;
+					showAccountModal = false;
+					toast.success('Update Password', { description: msg });
 					break;
 
 				case 400:
@@ -41,7 +43,7 @@
 					break;
 
 				case 401:
-					errorMsg = msg;
+					toast.error('Update Password', { description: msg });
 					actionFormErrors = null;
 					updateAccountLoader = false;
 					break;
@@ -80,12 +82,6 @@
 				class="mt-[26px] flex items-center justify-center text-center text-[14px] sm:text-[16px]"
 			>
 				<p class=" w-[198px]">We recommend to change your password every week.</p>
-			</div>
-
-			<div class="absolute left-0 right-0">
-				<p class=" text-center text-[10px] font-semibold text-red {errorMsg ? 'flex' : 'hidden'}">
-					{errorMsg}
-				</p>
 			</div>
 
 			<form
