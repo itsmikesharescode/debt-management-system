@@ -6,6 +6,7 @@
 	import type { NetAmountTB, PurchaseListTB, UserListTB } from '$lib/types';
 	import { formatDate } from '$lib';
 	import { clientAmounts, clientPurchaseList } from '$lib';
+	import Payments from './payment-extra/payments.svelte';
 
 	export let admin_arrowleft_icon: string;
 	export let client: UserListTB;
@@ -13,7 +14,7 @@
 
 <div class="mx-auto mt-[101px] min-h-[336px] bg-white pb-[45px] pt-[10px] sm:w-[416px]" in:scale>
 	<div
-		class="relative flex flex-col items-center justify-center gap-[5px] text-[14px] font-semibold sm:text-[16px]"
+		class="flex flex-col items-center justify-center gap-[5px] text-[14px] font-semibold sm:text-[16px]"
 	>
 		<div class="absolute left-0 top-0">
 			<button class=" p-2" on:click
@@ -52,11 +53,7 @@
 
 	<hr class=" w-full border-[1px] border-subWhite" />
 
-	<div class=" mx-[12px] mt-[14px] flex items-center justify-center gap-[10px]">
-		<BalancePay {client} {admin_arrowleft_icon} />
-
-		<CompletePay {client} />
-	</div>
+	<Payments {client} />
 </div>
 
 <style>

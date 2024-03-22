@@ -50,10 +50,10 @@
 		action="?/completePayAction"
 		enctype="multipart/form-data"
 		use:enhance={completePayActionNews}
-		class="fixed p-2"
+		class=""
 	>
 		<input name="userId" type="hidden" value={client.user_id} />
-		<div class="border-t-[2px] border-subWhite bg-white pb-[45px] pt-[10px] sm:w-[416px]">
+		<div class=" w-[416px] border-t-[2px] border-subWhite bg-white pb-[45px] pt-[10px]">
 			<div class="relative flex items-center justify-center">
 				<p class="text-center text-[12px] font-semibold">Complete Payment</p>
 			</div>
