@@ -5,6 +5,8 @@ const config = {
   theme: {
 
     screens: {
+      "xs": '420px',
+
       'sm': '600px',
       // => @media (min-width: 576px) { ... }
 

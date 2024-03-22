@@ -6,7 +6,7 @@
 </script>
 
 {#if loader}
-	<div class="flex items-start gap-2">
+	<div class="flex items-center gap-2">
 		<div class="h-4 w-4 animate-spin rounded-full border-2 {color}"></div>
 		<p>{loaderName}</p>
 	</div>

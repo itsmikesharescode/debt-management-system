@@ -8,11 +8,11 @@
 </script>
 
 <div
-	class="mx-auto mt-[101px] min-h-[336px] w-[255px] bg-white pb-[45px] pt-[10px] sm:w-[416px]"
+	class="mx-auto mt-[101px] w-full bg-white pb-[45px] pt-[10px] sm:w-[416px] md:w-[600px]"
 	in:scale
 >
 	<div
-		class="relative flex flex-col items-center justify-center gap-[5px] text-[12px] font-semibold"
+		class="relative flex flex-col items-center justify-center gap-[5px] text-[14px] sm:text-[16px]"
 	>
 		<div class="absolute left-0 top-0">
 			<button class=" p-2" on:click
@@ -26,7 +26,9 @@
 
 	<hr class="mt-[11px] w-full border-[1px] border-subWhite" />
 
-	<div class="mx-[15px] mt-[14px] flex h-[300px] flex-col gap-[9px] overflow-y-auto scroll-smooth">
+	<div
+		class="mx-[15px] mt-[14px] flex h-[300px] flex-col gap-[9px] overflow-y-auto scroll-smooth md:h-[600px]"
+	>
 		{#each $clientPaymentList ?? [] as clientPayment}
 			<DropDown dateHeader={formatDate(clientPayment.created_at)}>
 				<p>Payment Mode: {clientPayment.payment_mode}</p>

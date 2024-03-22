@@ -5,7 +5,7 @@
 	export let dateHeader: string | undefined = 'Nov 6 1996';
 </script>
 
-<div class="w-full bg-lowWhite px-[15px] text-[10px]">
+<div class="w-full bg-lowWhite px-[15px] text-[14px] sm:text-[16px]">
 	<div class="pb-[12px] pt-[12px]">
 		<button
 			class="flex w-full items-center justify-between"

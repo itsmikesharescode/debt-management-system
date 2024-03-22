@@ -3,6 +3,6 @@
 
 <input
 	type="text"
-	class="h-[35px] w-full rounded-[10px] border-[1px] border-black px-[18px] text-[10px] outline-none"
+	class=" w-full rounded-[10px] border-[1px] border-black px-[18px] py-[8.5px] text-[14px] outline-none sm:text-[16px]"
 	placeholder="Search Client"
 />

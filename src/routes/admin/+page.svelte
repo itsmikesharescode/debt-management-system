@@ -14,7 +14,7 @@
 	const user = getUser();
 </script>
 
-<div class="mx-auto mt-[17px] w-[266px] sm:w-[532px] lg:w-[1349px]">
+<div class="xs:px-[35px] px-[23px] pt-[17px] lg:mx-auto lg:w-[1349px]">
 	<div class="flex items-center justify-between">
 		<div class="flex gap-[5px]">
 			<div class="w-[104px]">
@@ -32,7 +32,7 @@
 	</div>
 
 	<div class="mt-[33px] flex items-center justify-between">
-		<div class=" flex flex-col gap-[4px] text-[12px]">
+		<div class=" flex flex-col gap-[4px] text-[16px]">
 			<p>{$user?.user_metadata.fullName}</p>
 			<p>{$user?.email}</p>
 		</div>
@@ -48,9 +48,9 @@
 		<Search />
 	</div>
 
-	<div class="flex flex-col gap-[10px] sm:mt-[28px] sm:flex-row sm:flex-wrap sm:gap-[12px]">
+	<div class="flex flex-col gap-[10px] sm:mt-[28px] sm:grid sm:grid-cols-2 lg:grid-cols-4 lg:gap-4">
 		{#each data?.clientList ?? [] as client}
-			<div class="sm:w-[260px]">
+			<div class="">
 				<ClientFolder {client} />
 			</div>
 		{/each}

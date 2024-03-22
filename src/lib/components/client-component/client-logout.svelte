@@ -39,7 +39,7 @@
 >
 	<button
 		disabled={logoutLoader}
-		class="flex h-[35px] w-full items-center justify-center rounded-[10px] bg-red text-[12px] font-semibold text-white active:bg-opacity-60"
+		class="flex w-full items-center justify-center rounded-[10px] bg-red py-[8.5px] text-[14px] font-semibold text-white active:bg-opacity-60 sm:text-[16px]"
 	>
 		<Loader name="Log out" loader={logoutLoader} loaderName="Exiting..." />
 	</button>
