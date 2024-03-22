@@ -64,6 +64,7 @@
 
 	const incrementHandler = async () => {
 		initialVal = [...initialVal, { id: crypto.randomUUID() }];
+		actionFormErrors = null;
 
 		await tick();
 		scrollValue.scrollTop = scrollValue.scrollHeight;
