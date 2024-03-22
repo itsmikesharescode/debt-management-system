@@ -6,6 +6,7 @@
 	import { fade } from 'svelte/transition';
 	import type { User } from '@supabase/supabase-js';
 	import { goto } from '$app/navigation';
+	import { toast } from 'svelte-sonner';
 
 	type LoginVal = {
 		email: string[];
@@ -35,7 +36,7 @@
 					const {
 						user_metadata: { role }
 					} = user;
-
+					toast.success('Login', { description: msg });
 					loginLoader = false;
 					if (role === 'admin') goto('/admin');
 					else if (role === 'client') goto('/client');
@@ -43,13 +44,12 @@
 					break;
 
 				case 400:
-					dbMessage = '';
 					actionFormErrors = errors;
 					loginLoader = false;
 					break;
 
 				case 401:
-					dbMessage = msg;
+					toast.error('Login', { description: msg });
 					actionFormErrors = null;
 					loginLoader = false;
 					break;
@@ -58,10 +58,6 @@
 		};
 	};
 </script>
-
-<div class="absolute left-0 right-0 top-0 mt-[97px] sm:mt-[251px] lg:mt-[271px]">
-	<p class=" text-red text-center text-[12px] font-semibold">{dbMessage}</p>
-</div>
 
 <form
 	method="post"
@@ -72,7 +68,7 @@
 >
 	<div class="">
 		<p class="text-center text-[20px] font-semibold sm:text-[25px]">DEPT MANAGEMENT</p>
-		<p class="text-subWhite text-center text-[12px] font-semibold">Log in to check your records</p>
+		<p class="text-center text-[12px] font-semibold text-subWhite">Log in to check your records</p>
 	</div>
 
 	<div class="mt-[24px] flex flex-col gap-[13px]">
@@ -86,7 +82,7 @@
 			/>
 
 			{#each actionFormErrors?.email ?? [] as errorMsg}
-				<p class="text-red text-[12px] font-semibold" in:fade>{errorMsg}</p>
+				<p class="text-[12px] font-semibold text-red" in:fade>{errorMsg}</p>
 			{/each}
 		</label>
 
@@ -99,7 +95,7 @@
 				placeholder="Enter your email password"
 			/>
 			{#each actionFormErrors?.password ?? [] as errorMsg}
-				<p class="text-red text-[12px] font-semibold" in:fade>{errorMsg}</p>
+				<p class="text-[12px] font-semibold text-red" in:fade>{errorMsg}</p>
 			{/each}
 		</label>
 
