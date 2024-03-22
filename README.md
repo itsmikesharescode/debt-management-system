@@ -1,38 +1,14 @@
-# create-svelte
+# Debt Management System for local business
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+The system is perfectly useful for sari sari store or any business that involves debt management from time to time daily basis.
 
-## Creating a project
+## How it work?
 
-If you're seeing this, you've probably already done this step. Congrats!
+Visit this live website: https://debt-management-system-eta.vercel.app/
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+Login as admin:
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+email: admin_tester@gmail.com
+password: 123456
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+With that, you can create your customer account and manage their debt. Additionally, they can view the amounts and records they have made using the account you just created for them.
