@@ -51,9 +51,9 @@
 	<hr class="mt-[9px] w-full border-[1px] border-subWhite sm:mt-[23px]" />
 
 	<div class="mt-[21px] flex flex-col gap-[4px] text-[12px] sm:mt-[23px]">
-		<p>Balance: {data.amountObj?.data?.prev_amount} Php</p>
-		<p>Latest: {data.amountObj?.data?.latest_amount} Php</p>
-		<p>Total: {data.amountObj?.data?.total_amount} Php</p>
+		<p>Balance: {data.amountObj?.data?.prev_amount ?? 0} Php</p>
+		<p>Latest: {data.amountObj?.data?.latest_amount ?? 0} Php</p>
+		<p>Total: {data.amountObj?.data?.total_amount ?? 0} Php</p>
 	</div>
 
 	<hr class="mt-[21px] w-full border-[1px] border-subWhite sm:mt-[23px]" />
