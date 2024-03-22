@@ -10,7 +10,10 @@
 	export let client: UserListTB;
 </script>
 
-<div class="mx-auto mt-[101px] min-h-[336px] bg-white pb-[45px] pt-[10px] sm:w-[416px]" in:scale>
+<div
+	class="mx-auto mt-[101px] min-h-[336px] bg-white pb-[45px] pt-[10px] sm:w-[416px] md:w-[600px]"
+	in:scale
+>
 	<div
 		class="relative flex flex-col items-center justify-center gap-[5px] text-[14px] font-semibold sm:text-[16px]"
 	>
