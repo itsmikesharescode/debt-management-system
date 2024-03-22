@@ -132,7 +132,10 @@
 	</div>
 	<hr class="mt-[19px] w-full border-[1px] border-subWhite" />
 
-	<div class="h-[300px] overflow-y-auto scroll-smooth" bind:this={scrollValue}>
+	<div
+		class="h-[300px] overflow-y-auto scroll-smooth sm:h-[400px] lg:h-[520px]"
+		bind:this={scrollValue}
+	>
 		{#each initialVal as increment, index (increment.id)}
 			<div
 				class="mx-[22px] mt-[16px] flex flex-col gap-[5px]"
