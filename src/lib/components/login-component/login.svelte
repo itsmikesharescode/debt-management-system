@@ -21,7 +21,6 @@
 
 	let actionFormErrors: LoginVal | null = null;
 	let loginLoader = false;
-	let dbMessage = '';
 
 	const loginActionNews: SubmitFunction = () => {
 		loginLoader = true;
@@ -64,45 +63,49 @@
 	action="?/loginAction"
 	enctype="multipart/form-data"
 	use:enhance={loginActionNews}
-	class="mx-auto mt-[145px] w-[275px] sm:mt-[303px] sm:w-[455px] lg:mt-[308px]"
+	class="xs:px-[70px] px-[23px] pt-[145px] sm:mx-auto sm:w-[582px] lg:pt-[308px]"
 >
 	<div class="">
-		<p class="text-center text-[20px] font-semibold sm:text-[25px]">DEPT MANAGEMENT</p>
-		<p class="text-center text-[12px] font-semibold text-subWhite">Log in to check your records</p>
-	</div>
+		<div class="">
+			<p class="text-center text-[20px] font-semibold sm:text-[25px]">DEPT MANAGEMENT</p>
+			<p class="text-center text-[12px] font-semibold text-subWhite">
+				Log in to check your records
+			</p>
+		</div>
 
-	<div class="mt-[24px] flex flex-col gap-[13px]">
-		<label class="flex w-full flex-col gap-[6px]">
-			<span class="text-[12px] font-semibold">Email Address</span>
-			<input
-				name="email"
-				type="email"
-				class="h-[35px] w-full rounded-[10px] border-[1px] border-black px-[14px] py-[11.5px] text-[12px] outline-none"
-				placeholder="Enter your email address"
-			/>
+		<div class="mt-[24px] flex flex-col gap-[13px]">
+			<label class="flex w-full flex-col gap-[6px]">
+				<span class="text-[14px] font-semibold sm:text-[16px]">Email Address</span>
+				<input
+					name="email"
+					type="email"
+					class=" w-full rounded-[10px] border-[1px] border-black px-[14px] py-[11.5px] text-[14px] outline-none sm:text-[16px]"
+					placeholder="Enter your email address"
+				/>
 
-			{#each actionFormErrors?.email ?? [] as errorMsg}
-				<p class="text-[12px] font-semibold text-red" in:fade>{errorMsg}</p>
-			{/each}
-		</label>
+				{#each actionFormErrors?.email ?? [] as errorMsg}
+					<p class="text-[14px] font-semibold text-red" in:fade>{errorMsg}</p>
+				{/each}
+			</label>
 
-		<label class="flex flex-col gap-[6px]">
-			<span class="text-[12px] font-semibold">Password</span>
-			<input
-				name="password"
-				type="password"
-				class="h-[35px] w-full rounded-[10px] border-[1px] border-black px-[14px] py-[11.5px] text-[12px] outline-none"
-				placeholder="Enter your email password"
-			/>
-			{#each actionFormErrors?.password ?? [] as errorMsg}
-				<p class="text-[12px] font-semibold text-red" in:fade>{errorMsg}</p>
-			{/each}
-		</label>
+			<label class="flex flex-col gap-[6px]">
+				<span class="text-[14px] font-semibold sm:text-[16px]">Password</span>
+				<input
+					name="password"
+					type="password"
+					class=" w-full rounded-[10px] border-[1px] border-black px-[14px] py-[11.5px] text-[14px] outline-none sm:text-[16px]"
+					placeholder="Enter your email password"
+				/>
+				{#each actionFormErrors?.password ?? [] as errorMsg}
+					<p class="text-[14px] font-semibold text-red" in:fade>{errorMsg}</p>
+				{/each}
+			</label>
 
-		<button
-			class="flex h-[35px] w-full items-center justify-center rounded-[10px] border-[1px] border-black bg-black py-[11.5px] text-[12px] font-semibold text-white"
-		>
-			<Loader name="Log in" loader={loginLoader} loaderName="Logging in..." />
-		</button>
+			<button
+				class="flex w-full items-center justify-center rounded-[10px] border-[1px] border-black bg-black py-[11.5px] text-[14px] font-semibold text-white sm:text-[16px]"
+			>
+				<Loader name="Log in" loader={loginLoader} loaderName="Logging in..." />
+			</button>
+		</div>
 	</div>
 </form>
