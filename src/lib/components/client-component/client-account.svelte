@@ -55,7 +55,7 @@
 
 <button
 	on:click={() => (showAccountModal = true)}
-	class="flex h-[35px] w-full items-center justify-center rounded-[10px] bg-black text-[12px] font-semibold text-white active:bg-opacity-60"
+	class="flex w-full items-center justify-center rounded-[10px] bg-black py-[8.5px] text-[14px] font-semibold text-white active:bg-opacity-60 sm:text-[16px]"
 	>Account</button
 >
 
