@@ -37,5 +37,11 @@ export const clientFolderControls = writable({
     showInsertPurchase: false,
     showPurchaseHistory: false,
     showPaymentHistory: false,
-    showUpdateInformation: false
+    showUpdateInformation: false,
+
+});
+
+export const paymentControls = writable({
+    showCompletePay: false,
+    showBalancePay: false
 })
