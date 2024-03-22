@@ -92,8 +92,6 @@
 			<hr class="mt-[11px] w-full border-[1px] border-subWhite" />
 
 			<div class="mx-[12px] mt-[20px] flex flex-col gap-[6px]">
-				<p class="text-center text-[12px] font-semibold text-green-500">{succeeded}</p>
-				<p class="text-center text-[12px] font-semibold text-red">{failed}</p>
 				<div class="">
 					<div class="flex items-center gap-[5px]">
 						<label class="flex items-center gap-[1px]">
